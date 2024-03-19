@@ -50,32 +50,38 @@ class PermissionsSeeder extends Seeder
         $role4->givePermissionTo('edit');
         $role4->givePermissionTo('delete');
 
-        // $role5 = Role::create(['name' => 'Super-Admin']);
-        // // gets all permissions via Gate::before rule; see AuthServiceProvider
+        $role5 = Role::create(['name' => 'Super-Admin']);
+        // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
         $user = \App\Models\User::factory()->create([
-            'name' => 'Radek',
-            'email' => 'henychr@gmail.com',
+            'name' => 'employee',
+            'email' => 'employee@gmail.com',
+            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
+
         ]);
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Vojtech',
-            'email' => 'vojtech@vojtech.cz',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
         ]);
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'David',
-            'email' => 'david@david.cz',
+            'name' => 'project-leader',
+            'email' => 'project-leader@gmail.com',
+            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
         ]);
         $user->assignRole($role3);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Jan',
-            'email' => 'jan@jan.cz',
+            'name' => 'division-leader',
+            'email' => 'division-leader@gmail.com',
+            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
         ]);
         $user->assignRole($role4);
+        // all 4 roles has got password set to: Password123#
     }
 }
