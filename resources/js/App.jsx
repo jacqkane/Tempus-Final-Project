@@ -56,9 +56,11 @@ export default function App() {
                 {/* her inset Navigation for logged-in user */}
                 <Routes>
                     {/* should be accessible for all people */}
+
                     <Route path="/" element={<Homepage />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
+
                     {/* should be accessible for loged-in users */}
                     <Route path="/attendance" element={<Attendance />} />
                     <Route path="/assignment" element={<Assignment />} />
