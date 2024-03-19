@@ -2,15 +2,22 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\CalculatedAttendance;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-$factory->define(CalculatedAttendance::class, function (Faker $faker) {
-    return [
-        'user_id' => $faker->numberBetween(1, 15), // 15 users
-        'date' => $faker->date(),
-        'net_working_time' => $faker->time(),
-    ];
-});
+class CalculatedAttendanceFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => $this->faker->numberBetween(1, 15), // Assuming 15 users
+            'date' => $this->faker->date(),
+            'net_working_time' => $this->faker->time(),
+        ];
+    }
+}

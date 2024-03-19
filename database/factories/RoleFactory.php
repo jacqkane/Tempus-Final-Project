@@ -2,12 +2,20 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Role::class, function (Faker $faker) {
-    return [
-        'role_name' => $faker->word,
-    ];
-});
+class RoleFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'role_name' => $this->faker->word,
+        ];
+    }
+}

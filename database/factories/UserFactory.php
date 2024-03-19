@@ -2,21 +2,29 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
-use App\Models\User;
 
-
-$factory->define(User::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => bcrypt('password'), // Hashed password 'password'
-        'remember_token' => Str::random(10),
-        'company_id' => $faker->numberBetween(1, 5), // 5 companies
-        'role_id' => $faker->numberBetween(1, 4), // 4 roles
-        'division_id' => $faker->numberBetween(1, 5), // 5 divisions
-    ];
-});
+class UserFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'), // Hashed password 'password'
+            'remember_token' => Str::random(10),
+            'company_id' => $this->faker->numberBetween(1, 5), // 5 companies
+            'role_id' => $this->faker->numberBetween(1, 4), // 4 roles
+            'division_id' => $this->faker->numberBetween(1, 5), // 5 divisions
+        ];
+    }
+}

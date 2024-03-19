@@ -2,13 +2,20 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\ApprovalStatus;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-$factory->define(ApprovalStatus::class, function (Faker $faker) {
-    return [
-        'status_name' => $faker->word,
-    ];
-});
+class ApprovalStatusFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'status_name' => $this->faker->word,
+        ];
+    }
+}

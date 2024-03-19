@@ -2,13 +2,20 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\Division;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-$factory->define(Division::class, function (Faker $faker) {
-    return [
-        'division_name' => $faker->word,
-    ];
-});
+class DivisionFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'division_name' => $this->faker->word,
+        ];
+    }
+}

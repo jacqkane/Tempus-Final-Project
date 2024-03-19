@@ -2,15 +2,23 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\Project;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Project::class, function (Faker $faker) {
-    return [
-        'project_number' => $faker->unique()->numerify('PRJ###'), // unique numeric project number
-        'project_name' => $faker->sentence,
-        'start_date' => $faker->dateTimeBetween('-1 year', 'now'),
-        'end_date' => $faker->dateTimeBetween('now', '+1 year'),
-    ];
-});
+class ProjectFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'project_number' => $this->faker->unique()->numerify('PRJ###'), // unique numeric project number
+            'project_name' => $this->faker->sentence,
+            'start_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'end_date' => $this->faker->dateTimeBetween('now', '+1 year'),
+        ];
+    }
+}

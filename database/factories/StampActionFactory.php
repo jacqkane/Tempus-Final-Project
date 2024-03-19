@@ -2,13 +2,20 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\StampAction;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-$factory->define(StampAction::class, function (Faker $faker) {
-    return [
-        'stamp_action' => $faker->randomElement(['clock-in', 'clock-out', 'break-start', 'break-stop']),
-    ];
-});
+class StampActionFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'stamp_action' => $this->faker->randomElement(['clock-in', 'clock-out', 'break-start', 'break-stop']),
+        ];
+    }
+}

@@ -2,14 +2,21 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\CostGroup;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-$factory->define(CostGroup::class, function (Faker $faker) {
-    return [
-        'cost_group_code' => $faker->unique()->numerify('CG###'),
-        'cost_group_name' => $faker->word,
-    ];
-});
+class CostGroupFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'cost_group_code' => $this->faker->unique()->numerify('CG###'),
+            'cost_group_name' => $this->faker->word,
+        ];
+    }
+}

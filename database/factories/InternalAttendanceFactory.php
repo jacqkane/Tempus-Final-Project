@@ -2,15 +2,22 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\InternalAttendance;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-$factory->define(InternalAttendance::class, function (Faker $faker) {
-    return [
-        'user_id' => $faker->numberBetween(1, 15), // 15 users
-        'stamp_action_id' => $faker->numberBetween(1, 4), // 4 stamp actions
-        'timestamp' => $faker->dateTimeBetween('-1 year', 'now'),
-    ];
-});
+class InternalAttendanceFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => $this->faker->numberBetween(1, 15), // 15 users
+            'stamp_action_id' => $this->faker->numberBetween(1, 4), // 4 stamp actions
+            'timestamp' => $this->faker->dateTimeBetween('-1 year', 'now'),
+        ];
+    }
+}
