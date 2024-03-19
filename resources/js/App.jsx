@@ -32,7 +32,12 @@ export default function App() {
     const [state, dispatch] = useReducer(reducer, contextObject);
     const [user, setUser] = useState(null)
 
-    console.log(user)
+
+    // user
+    //     ? console.log('logged-in role is:' + user.role)
+    //     : 'getting role...'
+
+
     const getUser = async () => {
         const response = await fetch('/api/user');
 

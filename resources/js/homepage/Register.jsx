@@ -66,7 +66,7 @@ export default function Register(props) {
             }
         }
         getUser();
-        // navigate('/')
+        navigate('/')
     }
 
     const handleChange = (event) => {

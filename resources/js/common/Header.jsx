@@ -28,7 +28,7 @@ export default function Header() {
             }
         }
         getUser();
-        // navigate('/main')
+        navigate('/')
     }
 
     return (

@@ -38,20 +38,20 @@ class PermissionsSeeder extends Seeder
         $role2->givePermissionTo('edit');
         $role2->givePermissionTo('delete');
 
-        $role3 = Role::create(['name' => 'Project-leader']);
+        $role3 = Role::create(['name' => 'project-leader']);
         $role3->givePermissionTo('view');
         $role3->givePermissionTo('create');
         $role3->givePermissionTo('edit');
         $role3->givePermissionTo('delete');
 
-        $role4 = Role::create(['name' => 'Division-leader']);
+        $role4 = Role::create(['name' => 'division-leader']);
         $role4->givePermissionTo('view');
         $role4->givePermissionTo('create');
         $role4->givePermissionTo('edit');
         $role4->givePermissionTo('delete');
 
-        $role5 = Role::create(['name' => 'Super-Admin']);
-        // gets all permissions via Gate::before rule; see AuthServiceProvider
+        // $role5 = Role::create(['name' => 'super-admin']);
+        // // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
         $user = \App\Models\User::factory()->create([

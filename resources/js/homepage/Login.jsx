@@ -35,7 +35,7 @@ export default function Login(props) {
             }
         }
         getUser();
-        // navigate('/main')
+        navigate('/')
     }
 
     const handleChange = (event) => {
