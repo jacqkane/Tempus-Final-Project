@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import '/resources/scss/App.scss';
-import { useContext, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import Context from './Context.js';
 import reducer from './reducer.js';
 
@@ -17,6 +17,9 @@ import Rfqs from './setup/Rfqs.jsx';
 import Users from './setup/Users.jsx';
 import Homepage from './homepage/Homepage.jsx';
 
+import Register from './homepage/Register.jsx';
+import Login from './homepage/Login.jsx';
+
 export default function App() {
 
     const contextObject = {
@@ -27,16 +30,35 @@ export default function App() {
         // property4: 0,
     };
     const [state, dispatch] = useReducer(reducer, contextObject);
+    const [user, setUser] = useState(null)
+
+    console.log(user)
+    const getUser = async () => {
+        const response = await fetch('/api/user');
+
+        if (response.status == 200) {
+            const data = await response.json();
+            setUser(data);
+        }
+    }
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
+
+
 
     return (
-        <Context.Provider value={{ state, dispatch }}>
+        <Context.Provider value={{ state, dispatch, user, setUser, getUser }}>
             <BrowserRouter>
                 <Header />
                 {/* her inset Navigation for logged-in user */}
                 <Routes>
                     {/* should be accessible for all people */}
                     <Route path="/" element={<Homepage />} />
-
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
                     {/* should be accessible for loged-in users */}
                     <Route path="/attendance" element={<Attendance />} />
                     <Route path="/assignment" element={<Assignment />} />
