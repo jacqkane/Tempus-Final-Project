@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
             InternalAttendanceSeeder::class,
             ProjectSeeder::class,
             RfqSeeder::class,
-            RoleSeeder::class,
             StampActionSeeder::class,
             UserSeeder::class,
             WorkingTimeAssignmentSeeder::class,
+            PermissionsSeeder::class,
         ]);
     }
 }
