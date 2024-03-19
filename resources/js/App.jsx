@@ -7,7 +7,7 @@ import reducer from './reducer.js';
 
 import Header from './common/Header.jsx';
 import Footer from './common/Footer.jsx';
-import Home from './home/Home.jsx';
+
 import Attendance from './attendance/Attendance.jsx';
 import Assignment from './assignment/Assignment.jsx';
 import Report from './reports/Report.jsx';
@@ -15,6 +15,7 @@ import Setup from './setup/Setup.jsx';
 import Projects from './setup/Projects.jsx';
 import Rfqs from './setup/Rfqs.jsx';
 import Users from './setup/Users.jsx';
+import Homepage from './homepage/Homepage.jsx';
 
 export default function App() {
 
@@ -31,9 +32,10 @@ export default function App() {
         <Context.Provider value={{ state, dispatch }}>
             <BrowserRouter>
                 <Header />
+                {/* her inset Navigation for logged-in user */}
                 <Routes>
                     {/* should be accessible for all people */}
-                    {/* <Route path="/home" element={<Home />} /> */}
+                    <Route path="/" element={<Homepage />} />
 
                     {/* should be accessible for loged-in users */}
                     <Route path="/attendance" element={<Attendance />} />
