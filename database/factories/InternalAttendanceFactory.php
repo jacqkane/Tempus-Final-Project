@@ -15,8 +15,8 @@ class InternalAttendanceFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->numberBetween(1, 15), // 15 users
-            'stamp_action_id' => $this->faker->numberBetween(1, 4), // 4 stamp actions
+            'user_id' => \App\Models\User::factory()->create()->id,
+            'stamp_action_id' => \App\Models\StampAction::factory()->create()->id,
             'timestamp' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
