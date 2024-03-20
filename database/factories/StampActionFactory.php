@@ -15,7 +15,8 @@ class StampActionFactory extends Factory
     public function definition()
     {
         return [
-            'stamp_action' => $this->faker->randomElement(['clock-in', 'clock-out', 'break-start', 'break-stop']),
+            'internal_attendance_id' => $this->faker->numberBetween(1, 15),
+            'name' => $this->faker->randomElement(['clock-in', 'clock-out', 'break-start', 'break-stop']),
         ];
     }
 }
