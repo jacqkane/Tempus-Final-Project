@@ -19,6 +19,10 @@ import Homepage from './homepage/Homepage.jsx';
 
 import Register from './homepage/Register.jsx';
 import Login from './homepage/Login.jsx';
+import Features from './homepage/Features.jsx';
+import Price from './homepage/Price.jsx';
+import Reviews from './homepage/Reviews.jsx';
+import Contact from './homepage/Contact.jsx';
 
 export default function App() {
 
@@ -63,6 +67,10 @@ export default function App() {
                     {/* should be accessible for all people */}
 
                     <Route path="/" element={<Homepage />} />
+                    <Route path="/features" element={<Features />} />
+                    <Route path="/price" element={<Price />} />
+                    <Route path="/reviews" element={<Reviews />} />
+                    <Route path="/contact" element={<Contact />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
 

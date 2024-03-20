@@ -1,4 +1,98 @@
+$primary-green-color: #9c3;
+$primary-grey-color: #393e42;
 .header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    .logo img {
+        max-width: 100%;
+        height: 50px;
+        object-fit: contain;
+    }   
+nav {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 4em;
+    background-color: $primary-grey-color;
 
-    color: darkgrey;
+    .burger_menu--container {
+        position: fixed;
+        top: 10px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        padding-left: 8px;
+        &:hover {
+            cursor: pointer;
+        }
+        i {
+            background-color: $primary-green-color; 
+            width: 32px;
+            height: 4px;
+            margin: 4px;
+            border-radius: 2px;
+            transition: all ease 0.3s;
+        }
+        .open {
+            background-color: $primary-grey-color;
+            transition: background-color 0.8s ease; 
+        }
+
+        .open:nth-child(1) {
+            transform: rotate(45deg) translateY(16px);
+        }
+
+        .open:nth-child(2) {
+            opacity: 0;
+        }
+
+        .open:nth-child(3) {
+            transform: rotate(-45deg) translateY(-16px);
+        }
+
+        .close:nth-child(1) {
+            transform: rotate(0) translateY(0);
+        }
+
+        .close:nth-child(2) {
+            opacity: 1;
+        }
+
+        .close:nth-child(3) {
+            transform: rotate(0) translateY(0);
+        }
+    }
+
+}
+
+.burger-menu-view {
+    display: block;
+    margin-top: 70%;
+    .burger-menu-links {    
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 100vh; 
+    width: 100vh;
+    background-color: $primary-green-color;
+
+    a {
+
+        text-align: center;
+        text-decoration: none; 
+        color: $primary-grey-color; 
+        font-weight: bold; 
+        transition: color 0.3s ease; 
+        &:hover {
+            color: #fff; 
+            padding: 1rem;
+        }
+    }
+}
+}
+
 }
