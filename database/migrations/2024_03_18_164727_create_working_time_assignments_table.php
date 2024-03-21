@@ -14,13 +14,22 @@ return new class extends Migration
         Schema::create('working_time_assignments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('project_id');
+            $table->string('project_number');
+            $table->string('project_name');
+            $table->string('project_code');
             $table->foreignId('cost_group_id');
+            $table->string('cost_group_code');
+            $table->string('cost_group_name');
+            $table->string('cost_group_concat');
             $table->time('working_time_assigned');
             $table->string('comment')->nullable();
             $table->date('date');
             $table->string('rfq_id')->nullable();
-            $table->foreignId('approval_status_id');
+            $table->string('rfq_number')->nullable();
+            $table->string('rfq_name')->nullable();
+            $table->string('rfq_concat')->nullable();
+            $table->string('approval_status_id');
+            $table->string('approval_status_name');
             $table->timestamps();
         });
     }

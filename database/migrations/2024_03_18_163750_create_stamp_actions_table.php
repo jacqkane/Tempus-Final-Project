@@ -13,7 +13,6 @@ class CreateStampActionsTable extends Migration
     {
         Schema::create('stamp_actions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('internal_attendance_id');
             $table->string('name');
             $table->timestamps();
         });

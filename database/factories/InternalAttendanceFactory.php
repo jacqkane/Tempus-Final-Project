@@ -17,7 +17,6 @@ class InternalAttendanceFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory()->create()->id,
             'stamp_action_id' => \App\Models\StampAction::factory()->create()->id,
-            'timestamp_test' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }

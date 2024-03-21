@@ -15,7 +15,7 @@ class ApprovalStatusSeeder extends Seeder
      */
     public function run()
     {
-        $approvalStatuses = ['Pending', 'Approved', 'Rejected']; // Specific approval statuses
+        $approvalStatuses = ['Pending', 'Approved', 'Rejected'];
 
         foreach ($approvalStatuses as $status) {
             ApprovalStatus::create(['status_name' => $status]);
