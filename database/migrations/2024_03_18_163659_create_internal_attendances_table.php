@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('stamp_action_id');
-            $table->timestamp('timestamp');
+            $table->timestamp('timestamp_test');
             $table->timestamps();
         });
     }
