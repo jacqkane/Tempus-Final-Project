@@ -11,6 +11,8 @@
         "vite": "^4.5.2"
     },
     "dependencies": {
+        "@mdi/js": "^7.4.47",
+        "@mdi/react": "^1.6.1",
         "@vitejs/plugin-react": "^4.2.1",
         "highcharts": "^11.4.0",
         "highcharts-react-official": "^3.2.1",

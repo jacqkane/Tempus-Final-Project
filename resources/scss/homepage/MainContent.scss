@@ -1,0 +1,72 @@
+$primary-green-color: #9c3;
+$primary-grey-color: #393e42;
+$white-color:  #ffffff;
+
+.main-content {
+text-align: center;
+background-color: $primary-grey-color;
+width: 100%;
+
+
+    .main-content-container {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        .main-content-image-app {
+            object-fit: contain;
+        }
+
+        .main-content-text {
+            color: $white-color;
+            width: 90%;
+            margin: 0 auto;
+            h1 {
+                font-weight: 900;
+                text-transform: uppercase;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+        }
+        .main-content-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            
+            margin-bottom: 4rem;
+
+            .first-button, .second-button {
+                color: $white-color;
+                padding: 1.4rem;
+                border-radius: 10px;
+                text-transform: uppercase;
+                text-decoration: none;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+            
+            .first-button {
+                background-color: $primary-green-color;
+                border: none;
+                &:hover {
+                    cursor: pointer;
+                    background-color: lighten($primary-green-color, 10%);
+                    transform: translateY(-3px);
+                }
+            }
+            
+            .second-button {
+                border: 3px solid $primary-green-color;
+                background-color: $primary-grey-color;
+                &:hover {
+                    cursor: pointer;
+                    background-color: lighten($primary-green-color, 10%);
+                    transform: translateY(-3px);
+                }
+            }
+            
+        }
+    }
+}
+
