@@ -3,6 +3,7 @@
 use App\Http\Controllers\CalculatedAttendanceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\WorkingTimeAssignmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/calculatedAttendances/{user_id}/date/{date}', [CalculatedAttendanceController::class, 'showAttendanceByDate']);
+Route::get('/working-time-assignments', [WorkingTimeAssignmentController::class, 'index']);
