@@ -23,6 +23,7 @@ import Features from './homepage/Features.jsx';
 import Price from './homepage/Price.jsx';
 import Reviews from './homepage/Reviews.jsx';
 import Contact from './homepage/Contact.jsx';
+import MainContent from './homepage/MainContent.jsx';
 
 export default function App() {
 
@@ -67,6 +68,7 @@ export default function App() {
                     {/* should be accessible for all people */}
 
                     <Route path="/" element={<Homepage />} />
+                    <Route path="/main" element={<MainContent />} />
                     <Route path="/features" element={<Features />} />
                     <Route path="/price" element={<Price />} />
                     <Route path="/reviews" element={<Reviews />} />

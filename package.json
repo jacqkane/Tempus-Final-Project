@@ -11,6 +11,8 @@
         "vite": "^4.5.2"
     },
     "dependencies": {
+        "@mdi/js": "^7.4.47",
+        "@mdi/react": "^1.6.1",
         "@vitejs/plugin-react": "^4.2.1",
         "react": "^18.2.0",
         "react-calendar": "^4.8.0",
