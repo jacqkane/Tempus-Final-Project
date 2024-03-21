@@ -12,7 +12,8 @@ class WorkingTimeAssignmentController extends Controller
      */
     public function index()
     {
-        //
+        $assignments = WorkingTimeAssignment::all();
+        return response()->json($assignments);
     }
 
     /**
@@ -29,19 +30,27 @@ class WorkingTimeAssignmentController extends Controller
     public function store(Request $request)
     {
 
-        $projectNumber = $request->input('projectNumber');
-        $rfqNumber = $request->input('rfqNumber');
-        $typeCode = $request->input('typeCode');
-        $assignedTime = $request->input('assignedTime');
-        $comment = $request->input('comment');
+
+        $assignment_new = new WorkingTimeAssignment;
+        $assignment_new->user_id = auth()->user()->id;
+        $assignment_new->project_id = $request->input('project_id');
+        $assignment_new->cost_group_id = $request->input('cost_group_id');
+        $assignment_new->working_time_assigned = $request->input('working_time_assigned');
+        $assignment_new->comment = $request->input('comment');
+        $assignment_new->date = $request->input('date');
+        $assignment_new->rfq_id = $request->input('rfq_id');
+        $assignment_new->approval_status_id = 1;
+        $assignment_new->save();
 
 
         return [
-            'projectNumber' => $projectNumber,
-            'rfqNumber' => $rfqNumber,
-            'typeCode' => $typeCode,
-            'assignedTime' => $assignedTime,
-            'comment' => $comment
+            'user_id' => $assignment_new->user_id,
+            'project_id' => $assignment_new->project_id,
+            'cost_group_id ' => $assignment_new->rfq_id,
+            'cost_group_id' => $assignment_new->rfq_id,
+            'working_time_assigned' => $assignment_new->working_time_assigned,
+            'comment' => $assignment_new->comment,
+            'date' => $assignment_new->date
         ];
     }
 

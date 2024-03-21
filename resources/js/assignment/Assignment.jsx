@@ -26,7 +26,7 @@ export default function Assignment() {
 
     const loadCalculatedWorkingTime = async () => {
         // const response = await fetch('/api/calculatedAttendances/' + user.id + '/date/' + selectedDate)
-        const response = await fetch('/api/calculatedAttendances/' + '4' + '/date/' + '2014-10-28')
+        const response = await fetch('/api/calculatedAttendances/' + '23' + '/date/' + '2024-01-27')
         const data = await response.json();
 
         //conversion to minutes
@@ -46,7 +46,7 @@ export default function Assignment() {
         <div className='assignment'>
             <WorkingTimeBar calculatedWorkingTimeInMinutes={calculatedWorkingTimeInMinutes} />
             <DropDownMenu selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-            <EntryForm />
+            <EntryForm selectedDate={selectedDate} />
 
             {
                 !user && (

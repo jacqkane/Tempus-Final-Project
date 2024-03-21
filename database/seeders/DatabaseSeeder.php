@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             RfqSeeder::class,
             UserSeeder::class,
-            WorkingTimeAssignmentSeeder::class,
+            // WorkingTimeAssignmentSeeder::class,
             PermissionsSeeder::class,
         ]);
     }

@@ -1,30 +1,42 @@
 
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from 'axios';
+import Context from "../Context";
 
-export default function EntryForm() {
+export default function EntryForm({ selectedDate }) {
 
-    const [entryValues, setentryValues] = useState({
-        projectNumber: '',
-        rfqNumber: '',
-        typeCode: '',
-        assignedTime: '',
+    const { state: { user, role, currentDate, currentDateFormated }, dispatch, getUser } = useContext(Context);
+
+    const [entryValues, setEntryValues] = useState({
+        project_id: '',
+        rfq_id: '',
+        cost_group_id: '',
+        working_time_assigned: '',
         comment: '',
+        date: '',
     });
 
 
     const handleChange = (e) => {
-        setentryValues(previous_values => {
+
+        console.log(e.target.assignedTime);
+
+        setEntryValues(previous_values => {
             return ({
                 ...previous_values,
+                date: selectedDate,
                 [e.target.name]: e.target.value
+
                 //it takes all input fields once they change, no need to define it by name!
             });
         });
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        //sets also the user_id
+
+
 
         try {
             const response = await axios.post('http://www.tempus.test/api/assignment/new-entry', entryValues);
@@ -33,7 +45,6 @@ export default function EntryForm() {
         } catch (error) {
             switch (error.response.status) {
                 case 422:
-
                     console.log('VALIDATION FAILED:', error.response.data.errors);
                     break;
                 case 500:
@@ -57,20 +68,20 @@ export default function EntryForm() {
 
                     <button type="submit">Add Entry</button><br />
 
-                    <label htmlFor="project-number">Project Number</label>
-                    <input id="project-number" type="text" name="projectNumber" value={entryValues.projectNumber} onChange={handleChange} />
+                    <label htmlFor="project_id">project_id</label>
+                    <input id="project_id" type="number" name="project_id" value={entryValues.project_id} onChange={handleChange} />
                     <br />
 
-                    <label htmlFor="rfq-number">RfQ Number</label>
-                    <input id="rfq-number" type="text" name="rfqNumber" value={entryValues.rfqNumber} onChange={handleChange} />
+                    <label htmlFor="rfq_id">rfq_id</label>
+                    <input id="rfq_id" type="number" name="rfq_id" value={entryValues.rfq_id} onChange={handleChange} />
                     <br />
 
-                    <label htmlFor="type-code">Type Code</label>
-                    <input id="type-code" type="text" name="typeCode" value={entryValues.typeCode} onChange={handleChange} />
+                    <label htmlFor="cost_group_id">cost_group_id</label>
+                    <input id="cost_group_id" type="number" name="cost_group_id" value={entryValues.cost_group_id} onChange={handleChange} />
                     <br />
 
-                    <label htmlFor="assigned-time">Assigned Time</label>
-                    <input id="assigned-time" type="text" name="assignedTime" placeholder="hh:mm" value={entryValues.assignedTime} onChange={handleChange} />
+                    <label htmlFor="working_time_assigned">working_time_assigned</label>
+                    <input id="working_time_assigned" type="time" name="working_time_assigned" placeholder="hh:mm" value={entryValues.working_time_assigned} onChange={handleChange} />
                     <br />
 
                     <label htmlFor="comment">Comment</label>

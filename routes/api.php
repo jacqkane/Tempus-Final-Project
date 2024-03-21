@@ -3,7 +3,8 @@
 use App\Http\Controllers\CalculatedAttendanceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\WorkingTimeAssignmentController;
+use App\Http\Controllers\WorkingTimeAssignmentController;
+
 
 /*
 |--------------------------------------------------------------------------
