@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('rfq_number');
             $table->string('rfq_name');
-            $table->foreignId('user_id');
-            $table->date('start_date');
-            $table->date('end_date');
             $table->timestamps();
         });
     }
