@@ -62,4 +62,17 @@ class CalculatedAttendanceController extends Controller
     {
         //
     }
+
+    public function showAttendanceByDate($user_id, $date)
+    {
+
+        if ($user_id !== null & $date !== null) {
+            $calculatedAttendance = CalculatedAttendance::query()
+                ->where('user_id', '=', $user_id)
+                ->where('date', 'like', $date)
+                ->get();
+        }
+        return compact('calculatedAttendance');
+
+    }
 }
