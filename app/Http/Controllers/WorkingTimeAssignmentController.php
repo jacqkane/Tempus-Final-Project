@@ -28,7 +28,21 @@ class WorkingTimeAssignmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $projectNumber = $request->input('projectNumber');
+        $rfqNumber = $request->input('rfqNumber');
+        $typeCode = $request->input('typeCode');
+        $assignedTime = $request->input('assignedTime');
+        $comment = $request->input('comment');
+
+
+        return [
+            'projectNumber' => $projectNumber,
+            'rfqNumber' => $rfqNumber,
+            'typeCode' => $typeCode,
+            'assignedTime' => $assignedTime,
+            'comment' => $comment
+        ];
     }
 
     /**

@@ -25,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/calculatedAttendances/{user_id}/date/{date}', [CalculatedAttendanceController::class, 'showAttendanceByDate']);
 Route::get('/working-time-assignments', [WorkingTimeAssignmentController::class, 'index']);
+Route::post('/assignment/new-entry', [WorkingTimeAssignmentController::class, 'store']);
