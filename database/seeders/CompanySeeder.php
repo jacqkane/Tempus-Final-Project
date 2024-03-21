@@ -10,7 +10,6 @@ class CompanySeeder extends Seeder
 {
     public function run()
     {
-        // Generate 5 companies using the Company factory
         Company::factory()->count(5)->create();
     }
 }

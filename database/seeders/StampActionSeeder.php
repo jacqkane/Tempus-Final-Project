@@ -4,21 +4,14 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\StampAction;
-use App\Models\InternalAttendance;
 
 class StampActionSeeder extends Seeder
 {
     public function run()
     {
-
-        $internalAttendances = InternalAttendance::all();
-
-
-        foreach ($internalAttendances as $attendance) {
-            StampAction::factory()->create(['internal_attendance_id' => $attendance->id, 'name' => 'clock-in']);
-            StampAction::factory()->create(['internal_attendance_id' => $attendance->id, 'name' => 'clock-out']);
-            StampAction::factory()->create(['internal_attendance_id' => $attendance->id, 'name' => 'break-start']);
-            StampAction::factory()->create(['internal_attendance_id' => $attendance->id, 'name' => 'break-stop']);
-        }
+        StampAction::create(['name' => 'clock-in']);
+        StampAction::create(['name' => 'clock-out']);
+        StampAction::create(['name' => 'break-start']);
+        StampAction::create(['name' => 'break-stop']);
     }
 }
