@@ -1,7 +1,8 @@
 .assignment {
     display: flex;
-    height: 50vh;
+    height: 80vh;
+    width:100vw;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
 }

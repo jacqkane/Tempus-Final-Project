@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { convertMinutesToTimeHHmm } from '/resources/js/common/dateTimeConversion.js'
+import '/resources/scss/assignment/WorkingTimeBar.scss'
 
 
 export default function WorkingTimeBar({ calculatedWorkingTimeInMinutes }) {
@@ -15,8 +16,8 @@ export default function WorkingTimeBar({ calculatedWorkingTimeInMinutes }) {
     }, [calculatedWorkingTimeInMinutes]);
 
     return (
-        <div>
-            {'Working Day Total ' + formattedTime}
+        <div className="working-time-bar">
+            <div>{'Working Day Total ' + formattedTime}</div>
         </div>
 
     )

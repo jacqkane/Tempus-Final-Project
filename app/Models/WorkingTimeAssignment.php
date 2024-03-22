@@ -21,7 +21,7 @@ class WorkingTimeAssignment extends Model
 
     public function rfq()
     {
-        return $this->belongsTo(CostGroup::class);
+        return $this->belongsTo(Rfq::class);
     }
 
     public function project()

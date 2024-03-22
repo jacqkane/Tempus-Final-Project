@@ -107,6 +107,13 @@ class PermissionsSeeder extends Seeder
             'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
         ]);
         $user->assignRole($role1);
+        $user = \App\Models\User::factory()->create([
+            'name' => 'john',
+            'email' => 'john@gmail.com',
+            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
+        ]);
+
+
         // all 4 roles has got password set to: Password123#
 
     }

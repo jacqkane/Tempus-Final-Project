@@ -5,6 +5,7 @@ import DropDownMenu from './DropDownMenu';
 import WorkingTimeBar from './WorkingTimeBar';
 import EntryForm from './EntryForm';
 import { convertNetWorkingTimeToMinutes } from '/resources/js/common/dateTimeConversion.js';
+import AssignmentList from './AssignmentList';
 
 
 export default function Assignment() {
@@ -44,15 +45,16 @@ export default function Assignment() {
 
     return (
         <div className='assignment'>
-            <WorkingTimeBar calculatedWorkingTimeInMinutes={calculatedWorkingTimeInMinutes} />
             <DropDownMenu selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+            <WorkingTimeBar calculatedWorkingTimeInMinutes={calculatedWorkingTimeInMinutes} />
             <EntryForm selectedDate={selectedDate} />
+            <AssignmentList selectedDate={selectedDate} />
 
-            {
+            {/* {
                 !user && (
                     <>
                         <div>Logg-in to have access tex1</div>
-                        <div>Logg-in to have access text2</div>
+                       
                     </>
                 )
             }
@@ -62,7 +64,7 @@ export default function Assignment() {
                 (user && user.role === 'employee') && (
                     <>
                         <div>Employee text1</div>
-                        <div>Employee text2</div>
+                        
                     </>
                 )
             }
@@ -71,7 +73,7 @@ export default function Assignment() {
                 (user && user.role === 'admin') && (
                     <>
                         <div>Admin1</div>
-                        <div>Admin2</div>
+                   
                     </>
                 )
             }
@@ -80,7 +82,7 @@ export default function Assignment() {
                 (user && user.role === 'project-leader') && (
                     <>
                         <div>Project leader text1</div>
-                        <div>Project leader text2</div>
+                        
                     </>
                 )
             }
@@ -89,10 +91,10 @@ export default function Assignment() {
                 (user && user.role === 'pivision-leader') && (
                     <>
                         <div>Division leader text1</div>
-                        <div>Division leader text2</div>
+                      
                     </>
                 )
-            }
+            } */}
         </div>
     );
 }
