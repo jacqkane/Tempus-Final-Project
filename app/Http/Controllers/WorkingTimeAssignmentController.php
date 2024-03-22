@@ -67,6 +67,32 @@ class WorkingTimeAssignmentController extends Controller
 
 
 
+    public function getSelectedDay(Request $request)
+    {
+        $date = $request->input('day');
+        $user = auth()->user()->id;
+
+        $dayEntries = WorkingTimeAssignment::query()
+            ->with('project')
+            ->with('costGroup')
+            ->with('rfq')
+            ->with('approvalStatus')
+            ->where('user_id', '=', $user)
+            ->where('date', '=', $date)
+            ->orderBy('project_id', 'asc')
+            ->orderBy('cost_group_id', 'asc')
+            ->get();
+
+
+        return $dayEntries;
+
+        // [
+        //         'day' => $date,
+        //         'user_id' => $user,
+        //         'dayEntries' => $dayEntries,
+        // ];
+    }
+
 
 
 

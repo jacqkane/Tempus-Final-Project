@@ -1,7 +1,7 @@
 .entry-form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
 
@@ -19,16 +19,20 @@
             border-radius: 0.2rem;
         }
 
-        .entry-form__first-row {
+        &__first-row {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
+            ;
+            margin: 1rem 0;
 
-            div {
+            &__input-group {
                 display: flex;
                 flex-direction: column;
-                margin: 1rem 1rem;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0 1rem;
 
                 label {
                     margin-bottom: 1rem;
@@ -36,16 +40,19 @@
             }
         }
 
-        .entry-form__second-row {
+        &__second-row {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
+            margin: 1rem 0;
 
-            div {
+            &__input-group {
                 display: flex;
                 flex-direction: column;
-                margin: 1rem 1rem;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0 1rem;
 
                 label {
                     margin-bottom: 1rem;

@@ -1,0 +1,36 @@
+.assignment-list {
+    background-color: #393e42;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px solid white;
+
+
+    &__table {
+        color: #99cc33;
+
+        border-collapse: collapse;
+
+    }
+
+    th {
+        background-color: #99cc33;
+        color: white;
+        border: 1px solid #99cc33;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    td {
+        background-color: white;
+        color: #393e42;
+        border: 1px solid #99cc33;
+        font-size: 0.8rem;
+        text-align: center;
+        padding: 0.5rem;
+
+    }
+
+}
