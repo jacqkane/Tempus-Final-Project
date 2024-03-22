@@ -33,3 +33,4 @@ Route::post('/assignment/new-entry', [WorkingTimeAssignmentController::class, 's
 Route::get('/assignment/allProjectNumbers', [ProjectController::class, 'index']);
 Route::get('/assignment/allRfqNumbers', [RfqController::class, 'index']);
 Route::get('/assignment/allCostGroups', [CostGroupController::class, 'index']);
+Route::post('/assignment/dayEntries', [WorkingTimeAssignmentController::class, 'getSelectedDay']);
