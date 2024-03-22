@@ -32,6 +32,9 @@ class WorkingTimeAssignmentController extends Controller
      */
     public function store(Request $request)
     {
+        $id = $request->input('id');
+
+
         $project_number = $request->input('project_number');
         $rfq_number = $request->input('rfq_number');
         $cost_group_code = $request->input('cost_group_code');
@@ -40,28 +43,33 @@ class WorkingTimeAssignmentController extends Controller
         $rfq_selected = Rfq::where('rfq_number', 'like', $rfq_number)->first();
         $cost_group_code_selected = CostGroup::where('cost_group_code', 'like', $cost_group_code)->first();
 
-        $assignment_new = new WorkingTimeAssignment;
-        $assignment_new->user_id = auth()->user()->id;
-        $assignment_new->project_id = $project_selected->id;
-        $assignment_new->cost_group_id = $cost_group_code_selected->id;
-        $assignment_new->working_time_assigned = $request->input('working_time_assigned');
-        $assignment_new->comment = $request->input('comment');
-        $assignment_new->date = $request->input('date');
-        $assignment_new->rfq_id = $rfq_selected->id;
-        $assignment_new->approval_status_id = 1;
-        $assignment_new->save();
+        if ($id == 0) {
+            $assignment_new = new WorkingTimeAssignment;
+            $assignment_new->user_id = auth()->user()->id;
+            $assignment_new->project_id = $project_selected->id;
+            $assignment_new->cost_group_id = $cost_group_code_selected->id;
+            $assignment_new->working_time_assigned = $request->input('working_time_assigned');
+            $assignment_new->comment = $request->input('comment');
+            $assignment_new->date = $request->input('date');
+            $assignment_new->rfq_id = $rfq_selected->id;
+            $assignment_new->approval_status_id = 1;
+            $assignment_new->save();
+        } else {
+            $assignment_update = WorkingTimeAssignment::where('id', '=', $id)->first();
+            $assignment_update->user_id = auth()->user()->id;
+            $assignment_update->project_id = $project_selected->id;
+            $assignment_update->cost_group_id = $cost_group_code_selected->id;
+            $assignment_update->working_time_assigned = $request->input('working_time_assigned');
+            $assignment_update->comment = $request->input('comment');
+            $assignment_update->date = $request->input('date');
+            $assignment_update->rfq_id = $rfq_selected->id;
+            $assignment_update->approval_status_id = 1;
+            $assignment_update->update();
+        }
 
 
         return [
-            'test1' => $project_number,
-            'test' => $project_selected,
-            'user_id' => $assignment_new->user_id,
-            'project_id' => $assignment_new->project_id,
-            'cost_group_id ' => $assignment_new->cost_group_id,
-            'rfq_id' => $assignment_new->rfq_id,
-            'working_time_assigned' => $assignment_new->working_time_assigned,
-            'comment' => $assignment_new->comment,
-            'date' => $assignment_new->date
+            'message' => 'success'
         ];
     }
 
@@ -95,6 +103,36 @@ class WorkingTimeAssignmentController extends Controller
 
 
 
+
+    public function deleteEntryById(Request $request)
+    {
+        $entryId = $request->input('id');
+
+        $entryToDelete = WorkingTimeAssignment::query()
+            ->where('id', '=', $entryId)
+            ->delete();
+
+        return [
+            'message' => $entryId . 'deleted',
+            'entryToDelete' => $entryToDelete
+        ];
+    }
+
+
+    public function getEntryById(Request $request)
+    {
+        $entryId = $request->input('entry_id');
+
+        $entryToEdit = WorkingTimeAssignment::query()
+            ->with('project')
+            ->with('costGroup')
+            ->with('rfq')
+            ->with('approvalStatus')
+            ->where('id', '=', $entryId)
+            ->get();
+
+        return $entryToEdit;
+    }
 
     /**
      * Display the specified resource.

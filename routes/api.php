@@ -30,9 +30,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/calculatedAttendances/{user_id}/date/{date}', [CalculatedAttendanceController::class, 'showAttendanceByDate']);
 Route::get('/working-time-assignments', [WorkingTimeAssignmentController::class, 'index']);
-Route::post('/assignment/new-entry', [WorkingTimeAssignmentController::class, 'store']);
+Route::post('/assignment/entry', [WorkingTimeAssignmentController::class, 'store']);
 Route::get('/assignment/allProjectNumbers', [ProjectController::class, 'index']);
 Route::get('/assignment/allRfqNumbers', [RfqController::class, 'index']);
 Route::get('/assignment/allCostGroups', [CostGroupController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'sendEmail']);
 Route::post('/assignment/dayEntries', [WorkingTimeAssignmentController::class, 'getSelectedDay']);
+Route::post('/assignment/delete-entry', [WorkingTimeAssignmentController::class, 'deleteEntryById']);
+Route::post('/assignment/edit-query', [WorkingTimeAssignmentController::class, 'getEntryById']);
