@@ -1,0 +1,61 @@
+$primary-green-color: #9c3;
+$primary-grey-color: #393e42;
+$white-color: #fff;
+
+.login {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    h1 {
+        text-align: center;
+        color: $primary-grey-color;
+        font-size: 30px;
+    }
+    p {
+        a {
+            text-decoration: none;
+            color: $primary-green-color;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+    form {
+        border: 2px solid $primary-grey-color;
+        border-radius: 10px;
+        padding: 2rem;
+        .form-input {
+            span {
+                position: relative;
+                top: 0.8rem;
+                margin-right: 1rem;
+            }
+            input {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                width: 13rem;
+                border-radius: 10px;
+            }
+        }
+        .btn {
+            text-align: center;
+            button {
+                width: 50%;
+                background-color: $primary-green-color;
+                border: none;
+                color: $white-color;
+                padding: 1rem;
+                border-radius: 10px;
+                text-transform: uppercase;
+                text-decoration: none;
+                transition: background-color 0.3s, transform 0.2s;
+                &:hover {
+                    cursor: pointer;
+                    background-color: lighten($primary-green-color, 10%);
+                    transform: translateY(-3px);
+                }
+            }
+        }
+    }
+}

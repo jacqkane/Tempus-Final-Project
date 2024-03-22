@@ -1,96 +1,151 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Context from '../Context';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
+import React, { useState, useEffect, useContext } from "react";
+import Context from "../Context";
+import { Link, useNavigate } from "react-router-dom";
+import "/resources/scss/homepage/Registration.scss";
+import axios from "axios";
+import Icon from "@mdi/react";
+import { mdiDomain, mdiRename, mdiEmail, mdiLock, mdiLockCheck } from "@mdi/js";
 
 export default function Register(props) {
-
     const navigate = useNavigate();
-    const { getUser } = useContext(Context)
+    const { getUser } = useContext(Context);
 
     const [values, setValues] = useState({
-        email: '',
-        name: '',
-        password: '',
-        password_confirmation: ''
-    })
+        company_name: "",
+        email: "",
+        name: "",
+        password: "",
+        password_confirmation: "",
+    });
 
     const handleSubmit = async (event) => {
-
         event.preventDefault();
 
-        // // make the AJAX request
-        // const response = await fetch('/register', {
-        //     method: 'POST',
-        //     body: JSON.stringify(values),
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-type': 'application/json',
-        //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        //     }
-        // });
-
-        // // parse the response as JSON
-        // const response_data = await response.json();
-
-        // // if the response code is not 2xx (success)
-        // if (Math.floor(response.status / 100) !== 2) {
-        //     switch (response.status) {
-        //         case 422:
-        //             // handle validation errors here
-        //             console.log('VALIDATION FAILED:', response_data.errors);
-        //             break;
-        //         default:
-        //             console.log('UNKNOWN ERROR', response_data);
-        //             break;
-        //     }
-        // }
-
-        // with axios
         try {
-            // make the AJAX request
-            const response = await axios.post('/register', values);
-            // get the (already JSON-parsed) response data
+            const response = await axios.post("/register", values);
             const response_data = response.data;
         } catch (error) {
-            // if the response code is not 2xx (success)
             switch (error.response.status) {
                 case 422:
-                    // handle validation errors here
-                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    console.log(
+                        "VALIDATION FAILED:",
+                        error.response.data.errors
+                    );
                     break;
                 case 500:
-                    console.log('UNKNOWN ERROR', error.response.data);
+                    console.log("UNKNOWN ERROR", error.response.data);
                     break;
             }
         }
         getUser();
-        navigate('/')
-    }
+        // navigate("");
+    };
 
     const handleChange = (event) => {
-        setValues(previous_values => {
-            return ({
+        setValues((previous_values) => {
+            return {
                 ...previous_values,
-                [event.target.name]: event.target.value
-            });
+                [event.target.name]: event.target.value,
+            };
         });
-    }
+    };
 
     return (
-        <form action="/register" method="post" onSubmit={handleSubmit}>
-
-            <input type="text" name="name" value={values.name} onChange={handleChange} placeholder='name' />
-
-            <input type="email" name="email" value={values.email} onChange={handleChange} placeholder='email' />
-
-            <input type="password" name="password" value={values.password} onChange={handleChange} placeholder='password' />
-
-            <input type="password" name="password_confirmation" value={values.password_confirmation} onChange={handleChange} placeholder='password_confirmation' />
-
-            <button>Register</button>
-
-        </form>
+        <>
+        <section className="registration">
+            <h1>Registration</h1>
+            <form action="/register" method="post" onSubmit={handleSubmit}>
+                <div className="form-input">
+                    <span>
+                        <Icon
+                            path={mdiDomain}
+                            title="User Profile"
+                            size={1.4}
+                            color="#393e42"
+                        />
+                    </span>
+                    <input
+                        type="text"
+                        name="company_name"
+                        value={values.company_name}
+                        onChange={handleChange}
+                        placeholder="Company name"
+                    />
+                </div>
+                <div className="form-input">
+                    <span>
+                        <Icon
+                            path={mdiRename}
+                            title="User Profile"
+                            size={1.4}
+                            color="#393e42"
+                        />
+                    </span>
+                    <input
+                        type="text"
+                        name="name"
+                        value={values.name}
+                        onChange={handleChange}
+                        placeholder="Full name"
+                    />
+                </div>
+                <div className="form-input">
+                    <span>
+                        <Icon
+                            path={mdiEmail}
+                            title="User Profile"
+                            size={1.4}
+                            color="#393e42"
+                        />
+                    </span>
+                    <input
+                        type="email"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        placeholder="Email"
+                    />
+                </div>
+                <div className="form-input">
+                    <span>
+                        <Icon
+                            path={mdiLock}
+                            title="User Profile"
+                            size={1.4}
+                            color="#393e42"
+                        />
+                    </span>
+                    <input
+                        type="password"
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        placeholder="Password"
+                    />
+                </div>
+                <div className="form-input">
+                    <span>
+                        <Icon
+                            path={mdiLockCheck}
+                            title="User Profile"
+                            size={1.4}
+                            color="#393e42"
+                        />
+                    </span>
+                    <input
+                        type="password"
+                        name="password_confirmation"
+                        value={values.password_confirmation}
+                        onChange={handleChange}
+                        placeholder="Password Confirmation"
+                    />
+                </div>
+                <div className="btn">
+                <button>Register</button>
+                </div>
+                <p>Do you have already account? <Link to='/login'>Login</Link></p>
+            </form>
+            </section>
+        </>
     );
 }

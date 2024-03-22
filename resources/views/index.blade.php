@@ -8,7 +8,7 @@
     <title>Tempus</title>
 </head>
 <body>
-
+{{-- {{dd(env('MAIL_USERNAME'))}} --}}
 
     <div id="tempus" class="app"></div>
     @viteReactRefresh

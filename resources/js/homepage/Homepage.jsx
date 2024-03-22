@@ -6,7 +6,7 @@ import Reviews from "./Reviews";
 
 export default function Homepage() {
     return (
-        <div className="homepage">
+        <div className="homepage" id="homepage">
             <MainContent />
             <Features />
             <Price />

@@ -7,7 +7,7 @@ import app2 from "/public/app-image/app2.png";
 
 export default function Features() {
     return (
-        <section className="features">
+        <section className="features" id="features">
             <article className="features-container">
                 <div className="features-all">
                     <div className="features-card">

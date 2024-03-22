@@ -7,8 +7,8 @@ export default function MainContent() {
     return (
         <section className="main-content">
             <div className="main-content-container">
-                <div className="main-content-image-app">
-                    <img src={app} alt="Image of the app" />
+                <div className="main-content-image-app" >
+                    <img src={app} alt="Image of the app"/>
                 </div>
                 <div className="main-content-text">
                     <h1>Manage Your Work Time Efficiently with Our App!</h1>
