@@ -1,11 +1,8 @@
-.container {
-    display: flex;
+#container {
+    width: '100%'; 
+    max-width: '1200px';
 }
 
-.dropdown {
-    width: 200px; /* Set a fixed width for the dropdown */
-}
-
-.reports {
-    flex-grow: 1; /* Allow the reports section to occupy remaining space */
+a {
+    color: green;
 }
