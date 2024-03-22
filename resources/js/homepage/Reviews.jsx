@@ -53,7 +53,7 @@ export default function Reviews() {
 
     return (
         <>
-            <section className="reviews">
+            <section className="reviews" id="reviews">
                 <h2>Testimonials</h2>
                 <div className="reviews-container">
                     <div className="arrow-left" onClick={handlePrevReview}>

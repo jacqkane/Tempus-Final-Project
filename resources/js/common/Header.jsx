@@ -52,10 +52,10 @@ const toggleMenu = () => {
                     <div className='burger-menu-view'>
                     <ul className='burger-menu-links'>
                         <li><Link to='/'>Home</Link></li>
-                        <li><Link to='/features'>Features</Link></li>
-                        <li><Link to='/price'>Price</Link></li>
-                        <li><Link to='/reviews'>Reviews</Link></li>
-                        <li><Link to='/contact'>Contact us</Link></li>
+                        <li><a href='#features'>Features</a></li>
+                        <li><a href='#price'>Price</a></li>
+                        <li><a href='#reviews'>Reviews</a></li>
+                        <li><a href='#contact'>Contact us</a></li>
                         <li><Link to='/register'>Registration</Link></li>
                         <li><Link to='/login'>Login</Link></li>
                     </ul>

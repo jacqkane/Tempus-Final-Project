@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CalculatedAttendanceController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CostGroupController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RfqController;
@@ -33,6 +34,7 @@ Route::post('/assignment/entry', [WorkingTimeAssignmentController::class, 'store
 Route::get('/assignment/allProjectNumbers', [ProjectController::class, 'index']);
 Route::get('/assignment/allRfqNumbers', [RfqController::class, 'index']);
 Route::get('/assignment/allCostGroups', [CostGroupController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'sendEmail']);
 Route::post('/assignment/dayEntries', [WorkingTimeAssignmentController::class, 'getSelectedDay']);
 Route::post('/assignment/delete-entry', [WorkingTimeAssignmentController::class, 'deleteEntryById']);
 Route::post('/assignment/edit-query', [WorkingTimeAssignmentController::class, 'getEntryById']);
