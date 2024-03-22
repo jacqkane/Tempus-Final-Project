@@ -15,11 +15,10 @@ $white-color: #fff;
         display: block;
         text-align: center;
         margin: 1rem auto;
-        border: none;
-        border: 3px solid $primary-grey-color;
-        padding: 0.4rem;
-        width: 20rem;
-        border-radius: 3px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        width: 13rem;
+        border-radius: 10px;
     }
 
     textarea {
@@ -27,7 +26,7 @@ $white-color: #fff;
         width: 20rem;
         height: 7rem;
         border: 3px solid $primary-grey-color;
-        border-radius: 3px;
+        border-radius: 10px;
     }
 
     button {

@@ -20,7 +20,7 @@ export default function Price () {
     const totalPrice = Math.round(userCount * pricePerUser)
     return (
         <>
-        <section className='price-calculator'>
+        <section className='price-calculator' id='price'>
             <h2>Price calculator</h2>
             <div className='user-counter'>
                 <p>Number of active users:</p>
