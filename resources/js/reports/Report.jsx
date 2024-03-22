@@ -1,12 +1,14 @@
-
 import '/resources/scss/reports/Report.scss';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import DropDownMenu from './DropDownMenu';
+import BarChart from './ProjectChart';
 
 export default function Report() {
     const [chartOptions, setChartOptions] = useState({});
+    const [selectedOption, setSelectedOption] = useState('default'); // State to manage selected option
 
     useEffect(() => {
         const fetchDataAndCreateChart = async () => {
@@ -68,12 +70,24 @@ export default function Report() {
         };
     };
 
+    // Function to handle option change
+    const handleOptionChange = (option) => {
+        setSelectedOption(option);
+        // Update chart options based on selected option
+        const updatedOptions = createChartOptions(option);
+        setChartOptions(updatedOptions);
+    };
+
     return (
-        <div className='reports'>
-            <HighchartsReact
-                highcharts={Highcharts}
-                options={chartOptions}
-            />
+        <div className='container'>
+            {/* Pass handleOptionChange function to DropdownMenu */}
+            <DropDownMenu onOptionChange={handleOptionChange} />
+            <div className='reports'>
+                <HighchartsReact
+                    highcharts={Highcharts}
+                    options={chartOptions}
+                />
+            </div>
         </div>
     );
 }

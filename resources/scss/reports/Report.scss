@@ -1,4 +1,11 @@
-.reports {
+.container {
+    display: flex;
+}
 
-    color: violet;
+.dropdown {
+    width: 200px; /* Set a fixed width for the dropdown */
+}
+
+.reports {
+    flex-grow: 1; /* Allow the reports section to occupy remaining space */
 }
