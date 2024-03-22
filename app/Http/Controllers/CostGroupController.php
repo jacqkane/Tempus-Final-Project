@@ -12,7 +12,8 @@ class CostGroupController extends Controller
      */
     public function index()
     {
-        //
+        $allCostGroups = CostGroup::all();
+        return response()->json($allCostGroups);
     }
 
     /**

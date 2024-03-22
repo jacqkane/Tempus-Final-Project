@@ -109,38 +109,5 @@ class PermissionsSeeder extends Seeder
         $user->assignRole($role1);
         // all 4 roles has got password set to: Password123#
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'radek',
-            'email' => 'radek@gmail.com',
-            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
-
-        ]);
-        $user->assignRole($role1);
-
-        $user = \App\Models\User::factory()->create([
-            'name' => 'vojtech',
-            'email' => 'vojtech@gmail.com',
-            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
-
-        ]);
-        $user->assignRole($role1);
-
-        $user = \App\Models\User::factory()->create([
-            'name' => 'jacquelyn',
-            'email' => 'jacquelyn@gmail.com',
-            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
-
-        ]);
-        $user->assignRole($role1);
-
-        $user = \App\Models\User::factory()->create([
-            'name' => 'jan',
-            'email' => 'jan@gmail.com',
-            'password' => '$2y$10$sz3yCD/zGresrLaqt9cLaeAw4Hr.9Peg.iytVAW93/EsQxV4HG/Em',
-
-        ]);
-        $user->assignRole($role1);
-
-
     }
 }

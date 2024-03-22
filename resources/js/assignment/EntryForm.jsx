@@ -1,55 +1,185 @@
-import { useState } from "react"
 
-export default function EntryForm() {
+import { useContext, useEffect, useState } from "react"
+import axios from 'axios';
+import Context from "../Context";
+import '/resources/scss/assignment/EntryForm.scss'
 
-    const [projectNumber, setProjectNumber] = useState('');
-    const [rfqNumber, setRfqNumber] = useState('');
-    const [typeCode, setTypeCode] = useState('');
-    const [assignedMinutes, setAssignedMinutes] = useState(0);
-    const [assignedTime, setAssignedTime] = useState('');
-    const [comment, setComment] = useState('');
+export default function EntryForm({ selectedDate }) {
 
+    const { state: { user, role, currentDate, currentDateFormated }, dispatch, getUser } = useContext(Context);
+    const [allProjectNumbers, setAllProjectNumbers] = useState([]);
+    const [allRfqNumbers, setAllRfqNumbers] = useState([]);
+    const [allCostGroupCodes, setAllCostGroupCodes] = useState([]);
 
-    const handleChange = () => {
+    const [entryValues, setEntryValues] = useState({
+        project_id: '',
+        project_number: '',
+        rfq_id: '',
+        rfq_number: '',
+        cost_group_id: '',
+        cost_group_code: '',
+        working_time_assigned: '',
+        comment: '',
+        date: '',
+    });
 
+    console.log(entryValues);
 
+    const handleChange = (e) => {
+        setEntryValues(previous_values => {
+            return ({
+                ...previous_values,
+                date: selectedDate,
+                [e.target.name]: e.target.value
+                //it takes all input fields once they change, no need to define it by name!
+            });
+        });
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        //sets also the user_id
+        try {
+            const response = await axios.post('http://www.tempus.test/api/assignment/new-entry', entryValues);
+            const response_data = await response.data;
+
+        } catch (error) {
+            switch (error.response.status) {
+                case 422:
+                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    break;
+                case 500:
+                    console.log('UNKNOWN ERROR', error.response.data);
+                    break;
+            }
+        }
+    }
+
+    const getAllProjectNumbers = async () => {
+        try {
+            const response = await axios.get('http://www.tempus.test/api/assignment/allProjectNumbers');
+            const response_data = await response.data;
+            let tempArray = [];
+            response_data.map((elem, i) => {
+                tempArray.push(elem.project_number);
+            })
+            setAllProjectNumbers(tempArray);
+        } catch (error) {
+            switch (error.response.status) {
+                case 422:
+                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    break;
+                case 500:
+                    console.log('UNKNOWN ERROR', error.response.data);
+                    break;
+            }
+        }
+    }
+
+    const getAllRfqNumbers = async () => {
+        try {
+            const response = await axios.get('http://www.tempus.test/api/assignment/allRfqNumbers');
+            const response_data = await response.data;
+            let tempArray = [];
+            response_data.map((elem, i) => {
+                tempArray.push(elem.rfq_number);
+            })
+            setAllRfqNumbers(tempArray);
+        } catch (error) {
+            switch (error.response.status) {
+                case 422:
+                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    break;
+                case 500:
+                    console.log('UNKNOWN ERROR', error.response.data);
+                    break;
+            }
+        }
+    }
+
+    const getAllCostGroups = async () => {
+        try {
+            const response = await axios.get('http://www.tempus.test/api/assignment/allCostGroups');
+            const response_data = await response.data;
+            let tempArray = [];
+            response_data.map((elem, i) => {
+                tempArray.push(elem.cost_group_code);
+            })
+            setAllCostGroupCodes(tempArray);
+        } catch (error) {
+            switch (error.response.status) {
+                case 422:
+                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    break;
+                case 500:
+                    console.log('UNKNOWN ERROR', error.response.data);
+                    break;
+            }
+        }
+    }
+
+    useEffect(() => {
+        getAllProjectNumbers();
+        getAllRfqNumbers();
+        getAllCostGroups();
+    }, [])
 
 
     return (
         <div className="entry-form">
 
+            <form className="entry-form__form" action="" method="POST" onSubmit={handleSubmit}>
 
-            <div className="entry-form__form">
+                <button className="entry-form__form__button" type="submit">Add Entry</button><br />
 
-                <form action="/assignement" method="POST">
+                <div className="entry-form__first-row">
+                    <div>
+                        <label htmlFor="project_number">Project Number</label>
+                        <select name="project_number" id="project_number" onChange={handleChange}>
+                            {
+                                allProjectNumbers.map((project) => {
+                                    return <option key={project} value={project}>{project}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="rfq_number">RfQ Number</label>
+                        <select name="rfq_number" id="rfq_number" onChange={handleChange}>
+                            {
+                                allRfqNumbers.map((rfq_number) => {
+                                    return <option key={rfq_number} value={rfq_number}>{rfq_number}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="cost_group_code">Type Code</label>
+                        <select name="cost_group_code" id="cost_group_code" onChange={handleChange}>
+                            {
+                                allCostGroupCodes.map((code) => {
+                                    return <option key={code} value={code}>{code}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
 
-                    <button type="submit">Add Entry</button><br />
+                <div className="entry-form__second-row">
+                    <div>
+                        <label htmlFor="working_time_assigned">working_time_assigned</label>
+                        <input id="working_time_assigned" type="text" name="working_time_assigned" placeholder="hh:mm" value={entryValues.working_time_assigned} onChange={handleChange} />
+                    </div>
 
-                    <label htmlFor="project-number">Project Number</label>
-                    <input id="project-number" type="text" name="project-number" value={projectNumber} onChange={handleChange} />
-                    <br />
+                    <div>
+                        <label htmlFor="comment">Comment</label>
+                        <input id="comment" type="text" name="comment" placeholder="write comment" value={entryValues.comment} onChange={handleChange} />
+                    </div>
+                </div>
 
-                    <label htmlFor="rfq-number">RfQ Number</label>
-                    <input id="rfq-number" type="text" name="rfq-number" value={rfqNumber} onChange={handleChange} />
-                    <br />
+            </form>
 
-                    <label htmlFor="type-code">Type Code</label>
-                    <input id="type-code" type="text" name="type-code" value={typeCode} onChange={handleChange} />
-                    <br />
 
-                    <label htmlFor="assigned-time">Assigned Time</label>
-                    <input id="assigned-time" type="text" name="assigned-time" value={assignedTime} onChange={handleChange} />
-                    <br />
-
-                    <label htmlFor="comment">Comment</label>
-                    <input id="comment" type="text" name="comment" value={comment} onChange={handleChange} />
-                    <br />
-
-                </form>
-
-            </div>
         </div>
 
 
