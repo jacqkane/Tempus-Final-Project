@@ -10,6 +10,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
     const [allRfqNumbers, setAllRfqNumbers] = useState([]);
     const [allCostGroupCodes, setAllCostGroupCodes] = useState([]);
     const [assignementData, setAssignementData] = useState([]);
+    const [resetDone, setResetDone] = useState(false);
 
     const [entryValues, setEntryValues] = useState({
         project_id: '',
@@ -25,6 +26,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
     });
 
     const resetEntryValues = () => {
+        setResetDone(false);
         setEntryValues(previous_values => {
             return ({
                 ...previous_values,
@@ -40,6 +42,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
                 id: 0,
             });
         });
+        setResetDone(true);
     }
 
     // console.log(entryValues)
@@ -58,9 +61,11 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const response = await axios.post('http://www.tempus.test/api/assignment/entry', entryValues);
             resetEntryValues()
+            setEditFormId(0);
             const response_data = await response.data;
 
         } catch (error) {
@@ -73,6 +78,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
                     break;
             }
         }
+
         if (refreshList == 0) {
             setRefreshList(1)
         } else {
@@ -102,6 +108,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
                     break;
             }
         }
+
     }
 
     useEffect(() => {
@@ -205,12 +212,17 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
                     <div className="entry-form__form__first-row__input-group">
                         <label htmlFor="project_number">Project Number</label>
                         <select name="project_number" id="project_number" onChange={handleChange}>
+
+
                             <option value={entryValues.project_number}>{entryValues.project_number}</option>
+
                             {
                                 allProjectNumbers.map((project) => {
                                     return <option key={project} value={project}>{project}</option>
                                 })
                             }
+
+
                         </select>
                     </div>
                     <div className="entry-form__form__first-row__input-group">
