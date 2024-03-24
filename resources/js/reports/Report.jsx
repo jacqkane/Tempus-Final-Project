@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import DropDownMenu from './DropDownMenu';
 import { CSVLink } from 'react-csv';
 
 
@@ -11,9 +10,11 @@ export default function Report() {
     const [projectChartOptions, setProjectChartOptions] = useState({});
     const [costGroupChartOptions, setCostGroupChartOptions] = useState({});
     const [approvalStatusChartOptions, setApprovalStatusChartOptions] = useState({});
-    const [selectedOption, setSelectedOption] = useState('default'); 
+    const [selectedOption, setSelectedOption] = useState('null'); 
 
     useEffect(() => {
+        setSelectedOption(null); 
+
         const fetchDataAndCreateCharts = async () => {
             try {
                 const response = await axios.get('/api/working-time-assignments');
@@ -42,12 +43,30 @@ export default function Report() {
                 stops: [
                     [0, '#87afc4'],
                 ]
-
-                
             };
             chartOptions.chart.plotBackgroundColor = '#9c3';
             chartOptions.chart.plotBorderWidth = 1;
             chartOptions.colors = '#9c3';
+            
+    
+            
+            if (chartOptions.xAxis && !chartOptions.xAxis.labels) {
+                chartOptions.xAxis.labels = {};
+            }
+            if (chartOptions.xAxis.labels) {
+                chartOptions.xAxis.labels.style = {
+                    color: '#ffffff' 
+                };
+            }
+    
+            if (chartOptions.yAxis && !chartOptions.yAxis.labels) {
+                chartOptions.yAxis.labels = {};
+            }
+            if (chartOptions.yAxis.labels) {
+                chartOptions.yAxis.labels.style = {
+                    color: '#ffffff' 
+                };
+            }
         }
 
         return chartOptions;
@@ -197,59 +216,75 @@ export default function Report() {
         };
     };
 
-    return (
-        <div id='container' style={{ width: '100%', maxWidth: '1200px' }}>
-            <DropDownMenu onOptionChange={handleOptionChange}/>
-            <div className='reports'>
-                {selectedOption === 'project' && (
-                    <div>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={customizeChartBackground(projectChartOptions)}
-                        />
-                        <CSVLink
-                            data={projectChartOptions.seriesData}
-                            filename={"project_data.csv"}
-                            className="custom-csv-link"
-                            target="_blank"
-                        >
-                            Download CSV
-                        </CSVLink>
-                    </div>
-                )}
-                {selectedOption === 'costGroup' && (
-                    <div>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={customizeChartBackground(costGroupChartOptions)}
-                        />
-                        <CSVLink
-                            data={costGroupChartOptions.seriesData}
-                            filename={"cost_group_data.csv"}
-                            className="custom-csv-link"
-                            target="_blank"
-                        >
-                            Download CSV
-                        </CSVLink>
-                    </div>
-                )}
-                {selectedOption === 'approvalStatus' && (
-                    <div>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={customizeChartBackground(approvalStatusChartOptions)}
-                        />
-                        <CSVLink
-                            data={approvalStatusChartOptions.seriesData}
-                            filename={"approval_status_data.csv"}
-                            className="custom-csv-link"
-                            target="_blank"
-                        >
-                            Download CSV
-                        </CSVLink>
-                    </div>
-                )}
-            </div>
+const handleBackToCharts = () => {
+    setSelectedOption(null);
+};
+
+
+return (
+    <div id='container' style={{ width: '100%', maxWidth: '1200px' }}>
+        <div className='reports'>
+            {(selectedOption === null || selectedOption === 'all') && (
+                <div className='button-container'>
+                    <button className='report-button' onClick={() => handleOptionChange('project')}>Project Chart</button>
+                    <button className='report-button' onClick={() => handleOptionChange('costGroup')}>Cost Group Chart</button>
+                    <button className='report-button' onClick={() => handleOptionChange('approvalStatus')}>Approval Status Chart</button>
+                    <button className='report-button' onClick={() => handleOptionChange('all')}>All Charts</button>
+                </div>
+            )}
+            {selectedOption && (
+                <button className="back-to-charts-button" onClick={handleBackToCharts}>Back to Chart Options</button>
+            )}
+
+            {(selectedOption === 'project' || selectedOption === 'all') && (
+                <div>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={customizeChartBackground(projectChartOptions)}
+                    />
+                    <CSVLink
+                        data={projectChartOptions.seriesData}
+                        filename={"project_data.csv"}
+                        className="custom-csv-link"
+                        target="_blank"
+                    >
+                        Download CSV
+                    </CSVLink>
+                </div>
+            )}
+            {(selectedOption === 'costGroup' || selectedOption === 'all') && (
+                <div>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={customizeChartBackground(costGroupChartOptions)}
+                    />
+                    <CSVLink
+                        data={costGroupChartOptions.seriesData}
+                        filename={"cost_group_data.csv"}
+                        className="custom-csv-link"
+                        target="_blank"
+                    >
+                        Download CSV
+                    </CSVLink>
+                </div>
+            )}
+            {(selectedOption === 'approvalStatus' || selectedOption === 'all') && (
+                <div>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={customizeChartBackground(approvalStatusChartOptions)}
+                    />
+                    <CSVLink
+                        data={approvalStatusChartOptions.seriesData}
+                        filename={"approval_status_data.csv"}
+                        className="custom-csv-link"
+                        target="_blank"
+                    >
+                        Download CSV
+                    </CSVLink>
+                </div>
+            )}
         </div>
-    );
-                }
+    </div>
+);
+}
