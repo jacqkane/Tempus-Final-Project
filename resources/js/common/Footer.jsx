@@ -16,7 +16,7 @@ export default function Footer() {
                     </ul>
 
                 <div className='footer-text'>
-                    <p>Adress of company</p>
+                    <p>Address of company</p>
                     <p>© 2024 Tempus.  All rights reserved.</p>
                 </div>
         </footer>
