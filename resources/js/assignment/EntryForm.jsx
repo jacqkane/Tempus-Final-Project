@@ -1,15 +1,15 @@
-
 import { useContext, useEffect, useState } from "react"
 import axios from 'axios';
 import Context from "../Context";
 import '/resources/scss/assignment/EntryForm.scss'
 
-export default function EntryForm({ selectedDate }) {
+export default function EntryForm({ selectedDate, refreshList, setRefreshList, editFormId, setEditFormId }) {
 
     const { state: { user, role, currentDate, currentDateFormated }, dispatch, getUser } = useContext(Context);
     const [allProjectNumbers, setAllProjectNumbers] = useState([]);
     const [allRfqNumbers, setAllRfqNumbers] = useState([]);
     const [allCostGroupCodes, setAllCostGroupCodes] = useState([]);
+    const [assignementData, setAssignementData] = useState([]);
 
     const [entryValues, setEntryValues] = useState({
         project_id: '',
@@ -21,9 +21,29 @@ export default function EntryForm({ selectedDate }) {
         working_time_assigned: '',
         comment: '',
         date: '',
+        id: 0,
     });
 
-    console.log(entryValues);
+    const resetEntryValues = () => {
+        setEntryValues(previous_values => {
+            return ({
+                ...previous_values,
+                project_id: '',
+                project_number: '',
+                rfq_id: '',
+                rfq_number: '',
+                cost_group_id: '',
+                cost_group_code: '',
+                working_time_assigned: '',
+                comment: '',
+                date: '',
+                id: 0,
+            });
+        });
+    }
+
+    // console.log(entryValues)
+    // console.log(assignementData[0].project.project_number);
 
     const handleChange = (e) => {
         setEntryValues(previous_values => {
@@ -38,9 +58,9 @@ export default function EntryForm({ selectedDate }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //sets also the user_id
         try {
-            const response = await axios.post('http://www.tempus.test/api/assignment/new-entry', entryValues);
+            const response = await axios.post('http://www.tempus.test/api/assignment/entry', entryValues);
+            resetEntryValues()
             const response_data = await response.data;
 
         } catch (error) {
@@ -53,7 +73,56 @@ export default function EntryForm({ selectedDate }) {
                     break;
             }
         }
+        if (refreshList == 0) {
+            setRefreshList(1)
+        } else {
+            setRefreshList(0)
+        }
+
+
+
     }
+
+    const loadDataForEdit = async () => {
+
+        try {
+            const response = await axios.post('http://www.tempus.test/api/assignment/edit-query', {
+                'entry_id': editFormId
+            });
+            const response_data = await response.data;
+            setAssignementData(response_data);
+
+        } catch (error) {
+            switch (error.response.status) {
+                case 422:
+                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    break;
+                case 500:
+                    console.log('UNKNOWN ERROR', error.response.data);
+                    break;
+            }
+        }
+    }
+
+    useEffect(() => {
+        loadDataForEdit();
+    }, [editFormId]);
+
+    useEffect(() => {
+        assignementData[0] &&
+            setEntryValues(previous_values => {
+                return ({
+                    ...previous_values,
+                    project_number: assignementData[0].project.project_number,
+                    rfq_number: assignementData[0].rfq.rfq_number,
+                    cost_group_code: assignementData[0].cost_group.cost_group_code,
+                    working_time_assigned: assignementData[0].working_time_assigned,
+                    comment: assignementData[0].comment,
+                    id: editFormId,
+                });
+            });
+
+    }, [assignementData])
 
     const getAllProjectNumbers = async () => {
         try {
@@ -136,6 +205,7 @@ export default function EntryForm({ selectedDate }) {
                     <div className="entry-form__form__first-row__input-group">
                         <label htmlFor="project_number">Project Number</label>
                         <select name="project_number" id="project_number" onChange={handleChange}>
+                            <option value={entryValues.project_number}>{entryValues.project_number}</option>
                             {
                                 allProjectNumbers.map((project) => {
                                     return <option key={project} value={project}>{project}</option>
@@ -146,6 +216,7 @@ export default function EntryForm({ selectedDate }) {
                     <div className="entry-form__form__first-row__input-group">
                         <label htmlFor="rfq_number">RfQ Number</label>
                         <select name="rfq_number" id="rfq_number" onChange={handleChange}>
+                            <option value={entryValues.rfq_number} >{entryValues.rfq_number}</option>
                             {
                                 allRfqNumbers.map((rfq_number) => {
                                     return <option key={rfq_number} value={rfq_number}>{rfq_number}</option>
@@ -156,6 +227,7 @@ export default function EntryForm({ selectedDate }) {
                     <div className="entry-form__form__first-row__input-group" >
                         <label htmlFor="cost_group_code">Type Code</label>
                         <select name="cost_group_code" id="cost_group_code" onChange={handleChange}>
+                            <option value={entryValues.cost_group_code}>{entryValues.cost_group_code}</option>
                             {
                                 allCostGroupCodes.map((code) => {
                                     return <option key={code} value={code}>{code}</option>
