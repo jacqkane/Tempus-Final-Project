@@ -3,12 +3,14 @@
 use App\Http\Controllers\CalculatedAttendanceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CostGroupController;
+use App\Http\Controllers\InternalAttendanceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RfqController;
+use App\Http\Controllers\StampActionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkingTimeAssignmentController;
-
+use App\Models\StampAction;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +40,11 @@ Route::post('/contact', [ContactController::class, 'sendEmail']);
 Route::post('/assignment/dayEntries', [WorkingTimeAssignmentController::class, 'getSelectedDay']);
 Route::post('/assignment/delete-entry', [WorkingTimeAssignmentController::class, 'deleteEntryById']);
 Route::post('/assignment/edit-query', [WorkingTimeAssignmentController::class, 'getEntryById']);
+
+Route::post('/attendance/entry', [InternalAttendanceController::class, 'store']);
+Route::post('/attendance/day-attendancies', [InternalAttendanceController::class, 'showDay']);
+Route::get('/attendance/all-stamp-types', [StampActionController::class, 'index']);
+Route::post('/attendance/delete-entry', [InternalAttendanceController::class, 'deleteAttendanceEntryById']);
+Route::post('/attendace/edit-query', [InternalAttendanceController::class, 'getAttendanceEntryById']);
+
+
