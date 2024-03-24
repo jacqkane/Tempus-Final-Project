@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkingTimeAssignmentController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,3 +39,12 @@ Route::post('/contact', [ContactController::class, 'sendEmail']);
 Route::post('/assignment/dayEntries', [WorkingTimeAssignmentController::class, 'getSelectedDay']);
 Route::post('/assignment/delete-entry', [WorkingTimeAssignmentController::class, 'deleteEntryById']);
 Route::post('/assignment/edit-query', [WorkingTimeAssignmentController::class, 'getEntryById']);
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::post('/projects', [ProjectController::class, 'store']);
+Route::get('/projects/{id}', [ProjectController::class, 'show']);
+Route::put('/projects/{id}', [ProjectController::class, 'update']);
+Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+
+// We need to have a route for login - something like:
+// Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login'); ***or***
+// Route::post('/login', 'Auth\LoginController@login');
