@@ -42,7 +42,7 @@ class InternalAttendanceController extends Controller
             //new entry
             $attendance_new = new InternalAttendance();
             $attendance_new->user_id = $user_id;
-            $attendance_new->stamp_action_id = $stamp_selected->id;
+            $attendance_new->stamp_action_id = $stamp_action_id ? $stamp_action_id : $stamp_selected->id;
             $attendance_new->date = $date;
             $attendance_new->time = $time;
             $attendance_new->save();
