@@ -24,7 +24,7 @@ use App\Http\Controllers\WorkingTimeAssignmentController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user = $request->user();
-    $user->role = $user->getRoleNames()[0];
+    $user->roles = $user->getRoleNames();
 
     return $user;
 });
