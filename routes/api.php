@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkingTimeAssignmentController;
 use App\Models\StampAction;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -47,3 +48,12 @@ Route::post('/attendance/day-attendancies', [InternalAttendanceController::class
 Route::get('/attendance/all-stamp-types', [StampActionController::class, 'index']);
 Route::post('/attendance/delete-entry', [InternalAttendanceController::class, 'deleteAttendanceEntryById']);
 Route::post('/attendace/edit-query', [InternalAttendanceController::class, 'getAttendanceEntryById']);
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::post('/projects', [ProjectController::class, 'store']);
+Route::get('/projects/{id}', [ProjectController::class, 'show']);
+Route::put('/projects/{id}', [ProjectController::class, 'update']);
+Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+
+// We need to have a route for login - something like:
+// Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login'); ***or***
+// Route::post('/login', 'Auth\LoginController@login');

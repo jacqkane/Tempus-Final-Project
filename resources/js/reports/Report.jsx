@@ -4,6 +4,8 @@ import axios from 'axios';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { CSVLink } from 'react-csv';
+import ClientHeader from '../common/ClientHeader';
+import ClientFooter from '../common/ClientFooter';
 
 
 export default function Report() {
@@ -222,6 +224,8 @@ const handleBackToCharts = () => {
 
 
 return (
+    <>
+    <ClientHeader />
     <div id='container' style={{ width: '100%', maxWidth: '1200px' }}>
         <div className='reports'>
             {(selectedOption === null || selectedOption === 'all') && (
@@ -286,5 +290,7 @@ return (
             )}
         </div>
     </div>
+    <ClientFooter />
+    </>
 );
 }

@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import Context from '../Context';
 import '/resources/scss/attendance/AttendanceList.scss';
 import axios from 'axios';
+import ClientHeader from '../common/ClientHeader';
+import ClientFooter from '../common/ClientFooter';
 
 
 export default function AttendanceList() {
@@ -124,7 +126,6 @@ export default function AttendanceList() {
         }
     }
 
-
     // deletion of one attendace entry according to attendance_id which shall be set
     const handleDeleteOneAttendance = async (id) => {
         try {
@@ -187,97 +188,102 @@ export default function AttendanceList() {
 
 
     return (
-        <div className='attendance-list'>
+        <>
+            <ClientHeader />
+            <div className='attendance-list'>
 
-            <div className='attendance-list__selection'>
-                {
-                    <input type='date' defaultValue={selectedDate} onChange={handleDateSelection} />
-                }
-            </div>
+                <div className='attendance-list__selection'>
+                    {
+                        <input type='date' defaultValue={selectedDate} onChange={handleDateSelection} />
+                    }
+                </div>
 
-            <div className='attendance-list__divform'>
+                <div className='attendance-list__divform'>
 
-                <form className="attendance-list__divform__form" action="" method="POST" onSubmit={handleFormSubmit}>
+                    <form className="attendance-list__divform__form" action="" method="POST" onSubmit={handleFormSubmit}>
 
-                    <button className="form__button" type="submit">Submit Change</button><br />
+                        <button className="form__button" type="submit">Submit Change</button><br />
 
-                    <div className="form__row">
-                        <div className="form__row__input-group">
-                            <label htmlFor="date">Day</label>
-                            <input id="date" type="text" name="date" value={entryValues.date} onChange={handleFormChange} />
+                        <div className="form__row">
+                            <div className="form__row__input-group">
+                                <label htmlFor="date">Day</label>
+                                <input id="date" type="text" name="date" value={entryValues.date} onChange={handleFormChange} />
+                            </div>
+
+                            <div className="form__row__input-group">
+                                <label htmlFor="stamp_action_name">Stamp Type</label>
+                                <select name="stamp_action_name" id="stamp_action_name" value={entryValues.stamp_action_name} onChange={handleFormChange}>
+                                    {/* <option value={entryValues.stamp_action_name}>{entryValues.stamp_action_name}</option> */}
+                                    <option value={0}>{'select'}</option>
+                                    {
+                                        allStampTypes.map((code) => {
+                                            return <option key={code} value={code}>{code}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
+
+                            <div className="form__row__input-group">
+                                <label htmlFor="time">Time</label>
+                                <input id="time" type="text" name="time" value={entryValues.time} onChange={handleFormChange} />
+                            </div>
                         </div>
 
-                        <div className="form__row__input-group">
-                            <label htmlFor="stamp_action_name">Stamp Type</label>
-                            <select name="stamp_action_name" id="stamp_action_name" value={entryValues.stamp_action_name} onChange={handleFormChange}>
-                                {/* <option value={entryValues.stamp_action_name}>{entryValues.stamp_action_name}</option> */}
-                                <option value={0}>{'select'}</option>
-                                {
-                                    allStampTypes.map((code) => {
-                                        return <option key={code} value={code}>{code}</option>
-                                    })
-                                }
-                            </select>
-                        </div>
 
-                        <div className="form__row__input-group">
-                            <label htmlFor="time">Time</label>
-                            <input id="time" type="text" name="time" value={entryValues.time} onChange={handleFormChange} />
-                        </div>
-                    </div>
+                    </form>
+
+                </div>
+
+                <div className='attendance-list__list'>
+
+                    <table className="attendance-list__list__table">
+                        <thead >
+                            <tr>
+                                <th></th>
+                                <th>Day</th>
+                                <th>Stamp Type</th>
+                                <th>Time</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {
+                                // dayAttendancies[0]?.stamp_action?.name &&
+                                dayAttendancies.length > 0 ?
+                                    dayAttendancies.map((attendance) => {
+
+                                        return (
+
+                                            <tr key={attendance.id}>
+                                                <td>
+                                                    <button name="delete" onClick={() => handleDeleteOneAttendance(attendance.id)}>-</button>
+                                                </td>
+                                                <td>{attendance.date}</td>
+
+                                                <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>
+
+                                                {/* <td>{attendance.stamp_action_id}</td> */}
+
+                                                <td>{attendance.time}</td>
+
+                                                <td>
+                                                    <button name="edit" onClick={() => handleEditOneAttendance(attendance.id)}>/</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }) : ''
 
 
-                </form>
 
+                            }
+
+                        </tbody >
+                    </table>
+                </div>
             </div>
 
-            <div className='attendance-list__list'>
-
-                <table className="attendance-list__list__table">
-                    <thead >
-                        <tr>
-                            <th></th>
-                            <th>Day</th>
-                            <th>Stamp Type</th>
-                            <th>Time</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {
-                            // dayAttendancies[0]?.stamp_action?.name &&
-                            dayAttendancies.length > 0 ?
-                                dayAttendancies.map((attendance) => {
-
-                                    return (
-
-                                        <tr key={attendance.id}>
-                                            <td>
-                                                <button name="delete" onClick={() => handleDeleteOneAttendance(attendance.id)}>-</button>
-                                            </td>
-                                            <td>{attendance.date}</td>
-
-                                            <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>
-
-                                            {/* <td>{attendance.stamp_action_id}</td> */}
-
-                                            <td>{attendance.time}</td>
-
-                                            <td>
-                                                <button name="edit" onClick={() => handleEditOneAttendance(attendance.id)}>/</button>
-                                            </td>
-                                        </tr>
-                                    )
-                                }) : ''
-
-
-
-                        }
-
-                    </tbody >
-                </table>
-            </div>
-        </div>
+            <ClientFooter />
+        </>
     )
 }

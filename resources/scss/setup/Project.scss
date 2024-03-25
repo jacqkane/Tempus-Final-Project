@@ -1,3 +1,76 @@
-.projects {
-    color: yellowgreen;
+$darkGrey: #393E42;
+$bluegrey: #87afc4;
+$green: #9c3;
+
+// Define font family
+$font-sans: 'Open Sans', sans-serif;
+
+// Define styles for container
+.container {
+  font-family: $font-sans;
+  color: $darkGrey;
+  background-color: $bluegrey;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Define styles for form
+form {
+  margin-bottom: 20px;
+
+  // Define styles for input group
+  .input-group {
+    margin-bottom: 10px;
+
+    // Define styles for label
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    // Define styles for input
+    input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid $darkGrey;
+      box-sizing: border-box;
+    }
+  }
+}
+
+// Define styles for button
+.button {
+  background-color: $green;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+// Define styles for project list
+.project-list {
+  list-style-type: none;
+  padding: 0;
+
+  // Define styles for project item
+  .project-item {
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+
+    // Define styles for delete button
+    .delete-button {
+      background-color: $green;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
 }
