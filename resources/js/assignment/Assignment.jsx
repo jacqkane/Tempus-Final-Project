@@ -15,10 +15,11 @@ export default function Assignment() {
     const [selectedDate, setSelectedDate] = useState('')
     // const [calculatedWorkingTimeInMinutes, setCalculatedWorkingTimeInMinutes] = useState(null)
     const [refreshList, setRefreshList] = useState(0);
-    const [editFormId,setEditFormId]=useState(0)
+
+    const [editFormId, setEditFormId] = useState(0)
     const [dayEntries, setDayEntries] = useState([]);
 
-
+    console.log(selectedDate);
 
 
     // current date has to be set here newly
@@ -53,9 +54,9 @@ export default function Assignment() {
         <ClientHeader />
         <div className='assignment'>
             <DropDownMenu selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-            <WorkingTimeBar selectedDate={selectedDate} refreshList={refreshList} dayEntries={dayEntries} />
-            <EntryForm selectedDate={selectedDate} refreshList={refreshList} setRefreshList={setRefreshList} editFormId={editFormId} setEditFormId={setEditFormId}/>
-            <AssignmentList selectedDate={selectedDate} refreshList={refreshList} setEditFormId={setEditFormId} dayEntries={dayEntries} setDayEntries={setDayEntries} />
+            <WorkingTimeBar selectedDate={selectedDate} dayEntries={dayEntries} />
+            <EntryForm selectedDate={selectedDate} refreshList={refreshList} setRefreshList={setRefreshList} editFormId={editFormId} setEditFormId={setEditFormId} />
+            <AssignmentList selectedDate={selectedDate} refreshList={refreshList} setRefreshList={setRefreshList} setEditFormId={setEditFormId} dayEntries={dayEntries} setDayEntries={setDayEntries} />
 
             {/* {
                 !user && (
