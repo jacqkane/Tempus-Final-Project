@@ -211,10 +211,10 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
                 <div className="entry-form__form__first-row">
                     <div className="entry-form__form__first-row__input-group">
                         <label htmlFor="project_number">Project Number</label>
-                        <select name="project_number" id="project_number" onChange={handleChange}>
+                        <select name="project_number" id="project_number" value={entryValues.project_number} onChange={handleChange}>
 
 
-                            <option value={entryValues.project_number}>{entryValues.project_number}</option>
+                            <option value={0}>Select</option>
 
                             {
                                 allProjectNumbers.map((project) => {
@@ -227,8 +227,8 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
                     </div>
                     <div className="entry-form__form__first-row__input-group">
                         <label htmlFor="rfq_number">RfQ Number</label>
-                        <select name="rfq_number" id="rfq_number" onChange={handleChange}>
-                            <option value={entryValues.rfq_number} >{entryValues.rfq_number}</option>
+                        <select name="rfq_number" id="rfq_number" value={entryValues.rfq_number} onChange={handleChange}>
+                            <option value={0} >Select</option>
                             {
                                 allRfqNumbers.map((rfq_number) => {
                                     return <option key={rfq_number} value={rfq_number}>{rfq_number}</option>
@@ -238,8 +238,8 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
                     </div>
                     <div className="entry-form__form__first-row__input-group" >
                         <label htmlFor="cost_group_code">Type Code</label>
-                        <select name="cost_group_code" id="cost_group_code" onChange={handleChange}>
-                            <option value={entryValues.cost_group_code}>{entryValues.cost_group_code}</option>
+                        <select name="cost_group_code" id="cost_group_code" value={entryValues.cost_group_code} onChange={handleChange}>
+                            <option value={0}>Select</option>
                             {
                                 allCostGroupCodes.map((code) => {
                                     return <option key={code} value={code}>{code}</option>
