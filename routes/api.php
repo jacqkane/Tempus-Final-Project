@@ -5,6 +5,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CostGroupController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RfqController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkingTimeAssignmentController;
@@ -24,7 +26,7 @@ use App\Http\Controllers\WorkingTimeAssignmentController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user = $request->user();
-    $user->roles = $user->getRoleNames();
+    $user->role = $user->getRoleNames();
 
     return $user;
 });
@@ -44,6 +46,8 @@ Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
 Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+Route::get('/roles', [RoleController::class, 'getRoles']);
+Route::post('/add/user', [UserController::class, 'store']);
 
 // We need to have a route for login - something like:
 // Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login'); ***or***

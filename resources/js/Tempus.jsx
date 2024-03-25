@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
+import Context from './Context.js';
 
 
 export default function ReactAppName() {
@@ -9,9 +10,8 @@ export default function ReactAppName() {
         <>
             <App />
         </>
-    )
+    )   
 }
-
 const container = document.getElementById('tempus');
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container); 
 root.render(<ReactAppName />);
