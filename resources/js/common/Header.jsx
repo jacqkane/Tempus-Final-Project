@@ -1,33 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import '/resources/scss/common/Header.scss'
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import Context from '../Context';
 import Logo from '/public/logo/logo.png';
 
 export default function Header() {
     const [status, setStatus] = useState('close');
-    const navigate = useNavigate();
-    const { getUser } = useContext(Context)
-
-    // const logout = async () => {
-    //     try {
-    //         const response = await axios.post('/logout');
-    //         const response_data = response.data;
-    //     } catch (error) {
-    //         switch (error.response.status) {
-    //             case 422:
-    //                 console.log('VALIDATION FAILED:', error.response.data.errors);
-    //                 break;
-    //             case 500:
-    //                 console.log('UNKNOWN ERROR', error.response.data);
-    //                 break;
-    //         }
-    //     }
-    //     getUser();
-    //     navigate('/')
-    // }
 
 const toggleMenu = () => {
     setStatus(status === 'open' ? 'close' : 'open')

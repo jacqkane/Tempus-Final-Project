@@ -4,8 +4,9 @@ import Context from '../Context';
 import DropDownMenu from './DropDownMenu';
 import WorkingTimeBar from './WorkingTimeBar';
 import EntryForm from './EntryForm';
-
 import AssignmentList from './AssignmentList';
+import ClientHeader from '../common/ClientHeader';
+import ClientFooter from '../common/ClientFooter';
 
 
 export default function Assignment() {
@@ -48,6 +49,8 @@ export default function Assignment() {
 
 
     return (
+        <>
+        <ClientHeader />
         <div className='assignment'>
             <DropDownMenu selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
             <WorkingTimeBar selectedDate={selectedDate} refreshList={refreshList} dayEntries={dayEntries} />
@@ -100,5 +103,7 @@ export default function Assignment() {
                 )
             } */}
         </div>
+        <ClientFooter />
+        </>
     );
 }

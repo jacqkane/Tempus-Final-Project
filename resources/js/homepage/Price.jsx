@@ -40,7 +40,7 @@ export default function Price () {
             <div className='price-details'>
                 <p>Total price: {totalPrice} €</p>
                 <div className='buttons'>
-                    <button><Link to="/contact">more information!</Link></button>
+                    <button><a href="#contact">more information!</a></button>
                     <button><Link to="/register">Try it!</Link></button>
                 </div>
             </div>

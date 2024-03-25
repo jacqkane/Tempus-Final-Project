@@ -1,6 +1,8 @@
 import '/resources/scss/setup/Project.scss';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ClientHeader from '../common/ClientHeader';
+import ClientFooter from '../common/ClientFooter';
 
 const ProjectForm = ({ onSubmit, initialValues }) => {
   const [projectData, setProjectData] = useState(initialValues || {});
@@ -117,6 +119,8 @@ function ProjectManagement() {
     };
 
     return (
+      <>
+      <ClientHeader />
         <div>
             <ProjectForm onSubmit={handleFormSubmit} />
 
@@ -133,6 +137,8 @@ function ProjectManagement() {
                 </ul>
             </div>
         </div>
+        <ClientFooter />
+        </>
     );
 }
 
