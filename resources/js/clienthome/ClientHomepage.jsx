@@ -1,12 +1,17 @@
+import ClientFooter from "../common/ClientFooter";
+import ClientHeader from "../common/ClientHeader";
 import Logout from "../homepage/Logout";
+import AddUser from "./AddUser";
 
 
 function ClientHomepage() {
 
     return ( 
         <>
-        <div>ahoj</div>
+        <ClientHeader />
+        <AddUser />
         <Logout />
+        <ClientFooter />
         </>
      );
 }

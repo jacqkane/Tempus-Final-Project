@@ -1,0 +1,56 @@
+$new-user-background-color: #f4f4f4;
+$button-hover-color: lighten(#9c3, 10%);
+$border-color: #393e42;
+$primary-green-color: #9c3;
+$primary-grey-color: #393e42;
+$white-color: #fff;
+
+.new-user {
+  background-color: $new-user-background-color;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  h2 {
+    color: $primary-grey-color;
+    text-align: center;
+  }
+
+  .add-user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input, select {
+      width: 80%;
+      padding: 10px;
+      margin: 1rem;
+      border: 1px solid $border-color;
+      border-radius: 10px;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-green-color;
+      }
+    }
+
+    button {
+      width: 50%;
+      padding: 10px 0;
+      background-color: $primary-green-color;
+      color: $white-color;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+      transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+
+      &:hover {
+        background-color: $button-hover-color;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
