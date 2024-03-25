@@ -6,7 +6,8 @@ import Context from "./Context.js";
 import reducer from "./reducer.js";
 import Header from "./common/Header.jsx";
 import Footer from "./common/Footer.jsx";
-import Attendance from "./attendance/Attendance.jsx";
+import AttendanceActions from "./attendance/AttendanceActions.jsx";
+import AttendanceList from "./attendance/AttendanceList.jsx";
 import Assignment from "./assignment/Assignment.jsx";
 import Report from "./reports/Report.jsx";
 import Setup from "./setup/Setup.jsx";
@@ -83,7 +84,8 @@ export default function App() {
                                 contextObject.role != "admin" ?<> */}
                     {/* should be accessible for loged-in users */}
                     <Route path="/client" element={<ClientHomepage />} />
-                    <Route path="/attendance" element={<Attendance />} />
+                    <Route path="/attendance-actions" element={<AttendanceActions />} />
+                    <Route path="/attendance-list" element={<AttendanceList />} />
                     <Route path="/assignment" element={<Assignment />} />
                     <Route path="/report" element={<Report />} />
                     {/* </> : */}

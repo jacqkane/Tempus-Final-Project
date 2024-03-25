@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import '/resources/scss/assignment/AssignmentList.scss';
-import { useNavigate } from 'react-router-dom';
 
 
 
-export default function AssignmentList({ selectedDate, refreshList, setEditFormId, dayEntries, setDayEntries }) {
-    const navigate = useNavigate();
+
+export default function AssignmentList({ selectedDate, refreshList, setRefreshList, setEditFormId, dayEntries, setDayEntries }) {
+
     // const [dayEntries, setDayEntries] = useState([]);
 
 
@@ -17,6 +17,7 @@ export default function AssignmentList({ selectedDate, refreshList, setEditFormI
     //     : console.log('Loading');
 
     const getEntriesSelectedDay = async () => {
+
         try {
             const response = await axios.post('http://www.tempus.test/api/assignment/dayEntries', {
                 'day': selectedDate
@@ -33,6 +34,7 @@ export default function AssignmentList({ selectedDate, refreshList, setEditFormI
                     break;
             }
         }
+
     }
 
 
@@ -42,6 +44,7 @@ export default function AssignmentList({ selectedDate, refreshList, setEditFormI
     }, [selectedDate, refreshList])
 
     const deleteEntry = async (id) => {
+
         try {
             const response = await axios.post('http://www.tempus.test/api/assignment/delete-entry', {
                 'id': id
@@ -60,6 +63,11 @@ export default function AssignmentList({ selectedDate, refreshList, setEditFormI
         }
         getEntriesSelectedDay();
 
+        if (refreshList == 0) {
+            setRefreshList(1)
+        } else {
+            setRefreshList(0)
+        }
     }
 
 
