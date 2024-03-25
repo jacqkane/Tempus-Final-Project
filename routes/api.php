@@ -6,12 +6,9 @@ use App\Http\Controllers\CostGroupController;
 use App\Http\Controllers\InternalAttendanceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RfqController;
-<<<<<<< HEAD
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-=======
 use App\Http\Controllers\StampActionController;
->>>>>>> main
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkingTimeAssignmentController;
