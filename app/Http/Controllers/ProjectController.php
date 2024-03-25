@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return response()->json($project);
     }
 
     /**
@@ -46,16 +47,22 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $validatedData = $request->validate([
-            'project_number' => 'required|string',
-            'project_name' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'project_number' => 'string',
+                'project_name' => 'string',
+                'start_date' => 'date',
+                'end_date' => 'date',
+            ]);
 
-        $project->update($validatedData);
+            Log::info('Request Payload:', $validatedData);
+            $project->update($validatedData);
 
-        return response()->json($project, 200);
+            return response()->json($project, 200);
+        } catch (\Exception $e) {
+            Log::error('Error updating project:', ['error' => $e->getMessage()]);
+            return response()->json(['error' => 'An error occurred while updating the project.'], 500);
+        }
     }
 
     public function destroy(Project $project)

@@ -43,6 +43,7 @@ class WorkingTimeAssignmentController extends Controller
         $rfq_selected = Rfq::where('rfq_number', 'like', $rfq_number)->first();
         $cost_group_code_selected = CostGroup::where('cost_group_code', 'like', $cost_group_code)->first();
 
+
         if ($id == 0) {
             $assignment_new = new WorkingTimeAssignment;
             $assignment_new->user_id = auth()->user()->id;
