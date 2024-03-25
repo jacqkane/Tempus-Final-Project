@@ -13,7 +13,7 @@ export default function AttendanceList() {
     const [allStampTypes, setAllStampTypes] = useState([]);
     const [attendanceData, setAttendanceData] = useState([]);
 
-    console.log(attendanceData);
+
 
     const [entryValues, setEntryValues] = useState({
         internal_attendance_id: 0,
@@ -36,13 +36,10 @@ export default function AttendanceList() {
         });
     }
 
-    const initialSetup = () => {
+    // initial setup
+    useEffect(() => {
         setSelectedDate(currentDate);
         getAllStampTypes();
-    }
-
-    useEffect(() => {
-        initialSetup();
     }, [currentDate])
 
 
@@ -52,7 +49,6 @@ export default function AttendanceList() {
                 'day': selectedDate
             });
             const response_data = await response.data;
-
             setDayAttendancies(response_data);
 
         } catch (error) {
@@ -66,15 +62,17 @@ export default function AttendanceList() {
             }
         }
     }
-
+    //load automatically when new day is selected
     useEffect(() => {
         loadDayAttendancies();
     }, [selectedDate])
 
+    //sets new selelected day according to date selection bar
     const handleDateSelection = (e) => {
         setSelectedDate(e.target.value)
     }
 
+    // getting all stamp action types for selection drop down menu
     const getAllStampTypes = async () => {
         try {
             const response = await axios.get('http://www.tempus.test/api/attendance/all-stamp-types');
@@ -110,9 +108,9 @@ export default function AttendanceList() {
 
         try {
             const response = await axios.post('http://www.tempus.test/api/attendance/entry', entryValues);
+            const response_data = await response.data;
             resetEntryValues()
             loadDayAttendancies()
-            const response_data = await response.data;
 
         } catch (error) {
             switch (error.response.status) {
@@ -127,18 +125,13 @@ export default function AttendanceList() {
     }
 
 
-
-    const handleDeleteOneAttendance = (id) => {
-        deleteAttendanceEntry(id);
-    }
-
-    const deleteAttendanceEntry = async (id) => {
-
+    // deletion of one attendace entry according to attendance_id which shall be set
+    const handleDeleteOneAttendance = async (id) => {
         try {
             const response = await axios.post('http://www.tempus.test/api/attendance/delete-entry', {
                 'id': id
             });
-            // const response_data = await response.data;
+            const response_data = await response.data;
 
         } catch (error) {
             switch (error.response.status) {
@@ -153,18 +146,15 @@ export default function AttendanceList() {
         loadDayAttendancies();
     }
 
-    const handleEditOneAttendance = (id) => {
-        loadAttendanceDataForEdit(id);
 
-    }
-
-    const loadAttendanceDataForEdit = async (id) => {
+    const handleEditOneAttendance = async (id) => {
 
         try {
             const response = await axios.post('http://www.tempus.test/api/attendace/edit-query', {
                 'internal_attendance_id': id
             });
             const response_data = await response.data;
+
             setAttendanceData(response_data);
 
         } catch (error) {
@@ -219,8 +209,9 @@ export default function AttendanceList() {
 
                         <div className="form__row__input-group">
                             <label htmlFor="stamp_action_name">Stamp Type</label>
-                            <select name="stamp_action_name" id="stamp_action_name" onChange={handleFormChange}>
-                                <option value={entryValues.stamp_action_name}>{entryValues.stamp_action_name}</option>
+                            <select name="stamp_action_name" id="stamp_action_name" value={entryValues.stamp_action_name} onChange={handleFormChange}>
+                                {/* <option value={entryValues.stamp_action_name}>{entryValues.stamp_action_name}</option> */}
+                                <option value={0}>{'select'}</option>
                                 {
                                     allStampTypes.map((code) => {
                                         return <option key={code} value={code}>{code}</option>
@@ -240,9 +231,6 @@ export default function AttendanceList() {
 
             </div>
 
-
-
-
             <div className='attendance-list__list'>
 
                 <table className="attendance-list__list__table">
@@ -258,25 +246,32 @@ export default function AttendanceList() {
 
                     <tbody>
                         {
-                            dayAttendancies[0]?.id &&
+                            // dayAttendancies[0]?.stamp_action?.name &&
+                            dayAttendancies.length > 0 ?
+                                dayAttendancies.map((attendance) => {
 
-                            dayAttendancies.map((attendance) => {
+                                    return (
 
-                                return (
-                                    <tr key={attendance.id}>
-                                        <td>
-                                            <button name="delete" onClick={() => handleDeleteOneAttendance(attendance.id)}>-</button>
-                                        </td>
-                                        <td>{attendance.date}</td>
-                                        <td>{attendance.stamp_action.name}</td>
-                                        <td>{attendance.time}</td>
+                                        <tr key={attendance.id}>
+                                            <td>
+                                                <button name="delete" onClick={() => handleDeleteOneAttendance(attendance.id)}>-</button>
+                                            </td>
+                                            <td>{attendance.date}</td>
 
-                                        <td>
-                                            <button name="edit" onClick={() => handleEditOneAttendance(attendance.id)}>/</button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
+                                            <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>
+
+                                            {/* <td>{attendance.stamp_action_id}</td> */}
+
+                                            <td>{attendance.time}</td>
+
+                                            <td>
+                                                <button name="edit" onClick={() => handleEditOneAttendance(attendance.id)}>/</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                }) : ''
+
+
 
                         }
 

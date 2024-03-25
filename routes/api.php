@@ -26,6 +26,7 @@ use App\Models\StampAction;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user = $request->user();
     $user->role = $user->getRoleNames()[0];
+    // $user->roles = $user->getRoleNames();
 
     return $user;
 });
@@ -46,5 +47,3 @@ Route::post('/attendance/day-attendancies', [InternalAttendanceController::class
 Route::get('/attendance/all-stamp-types', [StampActionController::class, 'index']);
 Route::post('/attendance/delete-entry', [InternalAttendanceController::class, 'deleteAttendanceEntryById']);
 Route::post('/attendace/edit-query', [InternalAttendanceController::class, 'getAttendanceEntryById']);
-
-

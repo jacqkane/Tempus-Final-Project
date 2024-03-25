@@ -42,12 +42,14 @@ class InternalAttendanceController extends Controller
             //new entry
             $attendance_new = new InternalAttendance();
             $attendance_new->user_id = $user_id;
-            $attendance_new->stamp_action_id = $stamp_action_id;
+            $attendance_new->stamp_action_id = $stamp_selected->id;
             $attendance_new->date = $date;
             $attendance_new->time = $time;
             $attendance_new->save();
         } else {
             //update
+            $stamp_selected = StampAction::where('name', '=', $stamp_action_name)->first();
+
             $attendance_update = InternalAttendance::where('id', '=', $internal_attendance_id)->first();
             $attendance_update->user_id = $user_id;
             $attendance_update->stamp_action_id = $stamp_selected->id;
@@ -58,7 +60,7 @@ class InternalAttendanceController extends Controller
 
         return [
             'message' => 'success',
-            'stamp_id_selected' => $stamp_selected->name,
+            // 'stamp_id_selected' => $stamp_selected->name,
             'date' => $date,
             'time' => $time,
         ];
@@ -77,7 +79,6 @@ class InternalAttendanceController extends Controller
             ->orderBy('time', 'desc')
             ->get();
 
-        return $dayAttendancies;
         return $dayAttendancies;
     }
 
