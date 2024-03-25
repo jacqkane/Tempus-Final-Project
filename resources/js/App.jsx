@@ -16,12 +16,9 @@ import Users from "./setup/Users.jsx";
 import Homepage from "./homepage/Homepage.jsx";
 import Register from "./homepage/Register.jsx";
 import Login from "./homepage/Login.jsx";
-import Features from "./homepage/Features.jsx";
-import Price from "./homepage/Price.jsx";
-import Reviews from "./homepage/Reviews.jsx";
-import Contact from "./homepage/Contact.jsx";
-import MainContent from "./homepage/MainContent.jsx";
 import ClientHomepage from "./clienthome/ClientHomepage.jsx";
+import Contact from "./homepage/Contact.jsx";
+import Features from "./homepage/Features.jsx";
 
 export default function App() {
     const contextObject = {
@@ -69,7 +66,6 @@ export default function App() {
     return (
         <Context.Provider value={{ state, dispatch, getUser }}>
             <BrowserRouter>
-                <Header />
                 {/* her inset Navigation for logged-in user */}
                 <Routes>
                     {/* should be accessible for all people */}
@@ -104,7 +100,6 @@ export default function App() {
                     {/* should be accessible for loged-in users & project-leader role */}
                     {/* <Route path="" element={< />} /> */}
                 </Routes>
-                <Footer />
             </BrowserRouter>
         </Context.Provider>
     );

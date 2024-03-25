@@ -20,7 +20,7 @@ export default function MainContent() {
                 </div>
                 <div className="main-content-buttons">
                     <Link to="/register" className="first-button">Get Started</Link>
-                    <Link to="/features" className="second-button">Learn More</Link>
+                    <a href="#features" className="second-button">Learn More</a>
                 </div>
             </div>
         </section>
