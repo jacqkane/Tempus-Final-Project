@@ -1,6 +1,8 @@
 import '/resources/scss/setup/Project.scss';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ClientHeader from '../common/ClientHeader';
+import ClientFooter from '../common/ClientFooter';
 import ProjectForm from './ProjectForm'; // Assuming ProjectForm is in a separate file
 
 // function ProjectManagement() {
@@ -123,24 +125,24 @@ function ProjectManagement() {
     }
    };
 
-  return (
-      <div>
-          <ProjectForm onSubmit={handleFormSubmit} initialValues={editingProject} />
+    return (
+        <div>
+            <ProjectForm onSubmit={handleFormSubmit} />
 
-          <div>
-              <h2>Preexisting Projects</h2>
-              <ul className='project_list'>
-                  {projects.map(project => (
-                      <li key={project.id}>
-                          {project.project_number} - {project.project_name}
-                          <button onClick={() => handleEditProject(project.id)}>Edit</button>
-                          <button onClick={() => handleDeleteProject(project.id)}>Delete</button>
-                      </li>
-                  ))}
-              </ul>
-          </div>
-      </div>
-  );
+            <div>
+                <h2>Preexisting Projects</h2>
+                <ul className='project_list'>
+                    {projects.map(project => (
+                        <li key={project.id}>
+                            {project.project_number} - {project.project_name}
+                            <button onClick={() => handleEditProject(project.id)}>Edit</button>
+                            <button onClick={() => handleDeleteProject(project.id)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
 }
 
 export default ProjectManagement;

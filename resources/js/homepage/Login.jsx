@@ -4,7 +4,9 @@ import "/resources/scss/homepage/Login.scss";
 import axios from "axios";
 import Context from "../Context";
 import Icon from "@mdi/react";
-import { mdiDomain, mdiRename, mdiEmail, mdiLock, mdiLockCheck } from "@mdi/js";
+import { mdiEmail, mdiLock } from "@mdi/js";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
 
 export default function Login(props) {
     const navigate = useNavigate();
@@ -48,6 +50,8 @@ export default function Login(props) {
     };
 
     return (
+        <>
+        <Header />
         <section className="login">
             <h1>Login</h1>
             <form action="/login" method="post" onSubmit={handleSubmit}>
@@ -95,5 +99,7 @@ export default function Login(props) {
                 </p>
             </form>
         </section>
+        <Footer />
+        </>
     );
 }

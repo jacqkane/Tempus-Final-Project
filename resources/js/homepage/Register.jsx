@@ -5,6 +5,8 @@ import "/resources/scss/homepage/Registration.scss";
 import axios from "axios";
 import Icon from "@mdi/react";
 import { mdiDomain, mdiRename, mdiEmail, mdiLock, mdiLockCheck } from "@mdi/js";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
 
 export default function Register(props) {
     const navigate = useNavigate();
@@ -52,6 +54,7 @@ export default function Register(props) {
 
     return (
         <>
+        <Header />
         <section className="registration">
             <h1>Registration</h1>
             <form action="/register" method="post" onSubmit={handleSubmit}>
@@ -146,6 +149,7 @@ export default function Register(props) {
                 <p>Do you have already account? <Link to='/login'>Login</Link></p>
             </form>
             </section>
+            <Footer />
         </>
     );
 }

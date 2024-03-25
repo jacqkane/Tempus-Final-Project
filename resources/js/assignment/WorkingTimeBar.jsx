@@ -4,9 +4,10 @@ import '/resources/scss/assignment/WorkingTimeBar.scss'
 import { convertNetWorkingTimeToMinutes } from '/resources/js/common/dateTimeConversion.js';
 
 
-export default function WorkingTimeBar({ selectedDate, refreshList, dayEntries }) {
-    const [loadedAssignedTime, setLoadedAssignedTime] = useState(false);
-    const [loadedWorkingTime, setLoadedWorkingTime] = useState(false);
+export default function WorkingTimeBar({ selectedDate, dayEntries }) {
+
+    const [calculateRestTime, setCalculateRestTime] = useState(0);
+    const [calculated, setCalculated] = useState(false);
 
     const [calculatedWorkingTimeInMinutes, setCalculatedWorkingTimeInMinutes] = useState(0);
     const [assignedSumMinutes, setAssignedSumMinutes] = useState(0);
@@ -16,15 +17,11 @@ export default function WorkingTimeBar({ selectedDate, refreshList, dayEntries }
     const [assignedSumformatted, setAssignedSumformatted] = useState('');
     const [restToAssignformatted, setRestToAssignformatted] = useState('');
 
-
-    const [toRender, setToRender] = useState(0)
-
-    console.log(calculatedWorkingTimeInMinutes);
-    console.log(assignedSumMinutes);
-    console.log(restToAssignMinutes);
+    const [assignedBarWidth, setAssignedBarWidth] = useState(0);
+    const [progressBarColor, setProgressBarColor] = useState('#99cc33');
 
     const loadCalculatedWorkingTime = async () => {
-        setLoadedWorkingTime(false);
+
         // const response = await fetch('/api/calculatedAttendances/' + user.id + '/date/' + selectedDate)
         const response = await fetch('/api/calculatedAttendances/' + '23' + '/date/' + '2024-01-27')
         const data = await response.json();
@@ -35,17 +32,22 @@ export default function WorkingTimeBar({ selectedDate, refreshList, dayEntries }
         setCalculatedWorkingTimeInMinutes(timeToMinutes);
         //conversion to output format
         setCalculatedWorkingTimeformatted(convertMinutesToTimeHHmm(timeToMinutes));
-        setLoadedWorkingTime(true);
+
+        //toggle for calculation of Rest Time
+        if (calculateRestTime == 0) {
+            setCalculateRestTime(1);
+        } else {
+            setCalculateRestTime(0);
+        };
+
     }
-    // will be updated when day changes
+    // will be updated when day change ... in future if entry value changes, then event also must be triggered
     useEffect(() => {
         loadCalculatedWorkingTime();
     }, [selectedDate])
 
 
-
     const calculateDayEntriesMinutes = () => {
-        setLoadedAssignedTime(false)
         let sumMinutes = 0;
         dayEntries.map((elem) => {
             const elemMinutes = convertNetWorkingTimeToMinutes(elem.working_time_assigned);
@@ -53,33 +55,82 @@ export default function WorkingTimeBar({ selectedDate, refreshList, dayEntries }
         });
         setAssignedSumMinutes(sumMinutes);
         setAssignedSumformatted(convertMinutesToTimeHHmm(sumMinutes));
-        setLoadedAssignedTime(true)
+        //toggle for calculation of Rest Time
+        if (calculateRestTime == 0) {
+            setCalculateRestTime(1);
+        } else {
+            setCalculateRestTime(0);
+        };
     }
-    // will be updated when day entries are refreshed
     useEffect(() => {
         calculateDayEntriesMinutes();
     }, [dayEntries])
 
 
-
-
     const calculateRestToAssignMinutes = () => {
+        setCalculated(false);
         const delta = calculatedWorkingTimeInMinutes - assignedSumMinutes;
         setrestToAssignMinutes(delta);
         setRestToAssignformatted(convertMinutesToTimeHHmm(delta));
-    }
 
+        displayBar();
+
+        setCalculated(true);
+    }
     useEffect(() => {
         calculateRestToAssignMinutes();
-    }, [loadedAssignedTime, loadedWorkingTime])
+    }, [calculateRestTime])
 
+
+    const displayBar = () => {
+
+        const value = Math.floor((assignedSumMinutes / calculatedWorkingTimeInMinutes) * 200);
+
+        if (value <= 0) {
+            setAssignedBarWidth(0);
+        } else if (value > 200) {
+            setAssignedBarWidth(196);
+            setProgressBarColor('#FF0000');
+
+        } else {
+            setAssignedBarWidth(value - 4);
+            setProgressBarColor('#99cc33');
+        }
+
+
+    }
+
+
+    console.log(restToAssignMinutes);
 
     return (
-        <div className="working-time-bar">
-            <div>{'Working Day Total ' + calculatedWorkingTimeformatted}</div>
-            <div>{'Assigned sum ' + assignedSumformatted}</div>
-            <div>{'Delta ' + restToAssignformatted}</div>
-        </div>
+        <div className="working-time">
+            <div className="working-time__total-first-row">
+                <div className="working-time__total-first-row__tag">Total Working Time</div>
+                <div className="working-time__total-first-row__time">{calculatedWorkingTimeformatted}</div>
+            </div>
+
+            <div className="working-time__group">
+                <div className="working-time__group__tag">assigned</div>
+                <div className="working-time__group__assigned-sum">{assignedSumformatted}</div>
+                <div className="working-time__group__bar">
+                    <div className="working-time__group__bar__progress"
+                        style={{
+                            '--assignedWidthstyle': assignedBarWidth + 'px',
+                            '--barColorStyle': progressBarColor
+                        }}>
+                    </div>
+                </div>
+                {
+                    calculated &&
+                    <>
+                        <div className="working-time__group__rest-time" >{restToAssignformatted}</div>
+                        <div className="working-time__group__tag">to assign</div>
+                    </>
+                }
+            </div>
+
+        </div >
 
     )
 }

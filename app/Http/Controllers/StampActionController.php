@@ -12,7 +12,8 @@ class StampActionController extends Controller
      */
     public function index()
     {
-        //
+        $allStampTypes = StampAction::all();
+        return response()->json($allStampTypes);
     }
 
     /**

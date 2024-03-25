@@ -1,7 +1,68 @@
-.working-time-bar {
+.working-time {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     margin: 1rem 0;
+
+    &__total-first-row {
+        color: #393e42;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__time {
+            color: #99cc33;
+            font-weight: 700;
+
+        }
+
+    }
+
+    &__group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0.5rem 0;
+
+        &__tag {
+            color: #393e42;
+        }
+
+        &__assigned-sum {
+            margin: 0 1rem;
+            color: #99cc33;
+            font-weight: 700;
+
+        }
+
+        &__bar {
+            border: 2px solid;
+            border-radius: 0.2rem;
+
+
+            width: 200px;
+            height: 20px;
+
+
+            &__progress {
+
+                width: var(--assignedWidthstyle);
+                height: 16px;
+                border-radius: 0.1rem 0 0 0.1rem;
+                // background-color:#99cc33;
+                background-color: var(--barColorStyle);
+
+            }
+
+
+        }
+
+        &__rest-time {
+            margin: 0 1rem;
+            color: #99cc33;
+            font-weight: 700;
+        }
+
+    }
 }
