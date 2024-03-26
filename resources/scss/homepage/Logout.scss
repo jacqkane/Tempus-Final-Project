@@ -1,0 +1,18 @@
+$primary-green-color: #9c3;
+$primary-grey-color: #393e42;
+$white-color:  #ffffff;
+.logout-button {
+    padding: 10px 20px;
+    background-color: $primary-green-color;
+    color: #fff; 
+    border: 1px solid $primary-grey-color;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: darken($primary-green-color, 10%);
+    }
+}

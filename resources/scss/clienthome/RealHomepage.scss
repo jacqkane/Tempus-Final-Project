@@ -1,0 +1,38 @@
+$primary-green-color: #9c3;
+$primary-grey-color: #393e42;
+$button-hover-color: lighten($primary-green-color, 10%);
+$white-color: #fff;
+
+.main-hompege {
+    margin: 9rem auto;
+  .main-homepage-container-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+
+    padding: 20px;
+
+    .main-homepage-link {
+      margin: 10px 0;
+      
+      a {
+        display: inline-block;
+        background-color: $primary-green-color;
+        color: $white-color;
+        padding: 2rem;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        text-align: center;
+        width: 100%; 
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+          background-color: $button-hover-color;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}

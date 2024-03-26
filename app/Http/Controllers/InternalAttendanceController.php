@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\InternalAttendance;
 use App\Models\StampAction;
+
 use Illuminate\Http\Request;
+use Facades\App\Services\WorkingTimeCalculatorService;
 
 class InternalAttendanceController extends Controller
 {
@@ -58,11 +60,22 @@ class InternalAttendanceController extends Controller
             $attendance_update->update();
         }
 
+        $dayAttendancies = InternalAttendance::query()
+            ->with('stampAction')
+            ->where('user_id', '=', $user_id)
+            ->where('date', '=', $date)
+            ->orderBy('time', 'desc')
+            ->get();
+
+
+        $CalculationResult = WorkingTimeCalculatorService::calculateNetWorkingTime($dayAttendancies);
+
         return [
             'message' => 'success',
-            // 'stamp_id_selected' => $stamp_selected->name,
             'date' => $date,
             'time' => $time,
+            $CalculationResult,
+            $dayAttendancies
         ];
     }
 
