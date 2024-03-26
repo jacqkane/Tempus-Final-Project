@@ -2,9 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import Context from "../Context";
 import axios from "axios";
 import "/resources/scss/clienthome/AddUser.scss";
+import { Navigate, useNavigate } from "react-router-dom";
+import ClientHeader from "../common/ClientHeader";
 
 function AddUser() {
     const { addUser} = useContext(Context)
+    const navigate = useNavigate()
     const [userData, setUserData] = useState({
         name: "",
         email: "",
@@ -15,7 +18,8 @@ function AddUser() {
 
     const fetchRoles = async () => {
         try {
-            const response = await axios.get("api/roles");
+            const response = await axios.get("/api/roles");
+            console.log(response)
             setRoles(response.data);
         } catch (error) {
             console.error("Failed to get role", error);
@@ -39,10 +43,12 @@ function AddUser() {
            console.error('Error creating user', error); 
         }
         setUserData({ name: "", email: "", role: "" });
-    
+        navigate('/homepage')
     };
 
     return (
+        <>
+        <ClientHeader />
         <section className="new-user">
             <h2>Add a new person!</h2>
             <form onSubmit={handleSubmit} className="add-user-form">
@@ -78,6 +84,7 @@ function AddUser() {
                 <button type="submit">Add a new user</button>
             </form>
         </section>
+        </>
     );
 }
 

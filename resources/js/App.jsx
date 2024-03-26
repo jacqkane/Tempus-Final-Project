@@ -19,6 +19,7 @@ import ClientHomepage from "./clienthome/ClientHomepage.jsx";
 import axios from "axios";
 import ResetPassword from "./clienthome/ResetPassword.jsx";
 import RealHomepage from "./clienthome/RealHomepage.jsx";
+import AddUser from "./clienthome/AddUser.jsx";
 
 export default function App() {
     const contextObject = {
@@ -83,6 +84,7 @@ export default function App() {
                     {/* should be accessible for loged-in users */}
                     <Route path="/homepage" element={<RealHomepage />} />
                     <Route path="/client" element={<ClientHomepage />} />
+                    <Route path="/add/user" element={<AddUser />} />
                     <Route path="/password/reset" element={<ResetPassword />} />
                     <Route path="/attendance-actions" element={<AttendanceActions />} />
                     <Route path="/attendance-list" element={<AttendanceList />} />
