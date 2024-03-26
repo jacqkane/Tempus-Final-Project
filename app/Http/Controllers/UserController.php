@@ -7,7 +7,7 @@ use App\Notifications\UserCreatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
+use Auth;
 class UserController extends Controller
 {
     /**
@@ -43,6 +43,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($password);
+        $user->company_id = Auth::user()->company_id;
         $user->save();
 
         $user->assignRole($request->role);
