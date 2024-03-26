@@ -1,61 +1,105 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Context from '../Context';
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "/resources/scss/homepage/Login.scss";
+import axios from "axios";
+import Context from "../Context";
+import Icon from "@mdi/react";
+import { mdiEmail, mdiLock } from "@mdi/js";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
 
 export default function Login(props) {
     const navigate = useNavigate();
-    const { getUser } = useContext(Context)
+    const { getUser } = useContext(Context);
 
     const [values, setValues] = useState({
-        email: '',
-        password: ''
-    })
+        email: "",
+        password: "",
+    });
 
     const handleSubmit = async (event) => {
-
         event.preventDefault();
 
-        // with axios
         try {
-            // make the AJAX request
-            const response = await axios.post('/login', values);
-            // get the (already JSON-parsed) response data
+            const response = await axios.post("/login", values);
             const response_data = response.data;
         } catch (error) {
-            // if the response code is not 2xx (success)
             switch (error.response.status) {
                 case 422:
-                    // handle validation errors here
-                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    console.log(
+                        "VALIDATION FAILED:",
+                        error.response.data.errors
+                    );
                     break;
                 case 500:
-                    console.log('UNKNOWN ERROR', error.response.data);
+                    console.log("UNKNOWN ERROR", error.response.data);
                     break;
             }
         }
         getUser();
-        // navigate('/main')
-    }
+        navigate("/client");
+    };
 
     const handleChange = (event) => {
-        setValues(previous_values => {
-            return ({
+        setValues((previous_values) => {
+            return {
                 ...previous_values,
-                [event.target.name]: event.target.value
-            });
+                [event.target.name]: event.target.value,
+            };
         });
-    }
+    };
 
     return (
-        <form action="/login" method="post" onSubmit={handleSubmit}>
+        <>
+        <Header />
+        <section className="login">
+            <h1>Login</h1>
+            <form action="/login" method="post" onSubmit={handleSubmit}>
+                <div className="form-input">
+                    <span>
+                        <Icon
+                            path={mdiEmail}
+                            title="User Profile"
+                            size={1.4}
+                            color="#393e42"
+                        />
+                    </span>
 
-            <input type="email" name="email" value={values.email} onChange={handleChange} placeholder='email' />
-
-            <input type="password" name="password" value={values.password} onChange={handleChange} placeholder='password' />
-
-            <button>Login</button>
-
-        </form>
+                    <input
+                        type="email"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        placeholder="Email"
+                    />
+                </div>
+                <div className="form-input">
+                    <span>
+                        <Icon
+                            path={mdiLock}
+                            title="User Profile"
+                            size={1.4}
+                            color="#393e42"
+                        />
+                    </span>
+                    <input
+                        type="password"
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        placeholder="Password"
+                    />
+                </div>
+                <div className="btn">
+                    <button>Login</button>
+                </div>
+                <p>
+                    Don't have an account yet?{" "}
+                    <Link to="/register">Register</Link>
+                </p>
+            </form>
+        </section>
+        <Footer />
+        </>
     );
 }

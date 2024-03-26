@@ -12,23 +12,25 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $allProjects = Project::all();
+        return response()->json($allProjects);
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store new project "create" new project.
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'project_number' => 'required|string',
+            'project_name' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ]);
+
+        $project = Project::create($validatedData);
+
+        return response()->json($project, 201);
     }
 
     /**
@@ -40,26 +42,26 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Project $project)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update project or "edit".
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $validatedData = $request->validate([
+            'project_number' => 'required|string',
+            'project_name' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ]);
+
+        $project->update($validatedData);
+
+        return response()->json($project, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return response()->json(null, 204);
     }
 }

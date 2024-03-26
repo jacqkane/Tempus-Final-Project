@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -31,10 +32,28 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+
+        // think of search conditions
+        // found by identification number  (will have to add to db columns)
+        // MyCompany   !== Mycompany
+        $company = Company::where('company_name',$input['company_name'])->first();
+
+        if (!$company) {
+            $company = new Company();
+            // assign values and save in DB
+            $company->company_name = $input['company_name'];
+            $company->save();
+        }
+
+        $user = User::create([
+            'company_id' => $company->id,
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        $user->assignRole('admin');
+
+        return $user;
     }
 }

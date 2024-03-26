@@ -1,9 +1,19 @@
 <?php
 
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CalculatedAttendanceController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CostGroupController;
+use App\Http\Controllers\InternalAttendanceController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RfqController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StampActionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\InternalAttendance;
-use App\Http\Controllers\Api\InternalAttendanceController;
+use App\Http\Controllers\WorkingTimeAssignmentController;
+use App\Models\StampAction;
 
 
 /*
@@ -18,7 +28,37 @@ use App\Http\Controllers\Api\InternalAttendanceController;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    $user = $request->user();
+    $user->role = $user->getRoleNames();
+
+    return $user;
 });
 
-Route::get('/internalAttendance', [InternalAttendanceController::class, 'index']);
+Route::get('/calculatedAttendances/{user_id}/date/{date}', [CalculatedAttendanceController::class, 'showAttendanceByDate']);
+Route::get('/working-time-assignments', [WorkingTimeAssignmentController::class, 'index']);
+Route::post('/assignment/entry', [WorkingTimeAssignmentController::class, 'store']);
+Route::get('/assignment/allProjectNumbers', [ProjectController::class, 'index']);
+Route::get('/assignment/allRfqNumbers', [RfqController::class, 'index']);
+Route::get('/assignment/allCostGroups', [CostGroupController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'sendEmail']);
+Route::post('/assignment/dayEntries', [WorkingTimeAssignmentController::class, 'getSelectedDay']);
+Route::post('/assignment/delete-entry', [WorkingTimeAssignmentController::class, 'deleteEntryById']);
+Route::post('/assignment/edit-query', [WorkingTimeAssignmentController::class, 'getEntryById']);
+
+Route::post('/attendance/entry', [InternalAttendanceController::class, 'store']);
+Route::post('/attendance/day-attendancies', [InternalAttendanceController::class, 'showDay']);
+Route::get('/attendance/all-stamp-types', [StampActionController::class, 'index']);
+Route::post('/attendance/delete-entry', [InternalAttendanceController::class, 'deleteAttendanceEntryById']);
+Route::post('/attendace/edit-query', [InternalAttendanceController::class, 'getAttendanceEntryById']);
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::post('/projects', [ProjectController::class, 'store']);
+Route::get('/projects/{id}', [ProjectController::class, 'show']);
+Route::put('/projects/{id}', [ProjectController::class, 'update']);
+Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+Route::get('/roles', [RoleController::class, 'getRoles']);
+Route::post('/add/user', [UserController::class, 'store']);
+Route::post('/reset/password', [ResetPasswordController::class, 'reset']);
+
+// We need to have a route for login - something like:
+// Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login'); ***or***
+// Route::post('/login', 'Auth\LoginController@login');

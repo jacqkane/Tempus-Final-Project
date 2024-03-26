@@ -12,7 +12,8 @@ class RfqController extends Controller
      */
     public function index()
     {
-        //
+        $allRfqs = Rfq::all();
+        return response()->json($allRfqs);
     }
 
     /**

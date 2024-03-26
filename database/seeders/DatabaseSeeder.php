@@ -22,13 +22,13 @@ class DatabaseSeeder extends Seeder
             CostGroupSeeder::class,
             DivisionSeeder::class,
             GiritonAttendanceSeeder::class,
+            StampActionSeeder::class,
             InternalAttendanceSeeder::class,
             ProjectSeeder::class,
             RfqSeeder::class,
-            RoleSeeder::class,
-            StampActionSeeder::class,
             UserSeeder::class,
-            WorkingTimeAssignmentSeeder::class,
+            // WorkingTimeAssignmentSeeder::class,
+            PermissionsSeeder::class,
         ]);
     }
 }

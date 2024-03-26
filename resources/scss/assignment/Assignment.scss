@@ -1,4 +1,8 @@
 .assignment {
-    color: blue;
-
+    display: flex;
+    height: 80vh;
+    width:100vw;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
 }

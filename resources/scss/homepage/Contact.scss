@@ -1,0 +1,53 @@
+$primary-green-color: #9c3;
+$primary-grey-color: #393e42;
+$white-color: #fff;
+.contact{
+    text-align: center;
+    h2 {
+        color: $primary-green-color;
+    }
+    p {
+        opacity: 0.6;
+        margin-left: 1rem;
+    }
+    form {
+    input {
+        display: block;
+        text-align: center;
+        margin: 1rem auto;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        width: 13rem;
+        border-radius: 10px;
+    }
+
+    textarea {
+        margin-top: 2rem;
+        width: 20rem;
+        height: 7rem;
+        border: 3px solid $primary-grey-color;
+        border-radius: 10px;
+    }
+
+    button {
+        display: block;
+        margin: 2rem auto;
+        color: $white-color;
+        padding: 1.6rem;
+        width: auto;
+        border-radius: 10px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 900;
+        transition: background-color 0.3s, transform 0.2s;
+        background-color: $primary-green-color;
+                border: none;
+                &:hover {
+                    cursor: pointer;
+                    background-color: lighten($primary-green-color, 10%);
+                    transform: translateY(-3px);
+                }
+
+    }
+} 
+}

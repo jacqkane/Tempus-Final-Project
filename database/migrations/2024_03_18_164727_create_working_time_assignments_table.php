@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('working_time_assigned');
             $table->string('comment')->nullable();
             $table->date('date');
-            $table->string('rfq_id')->nullable();
+            $table->foreignId('rfq_id');
             $table->foreignId('approval_status_id');
             $table->timestamps();
         });

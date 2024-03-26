@@ -23,7 +23,6 @@ class UserFactory extends Factory
             'password' => bcrypt('password'), // Hashed password 'password'
             'remember_token' => Str::random(10),
             'company_id' => $this->faker->numberBetween(1, 5), // 5 companies
-            'role_id' => $this->faker->numberBetween(1, 4), // 4 roles
             'division_id' => $this->faker->numberBetween(1, 5), // 5 divisions
         ];
     }

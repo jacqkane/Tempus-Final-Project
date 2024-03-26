@@ -1,40 +1,46 @@
-import axios from 'axios';
+import React, { useState } from 'react';
 import '/resources/scss/common/Header.scss'
-import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import Context from '../Context';
+import { Link, useNavigate } from 'react-router-dom';
+import Logo from '/public/logo/logo.png';
 
 export default function Header() {
+    const [status, setStatus] = useState('close');
 
-    const navigate = useNavigate();
-    const { getUser } = useContext(Context)
-
-    const logout = async () => {
-        try {
-            // make the AJAX request
-            const response = await axios.post('/logout');
-            // get the (already JSON-parsed) response data
-            const response_data = response.data;
-        } catch (error) {
-            // if the response code is not 2xx (success)
-            switch (error.response.status) {
-                case 422:
-                    // handle validation errors here
-                    console.log('VALIDATION FAILED:', error.response.data.errors);
-                    break;
-                case 500:
-                    console.log('UNKNOWN ERROR', error.response.data);
-                    break;
-            }
-        }
-        getUser();
-        // navigate('/main')
-    }
+const toggleMenu = () => {
+    setStatus(status === 'open' ? 'close' : 'open')
+}
 
     return (
-        <div className='header'>
-            Here comes Header
-            <button onClick={logout}>Logout</button>
-        </div>
+        <header className='header'>
+            <div className='logo'>
+                <img src={Logo} alt="Logo of tempus" />
+            </div>
+            <nav>
+                <div
+                    className='burger_menu--container'
+                    role='button'
+                    onClick={toggleMenu}
+                >
+                    <i className={status}></i>
+                    <i className={status}></i>
+                    <i className={status}></i>
+                </div>
+                {status === 'open' && (
+                    <div className='burger-menu-view'>
+                    <ul className='burger-menu-links'>
+                        <li><Link to='/'>Home</Link></li>
+                        <li><a href='#features'>Features</a></li>
+                        <li><a href='#price'>Price</a></li>
+                        <li><a href='#reviews'>Reviews</a></li>
+                        <li><a href='#contact'>Contact us</a></li>
+                        <li><Link to='/register'>Registration</Link></li>
+                        <li><Link to='/login'>Login</Link></li>
+                    </ul>
+                    </div>
+                )}
+            </nav>
+        {/* <button onClick={logout}>Logout</button> */}
+    </header>
+    
     )
 }

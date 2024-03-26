@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\InternalAttendance;
+use App\Models\StampAction;
+
 use Illuminate\Http\Request;
+use Facades\App\Services\WorkingTimeCalculatorService;
 
 class InternalAttendanceController extends Controller
 {
@@ -28,7 +31,98 @@ class InternalAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $internal_attendance_id = $request->input('internal_attendance_id');
+        $stamp_action_id = $request->input('stamp_action_id');
+        $stamp_action_name = $request->input('stamp_action_name');
+        $date = $request->input('date');
+        $time = $request->input('time');
+        $user_id = auth()->user()->id;
+
+        $stamp_selected = StampAction::where('name', '=', $stamp_action_name)->first();
+
+        if ($internal_attendance_id == 0) {
+            //new entry
+            $attendance_new = new InternalAttendance();
+            $attendance_new->user_id = $user_id;
+            $attendance_new->stamp_action_id = $stamp_action_id ? $stamp_action_id : $stamp_selected->id;
+            $attendance_new->date = $date;
+            $attendance_new->time = $time;
+            $attendance_new->save();
+        } else {
+            //update
+            $stamp_selected = StampAction::where('name', '=', $stamp_action_name)->first();
+
+            $attendance_update = InternalAttendance::where('id', '=', $internal_attendance_id)->first();
+            $attendance_update->user_id = $user_id;
+            $attendance_update->stamp_action_id = $stamp_selected->id;
+            $attendance_update->date = $date;
+            $attendance_update->time = $time;
+            $attendance_update->update();
+        }
+
+        $dayAttendancies = InternalAttendance::query()
+            ->with('stampAction')
+            ->where('user_id', '=', $user_id)
+            ->where('date', '=', $date)
+            ->orderBy('time', 'desc')
+            ->get();
+
+
+        $netWorkingTime = WorkingTimeCalculatorService::calculateNetWorkingTime($dayAttendancies);
+
+
+        // return [
+        //     'message' => 'success',
+        //     // 'stamp_id_selected' => $stamp_selected->name,
+        //     'date' => $date,
+        //     'time' => $time,
+        //     'net_working_time' => $netWorkingTime,
+        // ];
+        // return $dayAttendancies;
+        return $netWorkingTime;
+    }
+
+
+    public function showDay(Request $request)
+    {
+        $selectedDay = $request->input('day');
+        $user_id = auth()->user()->id;
+
+        $dayAttendancies = InternalAttendance::query()
+            ->with('stampAction')
+            ->where('user_id', '=', $user_id)
+            ->where('date', '=', $selectedDay)
+            ->orderBy('time', 'desc')
+            ->get();
+
+        return $dayAttendancies;
+    }
+
+
+    public function deleteAttendanceEntryById(Request $request)
+    {
+        $entryAttendanceId = $request->input('id');
+
+        $entryToDelete = InternalAttendance::query()
+            ->where('id', '=', $entryAttendanceId)
+            ->delete();
+
+        return [
+            'message' => $entryAttendanceId . 'deleted',
+            'entryToDelete' => $entryToDelete
+        ];
+    }
+
+    public function getAttendanceEntryById(Request $request)
+    {
+        $internal_attendance_id = $request->input('internal_attendance_id');
+
+        $AttendanceEntryToEdit = InternalAttendance::query()
+            ->with('stampAction')
+            ->where('id', '=', $internal_attendance_id)
+            ->get();
+
+        return $AttendanceEntryToEdit;
     }
 
     /**
