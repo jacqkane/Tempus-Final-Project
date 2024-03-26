@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "/resources/scss/common/Header.scss";
 import { Link } from "react-router-dom";
 import Logo from "/public/logo/logo.png";
+import { LogOut } from "react-feather";
+import Logout from "../homepage/Logout";
 
 function ClientHeader() {
     const [status, setStatus] = useState("close");
@@ -29,28 +31,38 @@ function ClientHeader() {
                     <div className="burger-menu-view">
                         <ul className="burger-menu-links">
                             <li>
-                                <Link to="/attendance">Attendance</Link>
+                                <Link to="/homepage">Homepage</Link>
                             </li>
+                            <hr />
+                            <li>
+                                <Link to="/attendance-actions">Attendance</Link>
+                            </li>
+                            <hr />
                             <li>
                                 <Link to="/assignment">Assignment</Link>
                             </li>
+                            <hr />
                             <li>
                                 <Link to="/report">Report</Link>
                             </li>
+                            <hr />
                             <li>
                                 <Link to="/setup">Set up</Link>
                             </li>
+                            <hr />
                             <li>
                                 <Link to="/projects">Projects</Link>
                             </li>
+                            <hr />
                             <li>
                                 <Link to="/rfqs">RFQS</Link>
                             </li>
+                            <hr />
+                        <Logout />
                         </ul>
                     </div>
                 )}
             </nav>
-            {/* <button onClick={logout}>Logout</button> */}
         </header>
     );
 }

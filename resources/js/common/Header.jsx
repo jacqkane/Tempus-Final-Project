@@ -28,18 +28,23 @@ const toggleMenu = () => {
                 {status === 'open' && (
                     <div className='burger-menu-view'>
                     <ul className='burger-menu-links'>
-                        <li><Link to='/'>Home</Link></li>
-                        <li><a href='#features'>Features</a></li>
-                        <li><a href='#price'>Price</a></li>
-                        <li><a href='#reviews'>Reviews</a></li>
-                        <li><a href='#contact'>Contact us</a></li>
-                        <li><Link to='/register'>Registration</Link></li>
-                        <li><Link to='/login'>Login</Link></li>
+                        <li><Link to='/' onClick={toggleMenu}>Home</Link></li>
+                            <hr />
+                        <li><a href='#features' onClick={toggleMenu}>Features</a></li>
+                        <hr />
+                        <li><a href='#price' onClick={toggleMenu}>Price</a></li>
+                        <hr />
+                        <li><a href='#reviews' onClick={toggleMenu}>Reviews</a></li>
+                        <hr />
+                        <li><a href='#contact' onClick={toggleMenu}>Contact us</a></li>
+                        <hr />
+                        <li><Link to='/register' onClick={toggleMenu}>Registration</Link></li>
+                        <hr />
+                        <li><Link to='/login' onClick={toggleMenu}>Login</Link></li>
                     </ul>
                     </div>
                 )}
             </nav>
-        {/* <button onClick={logout}>Logout</button> */}
     </header>
     
     )

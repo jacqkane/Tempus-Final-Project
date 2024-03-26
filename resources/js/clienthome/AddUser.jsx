@@ -38,7 +38,6 @@ function AddUser() {
         } catch (error) {
            console.error('Error creating user', error); 
         }
-        // await addUser(userData);
         setUserData({ name: "", email: "", role: "" });
     
     };
