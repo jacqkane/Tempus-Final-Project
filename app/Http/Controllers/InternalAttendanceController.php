@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CalculatedAttendance;
 use App\Models\InternalAttendance;
 use App\Models\StampAction;
 
@@ -67,15 +68,39 @@ class InternalAttendanceController extends Controller
             ->orderBy('time', 'desc')
             ->get();
 
-
         $CalculationResult = WorkingTimeCalculatorService::calculateNetWorkingTime($dayAttendancies);
 
+        $calculatedAttendanceEntryId = CalculatedAttendance::query()
+            ->where('user_id', '=', $user_id)
+            ->where('date', '=', $date)
+            ->get();
+
+        if (isset($calculatedAttendanceEntryId[0]->id)) {
+            //update
+            $attendaceCalculated_update = CalculatedAttendance::where('id', '=', $calculatedAttendanceEntryId[0]->id)->first();
+            $attendaceCalculated_update->user_id = $user_id;
+            $attendaceCalculated_update->date = $date;
+            $attendaceCalculated_update->net_working_time = $CalculationResult['netWorkingTimeforDB'];
+            $attendaceCalculated_update->update();
+        } else {
+            //unew entry
+            $attendaceCalculated_new = new CalculatedAttendance();
+            $attendaceCalculated_new->user_id = $user_id;
+            $attendaceCalculated_new->date = $date;
+            $attendaceCalculated_new->net_working_time = $CalculationResult['netWorkingTimeforDB'];
+            $attendaceCalculated_new->save();
+        }
+
+        // return $calculatedAttendanceEntryId[0]->id;
+
         return [
-            'message' => 'success',
-            'date' => $date,
-            'time' => $time,
+            // 'attendaceCalculated_new' => $attendaceCalculated_new ?? 'not set',
+            // 'calculatedAttendanceEntryId' => $calculatedAttendanceEntryId,
+            // 'date' => $date,
+            // 'time' => $time,
+            // $CalculationResult['netWorkingTimeforDB'],
             $CalculationResult,
-            $dayAttendancies
+            // $dayAttendancies,
         ];
     }
 
@@ -85,6 +110,9 @@ class InternalAttendanceController extends Controller
         $selectedDay = $request->input('day');
         $user_id = auth()->user()->id;
 
+
+
+
         $dayAttendancies = InternalAttendance::query()
             ->with('stampAction')
             ->where('user_id', '=', $user_id)
@@ -92,7 +120,13 @@ class InternalAttendanceController extends Controller
             ->orderBy('time', 'desc')
             ->get();
 
-        return $dayAttendancies;
+        $CalculationResult = WorkingTimeCalculatorService::calculateNetWorkingTime($dayAttendancies);
+
+
+        return [
+            'dayAttendancies' => $dayAttendancies,
+            'CalculationResult' => $CalculationResult
+        ];
     }
 
 
@@ -100,14 +134,52 @@ class InternalAttendanceController extends Controller
     {
         $entryAttendanceId = $request->input('id');
 
+        $date = $request->input('date');
+        $user_id = auth()->user()->id;
+
         $entryToDelete = InternalAttendance::query()
             ->where('id', '=', $entryAttendanceId)
             ->delete();
 
-        return [
-            'message' => $entryAttendanceId . 'deleted',
-            'entryToDelete' => $entryToDelete
-        ];
+
+        // sem pis vole
+
+        $dayAttendancies = InternalAttendance::query()
+            ->with('stampAction')
+            ->where('user_id', '=', $user_id)
+            ->where('date', '=', $date)
+            ->orderBy('time', 'desc')
+            ->get();
+
+        $CalculationResult = WorkingTimeCalculatorService::calculateNetWorkingTime($dayAttendancies);
+
+        $calculatedAttendanceEntryId = CalculatedAttendance::query()
+            ->where('user_id', '=', $user_id)
+            ->where('date', '=', $date)
+            ->get();
+
+        if (isset($calculatedAttendanceEntryId[0]->id)) {
+            //update
+            $attendaceCalculated_update = CalculatedAttendance::where('id', '=', $calculatedAttendanceEntryId[0]->id)->first();
+            $attendaceCalculated_update->user_id = $user_id;
+            $attendaceCalculated_update->date = $date;
+            $attendaceCalculated_update->net_working_time = $CalculationResult['netWorkingTimeforDB'];
+            $attendaceCalculated_update->update();
+        } else {
+            //unew entry
+            $attendaceCalculated_new = new CalculatedAttendance();
+            $attendaceCalculated_new->user_id = $user_id;
+            $attendaceCalculated_new->date = $date;
+            $attendaceCalculated_new->net_working_time = $CalculationResult['netWorkingTimeforDB'];
+            $attendaceCalculated_new->save();
+        }
+
+        return $calculatedAttendanceEntryId[0]->id;
+
+        // return [
+        //     'message' => $entryAttendanceId . 'deleted',
+        //     'entryToDelete' => $entryToDelete
+        // ];
     }
 
     public function getAttendanceEntryById(Request $request)

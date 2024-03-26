@@ -51,7 +51,7 @@ export default function AttendanceList() {
                 'day': selectedDate
             });
             const response_data = await response.data;
-            setDayAttendancies(response_data);
+            setDayAttendancies(response_data.dayAttendancies);
 
         } catch (error) {
             switch (error.response.status) {
@@ -111,6 +111,7 @@ export default function AttendanceList() {
         try {
             const response = await axios.post('http://www.tempus.test/api/attendance/entry', entryValues);
             const response_data = await response.data;
+
             resetEntryValues()
             loadDayAttendancies()
 
@@ -130,7 +131,8 @@ export default function AttendanceList() {
     const handleDeleteOneAttendance = async (id) => {
         try {
             const response = await axios.post('http://www.tempus.test/api/attendance/delete-entry', {
-                'id': id
+                'id': id,
+                'date': selectedDate
             });
             const response_data = await response.data;
 
@@ -152,7 +154,8 @@ export default function AttendanceList() {
 
         try {
             const response = await axios.post('http://www.tempus.test/api/attendace/edit-query', {
-                'internal_attendance_id': id
+                'internal_attendance_id': id,
+                'date': selectedDate
             });
             const response_data = await response.data;
 
