@@ -3,146 +3,91 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ClientHeader from '../common/ClientHeader';
 import ClientFooter from '../common/ClientFooter';
-import ProjectForm from './ProjectForm'; // Assuming ProjectForm is in a separate file
-
-// function ProjectManagement() {
-//     const [projects, setProjects] = useState([]);
-//     const [editingProject, setEditingProject] = useState(null);
-
-//     // Fetch preexisting projects from the API endpoint
-//     useEffect(() => {
-//         axios.get('/api/projects')
-//             .then(response => {
-//                 setProjects(response.data);
-//             })
-//             .catch(error => {
-//                 console.error('Error fetching projects:', error);
-//             });
-//     }, []);
-
-//     const handleFormSubmit = () => {
-//         // Update projects list after form submission
-//         axios.get('/api/projects')
-//             .then(response => {
-//                 setProjects(response.data);
-//             })
-//             .catch(error => {
-//                 console.error('Error fetching projects:', error);
-//             });
-//     };
-
-//     const handleEditProject = (projectId) => {
-//         // Set the project to be edited
-//         const projectToEdit = projects.find(project => project.id === projectId);
-//         setEditingProject(projectToEdit);
-//     };
-
-//     const handleDeleteProject = (projectId) => {
-//         // Handle deletion of project with given ID
-//         axios.delete(`/api/projects/${projectId}`)
-//             .then(response => {
-//                 console.log('Project deleted successfully.');
-//                 // Update projects list after deletion
-//                 setProjects(projects.filter(project => project.id !== projectId));
-//             })
-//             .catch(error => {
-//                 console.error('Error deleting project:', error);
-//             });
-//     };
-
-//     return (
-//         <div>
-//             <ProjectForm onSubmit={handleFormSubmit} initialValues={editingProject} />
-
-//             <div>
-//                 <h2>Preexisting Projects</h2>
-//                 <ul className='project_list'>
-//                     {projects.map(project => (
-//                         <li key={project.id}>
-//                             {project.project_number} - {project.project_name}
-//                             <button onClick={() => handleEditProject(project.id)}>Edit</button>
-//                             <button onClick={() => handleDeleteProject(project.id)}>Delete</button>
-//                         </li>
-//                     ))}
-//                 </ul>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default ProjectManagement;
+import ProjectForm from './ProjectForm'; 
 
 function ProjectManagement() {
   const [projects, setProjects] = useState([]);
   const [editingProject, setEditingProject] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const projectsPerPage = 5;
 
-  // Fetch preexisting projects from the API endpoint
   useEffect(() => {
-      axios.get('/api/projects')
-          .then(response => {
-              setProjects(response.data);
-          })
-          .catch(error => {
-              console.error('Error fetching projects:', error);
-          });
+    fetchProjects();
   }, []);
 
-  const handleFormSubmit = async () => {
+  const fetchProjects = async () => {
     try {
-        if (editingProject) {
-            // Update existing project
-            await axios.put(`/api/projects/${editingProject.id}`, editingProject);
-        } else {
-            // Create new project
-            await axios.post('/api/projects', editingProject);
-        }
-        // Refetch projects after submission to update the list
-        const response = await axios.get('/api/projects');
-        setProjects(response.data);
-        // Reset editingProject state after submission
-        setEditingProject(null);
+      const response = await axios.get('/api/projects');
+      setProjects(response.data);
     } catch (error) {
-        console.error('Error:', error);
+      console.error('Error fetching projects:', error);
     }
-};
+  };
+
+  const handleCreateProject = async (formData) => {
+    try {
+      await axios.post('/api/projects', formData);
+      await fetchProjects(); 
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const handleEditProject = (projectId) => {
-    console.log('Editing project with ID', projectId);
-      // Set the project to be edited
-      const projectToEdit = projects.find(project => project.id === projectId);
-      console.log('Project to edit', projectToEdit);
-      setEditingProject(projectToEdit);
+    const projectToEdit = projects.find(project => project.id === projectId);
+    setEditingProject(projectToEdit);
   };
 
   const handleDeleteProject = async (projectId) => {
     try {
-       await axios.delete(`/api/projects/${projectId}`);
-       console.log('Project deleted successfully.');
-       setProjects(projects.filter(project => project.id !== projectId));
+      await axios.delete(`/api/projects/${projectId}`);
+      setProjects(prevProjects => prevProjects.filter(project => project.id !== projectId));
     } catch (error) {
-       console.error('Error deleting project:', error);
-       setError('An error occurred while deleting the project.');
+      console.error('Error deleting project:', error);
     }
-   };
+  };
 
-    return (
-        <div>
-            <ProjectForm onSubmit={handleFormSubmit} />
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+  const initialValues = { project_number: '', project_name: '', start_date: '', end_date: '' };
 
-            <div>
-                <h2>Preexisting Projects</h2>
-                <ul className='project_list'>
-                    {projects.map(project => (
-                        <li key={project.id}>
-                            {project.project_number} - {project.project_name}
-                            <button onClick={() => handleEditProject(project.id)}>Edit</button>
-                            <button onClick={() => handleDeleteProject(project.id)}>Delete</button>
-                        </li>
-                    ))}
-                </ul>
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+return (
+  <div>
+    <ClientHeader />
+    <h2 className='project_title_page'>Project Management</h2>
+    <ProjectForm initialValues={initialValues} onSubmit={handleCreateProject} />
+    <div className='project_list_container'>
+      <h2 className='project_list_title'>Current Projects</h2>
+      <ul className='project_list'>
+        {currentProjects.map(project => (
+          <li className='project_line_items' key={project.id}>
+            <div className='project_name_number'>{project.project_number}   -   {project.project_name}</div>
+            <div className='project_btns'>
+              <button className='project_btn' onClick={() => handleEditProject(project.id)}>Edit Project</button>
+              <button className='project_btn' onClick={() => handleDeleteProject(project.id)}>Delete Project</button>
             </div>
-        </div>
-    );
+          </li>
+        ))}
+      </ul>
+      <div>
+        {projects.length > projectsPerPage && (
+          <div className='paginate_btn_container'>
+            <button className='paginate_btns' onClick={() => paginate(currentPage - 1)}>Previous</button>
+            <button className='paginate_btns' onClick={() => paginate(currentPage + 1)}>Next</button>
+          </div>
+        )}
+      </div>
+    </div>
+    <ClientFooter />
+  </div>
+);
 }
 
 export default ProjectManagement;
+

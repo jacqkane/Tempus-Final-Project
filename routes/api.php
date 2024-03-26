@@ -44,8 +44,15 @@ Route::post('/contact', [ContactController::class, 'sendEmail']);
 Route::post('/assignment/dayEntries', [WorkingTimeAssignmentController::class, 'getSelectedDay']);
 Route::post('/assignment/delete-entry', [WorkingTimeAssignmentController::class, 'deleteEntryById']);
 Route::post('/assignment/edit-query', [WorkingTimeAssignmentController::class, 'getEntryById']);
+
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
 Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+
+Route::get('/rfqs', [RfqController::class, 'index']);
+Route::post('/rfqs', [RfqController::class, 'store']);
+Route::get('/rfqs/{id}', [RfqController::class, 'show']);
+Route::put('/rfqs/{id}', [RfqController::class, 'update']);
+Route::delete('/rfqs/{id}', [RfqController::class, 'destroy']);

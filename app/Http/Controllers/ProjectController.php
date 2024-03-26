@@ -45,28 +45,25 @@ class ProjectController extends Controller
     /**
      * Update project or "edit".
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
-        try {
-            $validatedData = $request->validate([
-                'project_number' => 'string',
-                'project_name' => 'string',
-                'start_date' => 'date',
-                'end_date' => 'date',
-            ]);
+        $project = Project::findOrFail($id);
 
-            Log::info('Request Payload:', $validatedData);
-            $project->update($validatedData);
+        $project->project_name = $request->input('project_name');
+        $project->project_number = $request->input('project_number');
+        $project->start_date = $request->input('start_date');
+        $project->end_date = $request->input('end_date');
 
-            return response()->json($project, 200);
-        } catch (\Exception $e) {
-            Log::error('Error updating project:', ['error' => $e->getMessage()]);
-            return response()->json(['error' => 'An error occurred while updating the project.'], 500);
-        }
+
+        $project->update();
+
+        return response()->json(['message' => 'project updated', 'id' => $project->id]);
     }
 
-    public function destroy(Project $project)
+    public function destroy(Request $request, $id)
     {
+        $project = Project::findOrFail($id);
+
         $project->delete();
 
         return response()->json(null, 204);
