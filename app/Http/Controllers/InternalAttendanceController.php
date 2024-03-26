@@ -12,7 +12,7 @@ class InternalAttendanceController extends Controller
      */
     public function index()
     {
-        //
+      
     }
 
     /**
