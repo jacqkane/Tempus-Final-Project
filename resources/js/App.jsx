@@ -88,7 +88,7 @@ export default function App() {
                     <Route path="/password/reset" element={<ResetPassword />} />
                     <Route path="/attendance-actions" element={<AttendanceActions />} />
                     <Route path="/attendance-list" element={<AttendanceList />} />
-                    <Route path="/assignment" element={<Assignment />} />
+                    <Route path="/assignment" element={<Assignment/>} />
                     <Route path="/report" element={<Report />} />
                     {/* </> : */}
 

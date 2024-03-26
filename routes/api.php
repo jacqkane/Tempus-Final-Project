@@ -62,3 +62,9 @@ Route::post('/rfqs', [RfqController::class, 'store']);
 Route::get('/rfqs/{id}', [RfqController::class, 'show']);
 Route::put('/rfqs/{id}', [RfqController::class, 'update']);
 Route::delete('/rfqs/{id}', [RfqController::class, 'destroy']);
+
+Route::post('/attendance/entry', [InternalAttendanceController::class, 'store']);
+Route::post('/attendance/day-attendancies', [InternalAttendanceController::class, 'showDay']);
+Route::get('/attendance/all-stamp-types', [StampActionController::class, 'index']);
+Route::post('/attendance/delete-entry', [InternalAttendanceController::class, 'deleteAttendanceEntryById']);
+Route::post('/attendace/edit-query', [InternalAttendanceController::class, 'getAttendanceEntryById']);
