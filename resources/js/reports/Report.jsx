@@ -79,7 +79,7 @@ export default function Report() {
         });
     
         const seriesData = Object.entries(projectTimes).map(([projectId, totalTime]) => ({
-            name: projectId,
+            name: `project Id ${projectId}`,
             y: totalTime
         }));
     
@@ -94,7 +94,7 @@ export default function Report() {
             xAxis: {
                 type: 'category',
                 title: {
-                    text: 'Project ID'
+                    text: 'Project Name'
                 }
             },
             yAxis: {

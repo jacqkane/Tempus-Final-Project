@@ -19,6 +19,7 @@ $font-sans: 'Open Sans', sans-serif;
 
     
     .rfq_label {
+      width: 40%;
       display: block;
       margin-bottom: 5px;
     }
@@ -84,6 +85,9 @@ $font-sans: 'Open Sans', sans-serif;
 .rfq_title_page {
   color: #393E42;
   margin-bottom: -2em;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
 }
 
 .rfq_list_title {
