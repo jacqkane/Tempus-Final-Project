@@ -1,3 +1,165 @@
-.rfqs {
-    color: brown;
+$darkGrey: #393E42;
+$bluegrey: #87afc4;
+$green: #9c3;
+
+$font-sans: 'Open Sans', sans-serif;
+
+
+
+.rfq_form {
+  height: 150px;
+  width: 480px;
+  margin: 100px auto;
+
+  
+  .rfq_inputs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    
+    .rfq_label {
+      width: 40%;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    
+    .rfq_input {
+      width: 100%;
+      padding: 8px;
+      margin-left: 10px;
+      border-radius: 4px;
+      border: 1px solid $darkGrey;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.rfq_name_number {
+  width: 80%
+}
+
+.rfq_btns {
+  display: flex;
+}
+
+.rfq_list_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60%;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: -5em;
+}
+
+.rfq_list {
+  justify-content: center;
+}
+
+.rfq_line_items:hover {
+  background-color: #f0f0f0; 
+  border-color: #aaa;
+}
+
+
+.rfq_line_items:hover .project_btn {
+  background-color: #87afc4;  
+}
+
+.rfq_line_items {
+  display: flex;
+  width: 800px;
+  height: 70px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px; 
+  border: 1px solid black; 
+  border-radius: 5px; 
+  transition: border-color 0.3s ease;
+}
+
+.rfq_title_page {
+  color: #393E42;
+  margin-bottom: -2em;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.rfq_list_title {
+  color: #393E42;
+  font-size: large;
+}
+
+.paginate_btn_container {
+  display: flex;
+}
+
+.paginate_btns {
+  display: flex;
+  justify-content: space-between;
+  background-color: $darkGrey;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  display: block; 
+  margin: .5em;
+  cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #87afc4; 
+        }
+}
+
+.rfq_submit_btn {
+  background-color: $green;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  display: block; 
+  margin: 10px auto; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.rfq_submit_btn:hover {
+  background-color: #87afc4; 
+}
+
+
+.rfq_btn {
+  background-color: $green;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  display: block; 
+  margin: 10px;
+  cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #87afc4; 
+        } 
+}
+
+
+.rfq-list {
+  list-style-type: none;
+  padding: 0;
+
+  
+  .rfq-item {
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+  }
 }

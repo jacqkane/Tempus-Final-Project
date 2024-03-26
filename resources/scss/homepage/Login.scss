@@ -3,17 +3,18 @@ $primary-grey-color: #393e42;
 $white-color: #fff;
 
 .login {
-    margin-top: -1rem;
-    margin-bottom: 1rem;
+margin: auto auto;
     h1 {
         text-align: center;
         color: $primary-grey-color;
         font-size: 30px;
     }
     p {
+
         a {
             text-decoration: none;
             color: $primary-green-color;
+            font-size: 1.1rem;
 
             &:hover {
                 cursor: pointer;

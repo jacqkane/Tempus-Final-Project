@@ -41,36 +41,21 @@ export default function Report() {
 
     const customizeChartBackground = (chartOptions) => {
         if (chartOptions.chart) {
-            chartOptions.chart.backgroundColor = {
-                stops: [
-                    [0, '#87afc4'],
-                ]
+            chartOptions.chart.backgroundColor = '#ffffff';
+    
+            chartOptions.plotOptions = {
+                column: {
+                    color: '#9c3'
+                }
             };
-            chartOptions.chart.plotBackgroundColor = '#9c3';
-            chartOptions.chart.plotBorderWidth = 1;
-            chartOptions.colors = '#9c3';
-            
     
-            
-            if (chartOptions.xAxis && !chartOptions.xAxis.labels) {
-                chartOptions.xAxis.labels = {};
-            }
-            if (chartOptions.xAxis.labels) {
-                chartOptions.xAxis.labels.style = {
-                    color: '#ffffff' 
-                };
-            }
-    
-            if (chartOptions.yAxis && !chartOptions.yAxis.labels) {
-                chartOptions.yAxis.labels = {};
-            }
-            if (chartOptions.yAxis.labels) {
-                chartOptions.yAxis.labels.style = {
-                    color: '#ffffff' 
+            if (chartOptions.labels) {
+                chartOptions.labels.style = {
+                    color: '#d3d3d3' 
                 };
             }
         }
-
+    
         return chartOptions;
     };
 
@@ -94,7 +79,7 @@ export default function Report() {
         });
     
         const seriesData = Object.entries(projectTimes).map(([projectId, totalTime]) => ({
-            name: projectId,
+            name: `project Id ${projectId}`,
             y: totalTime
         }));
     
@@ -109,7 +94,7 @@ export default function Report() {
             xAxis: {
                 type: 'category',
                 title: {
-                    text: 'Project ID'
+                    text: 'Project Name'
                 }
             },
             yAxis: {

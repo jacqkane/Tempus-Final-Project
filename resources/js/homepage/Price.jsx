@@ -15,7 +15,7 @@ export default function Price () {
         }
     }
 
-    const pricePerUser = 1.4;
+    const pricePerUser = 6.2;
 
     const totalPrice = Math.round(userCount * pricePerUser)
     return (
@@ -38,15 +38,11 @@ export default function Price () {
                 />
             </div>
             <div className='price-details'>
-                <p>Total price: {totalPrice} €</p>
+                <p title='Price for 1 person is 6.2€'>Total price: {totalPrice} € /month</p>
                 <div className='buttons'>
-                    <button><a href="#contact">more information!</a></button>
-                    <button><Link to="/register">Try it!</Link></button>
+                    <a href="#contact">more information!</a>
+                    <Link to="/register">Try it!</Link>
                 </div>
-            </div>
-
-            <div className="additional-content">
-
             </div>
         </section>
         </>
