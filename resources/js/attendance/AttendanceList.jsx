@@ -40,6 +40,7 @@ export default function AttendanceList() {
 
     // initial setup
     useEffect(() => {
+        
         setSelectedDate(currentDate);
         getAllStampTypes();
     }, [currentDate])
@@ -263,9 +264,7 @@ export default function AttendanceList() {
                                                     </td>
                                                     <td>{attendance.date}</td>
 
-                                                    <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>
-
-                                                    {/* <td>{attendance.stamp_action_id}</td> */}
+                                                    <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>                                                
 
                                                     <td>{attendance.time}</td>
 
@@ -279,7 +278,7 @@ export default function AttendanceList() {
 
                                 </tbody >
                             </table>
-                            : 'Loading...'
+                            : '...'
                     }
                 </div>
             </div>
