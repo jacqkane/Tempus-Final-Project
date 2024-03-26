@@ -68,18 +68,15 @@ class InternalAttendanceController extends Controller
             ->get();
 
 
-        $netWorkingTime = WorkingTimeCalculatorService::calculateNetWorkingTime($dayAttendancies);
+        $CalculationResult = WorkingTimeCalculatorService::calculateNetWorkingTime($dayAttendancies);
 
-
-        // return [
-        //     'message' => 'success',
-        //     // 'stamp_id_selected' => $stamp_selected->name,
-        //     'date' => $date,
-        //     'time' => $time,
-        //     'net_working_time' => $netWorkingTime,
-        // ];
-        // return $dayAttendancies;
-        return $netWorkingTime;
+        return [
+            'message' => 'success',
+            'date' => $date,
+            'time' => $time,
+            $CalculationResult,
+            $dayAttendancies
+        ];
     }
 
 
