@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CalculatedAttendanceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CostGroupController;
@@ -56,6 +57,7 @@ Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
 Route::get('/roles', [RoleController::class, 'getRoles']);
 Route::post('/add/user', [UserController::class, 'store']);
+Route::post('/reset/password', [ResetPasswordController::class, 'reset']);
 
 // We need to have a route for login - something like:
 // Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login'); ***or***
