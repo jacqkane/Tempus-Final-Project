@@ -88,14 +88,14 @@ export default function AssignmentList({ selectedDate, refreshList, setRefreshLi
             <table className="assignment-list__table">
                 <thead >
                     <tr>
-                        <th></th>
+                        <th className="not-visible"></th>
                         <th>Project Number</th>
                         <th>RfQ Number</th>
                         <th>Type Code</th>
                         <th>Assigned Time</th>
                         <th>Comment</th>
                         <th>Approval Status</th>
-                        <th></th>
+                        <th className="not-visible"></th>
                     </tr>
                 </thead>
 
@@ -107,7 +107,7 @@ export default function AssignmentList({ selectedDate, refreshList, setRefreshLi
 
                             return (
                                 <tr key={entry.id}>
-                                    <td>
+                                    <td className="not-visible">
                                         <button name="delete" value={entry.id} onClick={handleDeleteOneEntry}>-</button>
                                     </td>
                                     <td>{entry.project.project_number}</td>
@@ -116,7 +116,7 @@ export default function AssignmentList({ selectedDate, refreshList, setRefreshLi
                                     <td>{entry.working_time_assigned}</td>
                                     <td>{entry.comment}</td>
                                     <td>{entry.approval_status.status_name}</td>
-                                    <td>
+                                    <td className="not-visible" >
                                         <button name="edit" value={entry.id} onClick={handleEditOneEntry}>/</button>
                                     </td>
                                 </tr>

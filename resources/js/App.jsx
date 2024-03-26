@@ -45,10 +45,10 @@ export default function App() {
     //getting current user and storing to state
     const getUser = async () => {
         const response = await axios.get("/api/user");
-        console.log(response);
+
         if (response.status == 200) {
             const currentUser = await response.data;
-            console.log(currentUser);
+
             dispatch({
                 type: "user/set",
                 payload: currentUser,
