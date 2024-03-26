@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Context from "/resources/js/Context.js";
+import '/resources/scss/homepage/Logout.scss'
 
 function Logout() {
     const { getUser, setUser } = useContext(Context);
@@ -25,7 +26,7 @@ function Logout() {
         navigate('/')
     }
     return (
-        <button onClick={logout}>Logout</button>
+        <button onClick={logout} className="logout-button">Logout</button>
     );
 }
 
