@@ -9,6 +9,11 @@ class Rfq extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'rfq_number',
+        'rfq_name',
+    ];
+
     public function workingTimeAssignments()
     {
         return $this->hasMany(WorkingTimeAssignment::class);

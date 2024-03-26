@@ -2,38 +2,32 @@ $darkGrey: #393E42;
 $bluegrey: #87afc4;
 $green: #9c3;
 
-// Define font family
 $font-sans: 'Open Sans', sans-serif;
 
-// Define styles for container
-.container {
-  font-family: $font-sans;
-  color: $darkGrey;
-  background-color: $bluegrey;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 600px;
-  margin: 0 auto;
-}
 
-// Define styles for form
-form {
-  margin-bottom: 20px;
 
-  // Define styles for input group
-  .input-group {
+.project_form {
+  height: 150px;
+  width: 480px;
+  margin: 100px auto;
+
+  
+  .project_inputs {
+    display: flex;
+    justify-content: center;
     margin-bottom: 10px;
 
-    // Define styles for label
-    label {
+    
+    .project_label {
       display: block;
       margin-bottom: 5px;
     }
 
-    // Define styles for input
-    input {
+    
+    .project_input {
       width: 100%;
       padding: 8px;
+      margin-left: 10px;
       border-radius: 4px;
       border: 1px solid $darkGrey;
       box-sizing: border-box;
@@ -41,36 +35,127 @@ form {
   }
 }
 
-// Define styles for button
-.button {
-  background-color: $green;
+.project_name_number {
+  width: 80%
+}
+
+.project_btns {
+  display: flex;
+}
+
+.project_list_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60%;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 2px;
+}
+
+.project_list {
+  justify-content: center;
+}
+
+.project_line_items:hover {
+  background-color: #f0f0f0; 
+  border-color: #aaa;
+}
+
+
+.project_line_items:hover .project_btn {
+  background-color: #87afc4;  
+}
+
+.project_line_items {
+  display: flex;
+  width: 800px;
+  height: 70px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px; 
+  border: 1px solid black; 
+  border-radius: 5px; 
+  transition: border-color 0.3s ease;
+}
+
+.project_title_page {
+  color: #393E42;
+  margin-bottom: -2em;
+}
+
+.project_list_title {
+  color: #393E42;
+  font-size: large;
+}
+
+.paginate_btn_container {
+  display: flex;
+}
+
+.paginate_btns {
+  display: flex;
+  justify-content: space-between;
+  background-color: $darkGrey;
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
+  display: block; 
+  margin: .5em;
   cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #87afc4; 
+        }
 }
 
-// Define styles for project list
+.project_submit_btn {
+  background-color: $green;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  display: block; 
+  margin: 10px auto; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.project_submit_btn:hover {
+  background-color: #87afc4; 
+}
+
+
+.project_btn {
+  background-color: $green;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  display: block; 
+  margin: 10px;
+  cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #87afc4; 
+        } 
+}
+
+
 .project-list {
   list-style-type: none;
   padding: 0;
 
-  // Define styles for project item
+  
   .project-item {
     background-color: #fff;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 4px;
-
-    // Define styles for delete button
-    .delete-button {
-      background-color: $green;
-      color: #fff;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
   }
 }
