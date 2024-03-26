@@ -62,6 +62,8 @@ class WorkingTimeCalculatorService
         $seconds = 0;
         $netWorkingTimeforDB = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
 
+        //getting current status ... to finish
+
         return [
             'netSumBreaksInMinutes' => $netSumBreaksInMinutes,
             'netWorkingTimeInMinutes' => $netWorkingTimeInMinutes,
