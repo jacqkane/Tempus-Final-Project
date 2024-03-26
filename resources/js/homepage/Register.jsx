@@ -40,7 +40,7 @@ export default function Register(props) {
             }
         }
         getUser();
-        // navigate("");
+        navigate("/client");
     };
 
     const handleChange = (event) => {
