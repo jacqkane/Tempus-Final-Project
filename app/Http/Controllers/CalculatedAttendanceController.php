@@ -73,6 +73,5 @@ class CalculatedAttendanceController extends Controller
                 ->get();
         }
         return compact('calculatedAttendance');
-
     }
 }
