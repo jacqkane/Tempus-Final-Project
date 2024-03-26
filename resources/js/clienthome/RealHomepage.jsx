@@ -9,7 +9,12 @@ function RealHomepage() {
     return (
         <>
             <ClientHeader />
-            <section className="main-hompege">
+            <section className="main-homepage">
+                <div className="add-people">
+                <Link to="/add/user">Add user</Link>
+                </div>
+                <h2>Welcome to Your Dashboard</h2>
+                <p>You can choose where you'd like to go from the options below</p>
                 <div className="main-homepage-container-links">
                     <div className="main-homepage-link">
                     <Link to="/attendance-actions">Attendance</Link>
