@@ -235,51 +235,49 @@ export default function AttendanceList() {
                 </div>
 
                 <div className='attendance-list__list'>
+                    {
+                        dayAttendancies.length > 0 ?
 
-                    <table className="attendance-list__list__table">
-                        <thead >
-                            <tr>
-                                <th></th>
-                                <th>Day</th>
-                                <th>Stamp Type</th>
-                                <th>Time</th>
-                                <th></th>
-                            </tr>
-                        </thead>
+                            <table className="attendance-list__list__table">
+                                <thead >
+                                    <tr>
+                                        <th></th>
+                                        <th>Day</th>
+                                        <th>Stamp Type</th>
+                                        <th>Time</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
 
-                        <tbody>
-                            {
-                                // dayAttendancies[0]?.stamp_action?.name &&
-                                dayAttendancies.length > 0 ?
-                                    dayAttendancies.map((attendance) => {
+                                <tbody>
+                                    {
+                                        dayAttendancies.map((attendance) => {
 
-                                        return (
+                                            return (
+                                                <tr key={attendance.id}>
+                                                    <td>
+                                                        <button name="delete" onClick={() => handleDeleteOneAttendance(attendance.id)}>-</button>
+                                                    </td>
+                                                    <td>{attendance.date}</td>
 
-                                            <tr key={attendance.id}>
-                                                <td>
-                                                    <button name="delete" onClick={() => handleDeleteOneAttendance(attendance.id)}>-</button>
-                                                </td>
-                                                <td>{attendance.date}</td>
+                                                    <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>
 
-                                                <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>
+                                                    {/* <td>{attendance.stamp_action_id}</td> */}
 
-                                                {/* <td>{attendance.stamp_action_id}</td> */}
+                                                    <td>{attendance.time}</td>
 
-                                                <td>{attendance.time}</td>
+                                                    <td>
+                                                        <button name="edit" onClick={() => handleEditOneAttendance(attendance.id)}>/</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
 
-                                                <td>
-                                                    <button name="edit" onClick={() => handleEditOneAttendance(attendance.id)}>/</button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    }) : ''
-
-
-
-                            }
-
-                        </tbody >
-                    </table>
+                                </tbody >
+                            </table>
+                            : 'Loading...'
+                    }
                 </div>
             </div>
 
