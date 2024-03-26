@@ -4,8 +4,6 @@ import "/resources/scss/App.scss";
 import { useContext, useEffect, useReducer, useState } from "react";
 import Context from "./Context.js";
 import reducer from "./reducer.js";
-import Header from "./common/Header.jsx";
-import Footer from "./common/Footer.jsx";
 import AttendanceActions from "./attendance/AttendanceActions.jsx";
 import AttendanceList from "./attendance/AttendanceList.jsx";
 import Assignment from "./assignment/Assignment.jsx";
@@ -18,9 +16,8 @@ import Homepage from "./homepage/Homepage.jsx";
 import Register from "./homepage/Register.jsx";
 import Login from "./homepage/Login.jsx";
 import ClientHomepage from "./clienthome/ClientHomepage.jsx";
-import Contact from "./homepage/Contact.jsx";
-import Features from "./homepage/Features.jsx";
 import axios from "axios";
+import ResetPassword from "./clienthome/ResetPassword.jsx";
 
 export default function App() {
     const contextObject = {
@@ -82,6 +79,7 @@ export default function App() {
                                 contextObject.role != "admin" ?<> */}
                     {/* should be accessible for loged-in users */}
                     <Route path="/client" element={<ClientHomepage />} />
+                    <Route path="/password/reset" element={<ResetPassword />} />
                     <Route path="/attendance-actions" element={<AttendanceActions />} />
                     <Route path="/attendance-list" element={<AttendanceList />} />
                     <Route path="/assignment" element={<Assignment />} />
