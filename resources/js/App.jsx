@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, ScrollRestoration } from "react-router-dom";
 import "/resources/scss/App.scss";
 import { useContext, useEffect, useReducer, useState } from "react";
 import Context from "./Context.js";
@@ -64,6 +64,8 @@ export default function App() {
         getUser();
         setCurrentDate();
     }, []);
+
+    
 
     return (
         <Context.Provider value={{ state, dispatch, getUser }}>
