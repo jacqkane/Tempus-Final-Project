@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, ScrollRestoration } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import "/resources/scss/App.scss";
 import { useContext, useEffect, useReducer, useState } from "react";
 import Context from "./Context.js";
@@ -30,6 +30,7 @@ export default function App() {
 
     // states definition below
     const [state, dispatch] = useReducer(reducer, contextObject);
+    
 
     //setting formatted current date yyyy-mm-dd
     const setCurrentDate = () => {
@@ -44,7 +45,7 @@ export default function App() {
     //getting current user and storing to state
     const getUser = async () => {
         const response = await axios.get("/api/user");
-
+        
         if (response.status == 200) {
             const currentUser = await response.data;
 
@@ -61,14 +62,16 @@ export default function App() {
 
     //refresh on reload
     useEffect(() => {
+
         getUser();
         setCurrentDate();
     }, []);
 
+
+
     return (
         <Context.Provider value={{ state, dispatch, getUser }}>
             <BrowserRouter>
-                {/* her inset Navigation for logged-in user */}
                 <Routes>
                     {/* should be accessible for all people */}
 
@@ -84,17 +87,17 @@ export default function App() {
                     {/* should be accessible for loged-in users */}
 
                     <Route path="/homepage" element={<RealHomepage />} />
-                    <Route path="/client" element={<ClientHomepage />} />
-                    <Route path="/add/user" element={<AddUser />} />
                     <Route path="/password/reset" element={<ResetPassword />} />
                     <Route path="/attendance-actions" element={<AttendanceActions />} />
                     <Route path="/attendance-list" element={<AttendanceList />} />
                     <Route path="/assignment" element={<Assignment/>} />
-                    <Route path="/report" element={<Report />} />
+                    <Route path="/client" element={<ClientHomepage />} />
                     {/* </> : */}
 
                     {/* <> */}
+                    <Route path="/report" element={<Report />} />
                     {/* should be accessible for loged-in users & admin role */}
+                    <Route path="/add/user" element={<AddUser />} />
                     <Route path="/setup" element={<Setup />} />
                     <Route path="/users" element={<Users />} />
                     <Route path="/projects" element={<Projects />} />
