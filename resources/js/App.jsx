@@ -86,6 +86,7 @@ export default function App() {
                     <Route path="/" element={<Homepage />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/password/reset" element={<ResetPassword />} />
 
                     {
                         (role === 'employee' || role === 'admin') && (
@@ -93,7 +94,7 @@ export default function App() {
                                 <Route path="/homepage" element={<RealHomepage />} />
                                 <Route path="/client" element={<ClientHomepage />} />
                                 <Route path="/add/user" element={<AddUser />} />
-                                <Route path="/password/reset" element={<ResetPassword />} />
+
                                 <Route path="/attendance-actions" element={<AttendanceActions />} />
                                 <Route path="/attendance-list" element={<AttendanceList />} />
                                 <Route path="/assignment" element={<Assignment />} />
