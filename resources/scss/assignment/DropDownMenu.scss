@@ -3,7 +3,19 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin:1rem 0;
+    margin: 1rem 0;
+
+    input {
+        display: inline-block;
+        box-sizing: border-box;
+        background-image:
+            linear-gradient(to right, #99cc33, #99cc33);
+        background-position:
+            100% 0;
+        background-size:
+            1.5em 1.5em;
+        background-repeat: no-repeat;
+    }
 
 
 

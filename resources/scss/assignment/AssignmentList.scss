@@ -31,21 +31,22 @@
         text-align: center;
         padding: 0.5rem;
 
-        button{
+        button {
             background-color: #99cc33;
         }
-        
-        .button-icon{
+
+        .button-icon {
             background-color: transparent;
             background-image: url(/public/svg/edit.svg);
             background-size: cover;
             color: transparent;
         }
+
     }
 
     .not-visible {
-       background-color: transparent; 
-       border-color: transparent;
+        background-color: transparent;
+        border-color: transparent;
     }
 
 }
