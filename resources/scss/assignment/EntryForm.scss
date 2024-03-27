@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
 
+    
 
     &__form {
         display: flex;
@@ -11,12 +12,24 @@
         justify-content: space-between;
         align-items: center;
         margin: 1rem;
+        
 
         &__button {
             color: #99cc33;
             background-color: #393e42;
             font-weight: 700;
             border-radius: 0.2rem;
+        }
+
+        .responsive{
+            display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1rem;
+        @media (min-width: 900px) {
+            flex-direction: row;
+        }
         }
 
         &__first-row {
@@ -36,6 +49,16 @@
 
                 label {
                     margin-bottom: 1rem;
+                }
+
+                select{
+                    background-image:
+                    linear-gradient(to right, #99cc33, #99cc33);
+                    background-position:
+                    100% 0;
+                    background-size:
+                    1.5em 1.5em;
+                    background-repeat: no-repeat;
                 }
             }
         }
