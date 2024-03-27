@@ -77,7 +77,7 @@ export default function AttendanceActions() {
 
     const sendAttendanceEntryValues = async () => {
         try {
-            const response = await axios.post('http://www.tempus.test/api/attendance/entry', attendanceValues);
+            const response = await axios.post('/api/attendance/entry', attendanceValues);
             const response_data = await response.data;
 
         } catch (error) {
@@ -97,7 +97,7 @@ export default function AttendanceActions() {
 
     const loadDayAttendancies = async () => {
         try {
-            const response = await axios.post('http://www.tempus.test/api/attendance/day-attendancies', {
+            const response = await axios.post('/api/attendance/day-attendancies', {
                 'day': currentDate
             });
             const response_data = await response.data;

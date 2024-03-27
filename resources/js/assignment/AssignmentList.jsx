@@ -19,7 +19,7 @@ export default function AssignmentList({ selectedDate, refreshList, setRefreshLi
     const getEntriesSelectedDay = async () => {
 
         try {
-            const response = await axios.post('http://www.tempus.test/api/assignment/dayEntries', {
+            const response = await axios.post('/api/assignment/dayEntries', {
                 'day': selectedDate
             });
             const response_data = await response.data;
@@ -46,7 +46,7 @@ export default function AssignmentList({ selectedDate, refreshList, setRefreshLi
     const deleteEntry = async (id) => {
 
         try {
-            const response = await axios.post('http://www.tempus.test/api/assignment/delete-entry', {
+            const response = await axios.post('/api/assignment/delete-entry', {
                 'id': id
             });
             // const response_data = await response.data;

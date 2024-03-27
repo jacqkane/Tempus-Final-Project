@@ -63,7 +63,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://www.tempus.test/api/assignment/entry', entryValues);
+            const response = await axios.post('/api/assignment/entry', entryValues);
             resetEntryValues()
             setEditFormId(0);
             const response_data = await response.data;
@@ -92,7 +92,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
     const loadDataForEdit = async () => {
 
         try {
-            const response = await axios.post('http://www.tempus.test/api/assignment/edit-query', {
+            const response = await axios.post('/api/assignment/edit-query', {
                 'entry_id': editFormId
             });
             const response_data = await response.data;
@@ -133,7 +133,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
 
     const getAllProjectNumbers = async () => {
         try {
-            const response = await axios.get('http://www.tempus.test/api/assignment/allProjectNumbers');
+            const response = await axios.get('/api/assignment/allProjectNumbers');
             const response_data = await response.data;
             let tempArray = [];
             response_data.map((elem, i) => {
@@ -154,7 +154,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
 
     const getAllRfqNumbers = async () => {
         try {
-            const response = await axios.get('http://www.tempus.test/api/assignment/allRfqNumbers');
+            const response = await axios.get('/api/assignment/allRfqNumbers');
             const response_data = await response.data;
             let tempArray = [];
             response_data.map((elem, i) => {
@@ -175,7 +175,7 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
 
     const getAllCostGroups = async () => {
         try {
-            const response = await axios.get('http://www.tempus.test/api/assignment/allCostGroups');
+            const response = await axios.get('/api/assignment/allCostGroups');
             const response_data = await response.data;
             let tempArray = [];
             response_data.map((elem, i) => {
