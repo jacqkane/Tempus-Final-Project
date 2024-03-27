@@ -26,8 +26,13 @@ function ProjectManagement() {
 
   const handleCreateProject = async (formData) => {
     try {
+      if (editingProject) {
+        await axios.put(`/api/projects/${editingProject.id}`, formData);
+      } else {
       await axios.post('/api/projects', formData);
+    }
       await fetchProjects(); 
+      setEditingProject(null);
 
     } catch (error) {
       console.error('Error:', error);
@@ -61,7 +66,7 @@ return (
   <div>
     <ClientHeader />
     <h2 className='project_title_page'>Project Management</h2>
-    <ProjectForm initialValues={initialValues} onSubmit={handleCreateProject} />
+    <ProjectForm  onSubmit={handleCreateProject} initialValues={initialValues} />
     <div className='project_list_container'>
       <h2 className='project_list_title'>Current Projects</h2>
       <ul className='project_list'>

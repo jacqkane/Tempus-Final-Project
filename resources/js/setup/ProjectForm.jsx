@@ -13,6 +13,7 @@ const ProjectForm = ({ onSubmit, initialValues }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Form submitted');
         try {
             await onSubmit(projectData);
             setProjectData({}); 
