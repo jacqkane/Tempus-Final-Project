@@ -126,14 +126,7 @@ $color-white: #fff;
                 &:hover {
                     background-color: darken($primary-green-color, 10%);
                 }
-
-                a {
-                    color: $color-white;
-                    text-decoration: none;
-                }
             }
         }
     }
-    .additional-content {
-        margin-top: 40px;
-    }
+

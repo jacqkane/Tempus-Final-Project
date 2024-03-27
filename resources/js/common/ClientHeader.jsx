@@ -17,7 +17,7 @@ function ClientHeader() {
             <div className="logo">
                 <img src={Logo} alt="Logo of tempus" />
             </div>
-            <nav>
+            <nav className="burger_menu">
                 <div
                     className="burger_menu--container"
                     role="button"
@@ -62,6 +62,32 @@ function ClientHeader() {
                         </ul>
                     </div>
                 )}
+            </nav>
+
+            <nav className='full_screen'>
+                    <ul className='full_screen-links'>
+                    <li>
+                        <Link to="/homepage">Homepage</Link>
+                            </li>
+                            <li>
+                                <Link to="/attendance-actions">Attendance</Link>
+                            </li>
+                            <li>
+                                <Link to="/assignment">Assignment</Link>
+                            </li>
+                            <li>
+                                <Link to="/report">Report</Link>
+                            </li>
+                            <li>
+                                <Link to="/setup">Set up</Link>
+                            </li>
+                            <li>
+                                <Link to="/projects">Projects</Link>
+                            </li>
+                            <li>
+                                <Link to="/rfqs">RFQS</Link>
+                            </li>
+                    </ul>
             </nav>
         </header>
     );
