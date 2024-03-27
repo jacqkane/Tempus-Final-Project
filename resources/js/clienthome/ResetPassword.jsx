@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import "/resources/scss/clienthome/ResetPassword.scss";
+import { useNavigate } from "react-router-dom";
 
 function ResetPassword() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [oldPassword, setOldPassword] = useState('');
     const [passwordConfirmed, setPasswordConfirmed] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,6 +21,7 @@ function ResetPassword() {
                 password_confirmation: passwordConfirmed, 
             });
             alert('Your password has been reset.');
+            navigate('/homepage');
         } catch (error) {
             console.error('Error resetting password', error);
             alert('There was an error resetting your password.');

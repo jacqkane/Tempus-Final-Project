@@ -20,11 +20,12 @@ class PermissionsSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'view']);
-        Permission::create(['name' => 'create']);
-        Permission::create(['name' => 'edit']);
-        Permission::create(['name' => 'delete']);
-
+        $permissions = ['view', 'create', 'edit', 'delete'];
+        foreach ($permissions as $permission ) {
+            if(!Permission::where('name', $permission)->exists()) {
+                Permission::create(['name' => $permission]);
+            }
+        }
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'employee']);

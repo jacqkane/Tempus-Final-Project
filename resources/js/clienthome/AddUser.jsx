@@ -38,7 +38,7 @@ function AddUser() {
         e.preventDefault();
        
         try {
-            const repsonse = await axios.post('api/add/user', userData);
+            const repsonse = await axios.post('/api/add/user', userData);
         } catch (error) {
            console.error('Error creating user', error); 
         }
