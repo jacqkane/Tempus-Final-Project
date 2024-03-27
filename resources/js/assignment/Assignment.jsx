@@ -19,9 +19,7 @@ export default function Assignment() {
     const [editFormId, setEditFormId] = useState(0)
     const [dayEntries, setDayEntries] = useState([]);
 
-    // console.log(selectedDate);
-
-
+  
     // current date has to be set here newly
     useEffect(() => {
         const date = new Date();
@@ -51,14 +49,14 @@ export default function Assignment() {
 
     return (
         <>
-        <ClientHeader />
-        <div className='assignment'>
-            <DropDownMenu selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-            <WorkingTimeBar selectedDate={selectedDate} dayEntries={dayEntries} />
-            <EntryForm selectedDate={selectedDate} refreshList={refreshList} setRefreshList={setRefreshList} editFormId={editFormId} setEditFormId={setEditFormId} />
-            <AssignmentList selectedDate={selectedDate} refreshList={refreshList} setRefreshList={setRefreshList} setEditFormId={setEditFormId} dayEntries={dayEntries} setDayEntries={setDayEntries} />
+            <ClientHeader />
+            <div className='assignment'>
+                <DropDownMenu selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                <WorkingTimeBar selectedDate={selectedDate} dayEntries={dayEntries} />
+                <EntryForm selectedDate={selectedDate} refreshList={refreshList} setRefreshList={setRefreshList} editFormId={editFormId} setEditFormId={setEditFormId} />
+                <AssignmentList selectedDate={selectedDate} refreshList={refreshList} setRefreshList={setRefreshList} setEditFormId={setEditFormId} dayEntries={dayEntries} setDayEntries={setDayEntries} />
 
-            {/* {
+                {/* {
                 !user && (
                     <>
                         <div>Logg-in to have access tex1</div>
@@ -103,8 +101,8 @@ export default function Assignment() {
                     </>
                 )
             } */}
-        </div>
-        <ClientFooter />
+            </div>
+            <ClientFooter />
         </>
     );
 }

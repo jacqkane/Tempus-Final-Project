@@ -32,6 +32,10 @@ export default function App() {
     const [state, dispatch] = useReducer(reducer, contextObject);
     
 
+    const [userId, setUserId] = useState(0);
+    const [role, setRole] = useState('none')
+
+
     //setting formatted current date yyyy-mm-dd
     const setCurrentDate = () => {
         let currentDate = new Date();
@@ -48,6 +52,9 @@ export default function App() {
         
         if (response.status == 200) {
             const currentUser = await response.data;
+            setUserId(currentUser.id);
+            setRole(currentUser.role[0])
+            // console.log(currentUser.role[0])
 
             dispatch({
                 type: "user/set",
@@ -55,7 +62,7 @@ export default function App() {
             });
             dispatch({
                 type: "role/set",
-                payload: currentUser.roles,
+                payload: currentUser.role[0],
             });
         }
     };
@@ -67,10 +74,12 @@ export default function App() {
         setCurrentDate();
     }, []);
 
+    // console.log(userId);
+    // console.log(role);
 
 
     return (
-        <Context.Provider value={{ state, dispatch, getUser }}>
+        <Context.Provider value={{ state, dispatch, getUser, userId }}>
             <BrowserRouter>
                 <Routes>
                     {/* should be accessible for all people */}
@@ -78,34 +87,59 @@ export default function App() {
                     <Route path="/" element={<Homepage />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/password/reset" element={<ResetPassword />} />
+
+                    {
+                        (role === 'employee' || role === 'admin') && (
+                            <>
+                                <Route path="/homepage" element={<RealHomepage />} />
+                                <Route path="/client" element={<ClientHomepage />} />
+                                <Route path="/add/user" element={<AddUser />} />
+
+                                <Route path="/attendance-actions" element={<AttendanceActions />} />
+                                <Route path="/attendance-list" element={<AttendanceList />} />
+                                <Route path="/assignment" element={<Assignment />} />
+
+                            </>
+
+                        )
+                    }
+
+
 
                     {/* {
-                        contextObject.user ? 
+                        <>
+                            <Route path="/homepage" element={<RealHomepage />} />
+                            <Route path="/client" element={<ClientHomepage />} />
+                            <Route path="/add/user" element={<AddUser />} />
+                            <Route path="/password/reset" element={<ResetPassword />} />
+                            <Route path="/attendance-actions" element={<AttendanceActions />} />
+                            <Route path="/attendance-list" element={<AttendanceList />} />
+                            <Route path="/assignment" element={<Assignment />} />
+                            <Route path="/report" element={<Report />} />
+                        </>
+                    } */}
 
-                            (
-                                contextObject.role != "admin" ?<> */}
-                    {/* should be accessible for loged-in users */}
+                    {
+                        (role === 'admin') && (
+                            <>
+                                <Route path="/setup" element={<Setup />} />
+                                <Route path="/users" element={<Users />} />
+                                <Route path="/projects" element={<Projects />} />
+                                <Route path="/rfqs" element={<Rfqs />} />
+                                <Route path="/report" element={<Report />} />
 
-                    <Route path="/homepage" element={<RealHomepage />} />
-                    <Route path="/password/reset" element={<ResetPassword />} />
-                    <Route path="/attendance-actions" element={<AttendanceActions />} />
-                    <Route path="/attendance-list" element={<AttendanceList />} />
-                    <Route path="/assignment" element={<Assignment/>} />
-                    <Route path="/client" element={<ClientHomepage />} />
-                    {/* </> : */}
+                            </>
+                        )
+                    }
 
-                    {/* <> */}
-                    <Route path="/report" element={<Report />} />
+
                     {/* should be accessible for loged-in users & admin role */}
-                    <Route path="/add/user" element={<AddUser />} />
-                    <Route path="/setup" element={<Setup />} />
+                    {/* <Route path="/setup" element={<Setup />} />
                     <Route path="/users" element={<Users />} />
                     <Route path="/projects" element={<Projects />} />
-                    <Route path="/rfqs" element={<Rfqs />} />
-                    {/* </> */}
+                    <Route path="/rfqs" element={<Rfqs />} /> */}
 
-                    {/* ) : '' */}
-                    {/* } */}
 
                     {/* should be accessible for loged-in users & project-leader role */}
                     {/* <Route path="" element={< />} /> */}

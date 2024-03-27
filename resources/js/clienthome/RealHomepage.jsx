@@ -1,23 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "/resources/scss/clienthome/RealHomepage.scss";
 import ClientHeader from "../common/ClientHeader";
 import ClientFooter from "../common/ClientFooter";
+import Context from "../Context";
 
 
 function RealHomepage() {
+
+    const { state: { user, role, currentDate, currentDateFormated }, dispatch, getUser } = useContext(Context);
+    console.log(role)
     return (
         <>
             <ClientHeader />
             <section className="main-homepage">
                 <div className="add-people">
-                <Link to="/add/user">Add user</Link>
+                    {
+                        (role === 'admin') &&
+                        <Link to="/add/user">Add user</Link>
+                    }
                 </div>
                 <h2>Welcome to Your Dashboard</h2>
                 <p>You can choose where you'd like to go from the options below</p>
                 <div className="main-homepage-container-links">
                     <div className="main-homepage-link">
-                    <Link to="/attendance-actions">Attendance</Link>
+                        <Link to="/attendance-actions">Attendance</Link>
                     </div>
                     <div className="main-homepage-link">
                         <Link to="/attendance-list">Attendance Details</Link>
@@ -26,13 +33,19 @@ function RealHomepage() {
                         <Link to="/assignment">Assignment</Link>
                     </div>
                     <div className="main-homepage-link">
-                        <Link to="/report">Reports</Link>
+                        {(role === 'admin') &&
+                            <Link to="/report">Reports</Link>
+                        }
                     </div>
                     <div className="main-homepage-link">
-                        <Link to="/projects">Projects</Link>
+                        {(role === 'admin') &&
+                            <Link to="/projects">Projects</Link>
+                        }
                     </div>
                     <div className="main-homepage-link">
-                        <Link to="/rfqs">RFQS</Link>
+                        {(role === 'admin') &&
+                            <Link to="/rfqs">RFQS</Link>
+                        }
                     </div>
 
                 </div>

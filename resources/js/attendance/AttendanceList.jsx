@@ -198,16 +198,16 @@ export default function AttendanceList() {
 
                 <div className='attendance-list__selection'>
                     {
-                        <input type='date' defaultValue={selectedDate} onChange={handleDateSelection} />
+                        <input className='attendance-list__selection__input' type='date' defaultValue={selectedDate} onChange={handleDateSelection} />
                     }
                 </div>
 
                 <div className='attendance-list__divform'>
 
                     <form className="attendance-list__divform__form" action="" method="POST" onSubmit={handleFormSubmit}>
-
-                        <button className="form__button" type="submit">Submit Change</button><br />
-
+                        <div className="center-button">
+                            <button className="form__button" type="submit">Submit Change</button><br />
+                        </div>
                         <div className="form__row">
                             <div className="form__row__input-group">
                                 <label htmlFor="date">Day</label>
@@ -245,11 +245,11 @@ export default function AttendanceList() {
                             <table className="attendance-list__list__table">
                                 <thead >
                                     <tr>
-                                        <th></th>
+                                        <th className="not-visible"></th>
                                         <th>Day</th>
                                         <th>Stamp Type</th>
                                         <th>Time</th>
-                                        <th></th>
+                                        <th className="not-visible"></th>
                                     </tr>
                                 </thead>
 
@@ -259,7 +259,7 @@ export default function AttendanceList() {
 
                                             return (
                                                 <tr key={attendance.id}>
-                                                    <td>
+                                                    <td className="not-visible">
                                                         <button name="delete" onClick={() => handleDeleteOneAttendance(attendance.id)}>-</button>
                                                     </td>
                                                     <td>{attendance.date}</td>
@@ -268,8 +268,8 @@ export default function AttendanceList() {
 
                                                     <td>{attendance.time}</td>
 
-                                                    <td>
-                                                        <button name="edit" onClick={() => handleEditOneAttendance(attendance.id)}>/</button>
+                                                    <td className="not-visible">
+                                                        <button className="button-icon" name="edit" onClick={() => handleEditOneAttendance(attendance.id)}>/</button>
                                                     </td>
                                                 </tr>
                                             )
