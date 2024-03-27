@@ -95,11 +95,11 @@ class InternalAttendanceController extends Controller
 
         return [
             // 'attendaceCalculated_new' => $attendaceCalculated_new ?? 'not set',
-            // 'calculatedAttendanceEntryId' => $calculatedAttendanceEntryId,
+            'calculatedAttendanceEntryId' => $calculatedAttendanceEntryId,
             // 'date' => $date,
             // 'time' => $time,
             // $CalculationResult['netWorkingTimeforDB'],
-            $CalculationResult,
+            // $CalculationResult,
             // $dayAttendancies,
         ];
     }
