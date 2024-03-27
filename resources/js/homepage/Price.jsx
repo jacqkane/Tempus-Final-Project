@@ -40,7 +40,7 @@ export default function Price () {
             <div className='price-details'>
                 <p title='Price for 1 person is 6.2€'>Total price: {totalPrice} € /month</p>
                 <div className='buttons'>
-                    <a href="#contact">more information!</a>
+                    <a href="#contact" >more information!</a>
                     <Link to="/register">Try it!</Link>
                 </div>
             </div>

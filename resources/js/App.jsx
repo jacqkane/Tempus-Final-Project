@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, ScrollRestoration } from "react-router-dom";
 import "/resources/scss/App.scss";
 import { useContext, useEffect, useReducer, useState } from "react";
 import Context from "./Context.js";
@@ -82,6 +82,7 @@ export default function App() {
                             (
                                 contextObject.role != "admin" ?<> */}
                     {/* should be accessible for loged-in users */}
+
                     <Route path="/homepage" element={<RealHomepage />} />
                     <Route path="/client" element={<ClientHomepage />} />
                     <Route path="/add/user" element={<AddUser />} />
