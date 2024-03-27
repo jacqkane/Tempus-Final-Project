@@ -65,8 +65,6 @@ export default function App() {
         setCurrentDate();
     }, []);
 
-    
-
     return (
         <Context.Provider value={{ state, dispatch, getUser }}>
             <BrowserRouter>
@@ -84,6 +82,7 @@ export default function App() {
                             (
                                 contextObject.role != "admin" ?<> */}
                     {/* should be accessible for loged-in users */}
+
                     <Route path="/homepage" element={<RealHomepage />} />
                     <Route path="/client" element={<ClientHomepage />} />
                     <Route path="/add/user" element={<AddUser />} />

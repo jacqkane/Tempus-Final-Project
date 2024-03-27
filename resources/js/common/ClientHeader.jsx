@@ -39,6 +39,10 @@ function ClientHeader() {
                             </li>
                             <hr />
                             <li>
+                                <Link to="/attendance-list">Attendance Details</Link>
+                            </li>
+                            <hr />
+                            <li>
                                 <Link to="/assignment">Assignment</Link>
                             </li>
                             <hr />
@@ -71,6 +75,9 @@ function ClientHeader() {
                             </li>
                             <li>
                                 <Link to="/attendance-actions">Attendance</Link>
+                            </li>
+                            <li>
+                                <Link to="/attendance-list">Attendance Details</Link>
                             </li>
                             <li>
                                 <Link to="/assignment">Assignment</Link>
