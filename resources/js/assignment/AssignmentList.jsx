@@ -117,7 +117,7 @@ export default function AssignmentList({ selectedDate, refreshList, setRefreshLi
                                     <td>{entry.comment}</td>
                                     <td>{entry.approval_status.status_name}</td>
                                     <td className="not-visible" >
-                                        <button name="edit" value={entry.id} onClick={handleEditOneEntry}>/</button>
+                                        <button className="button-icon" name="edit" value={entry.id} onClick={handleEditOneEntry}>/</button>
                                     </td>
                                 </tr>
                             )

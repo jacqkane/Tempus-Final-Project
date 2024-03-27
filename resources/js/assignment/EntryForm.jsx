@@ -208,56 +208,59 @@ export default function EntryForm({ selectedDate, refreshList, setRefreshList, e
 
                 <button className="entry-form__form__button" type="submit">Add Entry</button><br />
 
-                <div className="entry-form__form__first-row">
-                    <div className="entry-form__form__first-row__input-group">
-                        <label htmlFor="project_number">Project Number</label>
-                        <select name="project_number" id="project_number" value={entryValues.project_number} onChange={handleChange}>
+                <div className="responsive">
+
+                    <div className="entry-form__form__first-row">
+                        <div className="entry-form__form__first-row__input-group">
+                            <label htmlFor="project_number">Project Number</label>
+                            <select name="project_number" id="project_number" value={entryValues.project_number} onChange={handleChange}>
 
 
-                            <option value={0}>Select</option>
+                                <option value={0}>Select</option>
 
-                            {
-                                allProjectNumbers.map((project) => {
-                                    return <option key={project} value={project}>{project}</option>
-                                })
-                            }
+                                {
+                                    allProjectNumbers.map((project) => {
+                                        return <option key={project} value={project}>{project}</option>
+                                    })
+                                }
 
 
-                        </select>
-                    </div>
-                    <div className="entry-form__form__first-row__input-group">
-                        <label htmlFor="rfq_number">RfQ Number</label>
-                        <select name="rfq_number" id="rfq_number" value={entryValues.rfq_number} onChange={handleChange}>
-                            <option value={0} >Select</option>
-                            {
-                                allRfqNumbers.map((rfq_number) => {
-                                    return <option key={rfq_number} value={rfq_number}>{rfq_number}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                    <div className="entry-form__form__first-row__input-group" >
-                        <label htmlFor="cost_group_code">Type Code</label>
-                        <select name="cost_group_code" id="cost_group_code" value={entryValues.cost_group_code} onChange={handleChange}>
-                            <option value={0}>Select</option>
-                            {
-                                allCostGroupCodes.map((code) => {
-                                    return <option key={code} value={code}>{code}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                </div>
-
-                <div className="entry-form__form__second-row">
-                    <div className="entry-form__form__second-row__input-group">
-                        <label htmlFor="working_time_assigned">Working Time</label>
-                        <input id="working_time_assigned" type="text" name="working_time_assigned" placeholder="hh:mm" value={entryValues.working_time_assigned} onChange={handleChange} />
+                            </select>
+                        </div>
+                        <div className="entry-form__form__first-row__input-group">
+                            <label htmlFor="rfq_number">RfQ Number</label>
+                            <select name="rfq_number" id="rfq_number" value={entryValues.rfq_number} onChange={handleChange}>
+                                <option value={0} >Select</option>
+                                {
+                                    allRfqNumbers.map((rfq_number) => {
+                                        return <option key={rfq_number} value={rfq_number}>{rfq_number}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <div className="entry-form__form__first-row__input-group" >
+                            <label htmlFor="cost_group_code">Type Code</label>
+                            <select name="cost_group_code" id="cost_group_code" value={entryValues.cost_group_code} onChange={handleChange}>
+                                <option value={0}>Select</option>
+                                {
+                                    allCostGroupCodes.map((code) => {
+                                        return <option key={code} value={code}>{code}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
                     </div>
 
-                    <div className="entry-form__form__second-row__input-group">
-                        <label htmlFor="comment">Comment</label>
-                        <input id="comment" type="text" name="comment" placeholder="write comment" value={entryValues.comment} onChange={handleChange} />
+                    <div className="entry-form__form__second-row">
+                        <div className="entry-form__form__second-row__input-group">
+                            <label htmlFor="working_time_assigned">Working Time</label>
+                            <input id="working_time_assigned" type="text" name="working_time_assigned" placeholder="hh:mm" value={entryValues.working_time_assigned} onChange={handleChange} />
+                        </div>
+
+                        <div className="entry-form__form__second-row__input-group">
+                            <label htmlFor="comment">Comment</label>
+                            <input id="comment" type="text" name="comment" placeholder="write comment" value={entryValues.comment} onChange={handleChange} />
+                        </div>
                     </div>
                 </div>
 
