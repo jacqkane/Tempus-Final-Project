@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, ScrollRestoration } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import "/resources/scss/App.scss";
 import { useContext, useEffect, useReducer, useState } from "react";
 import Context from "./Context.js";
@@ -30,6 +30,7 @@ export default function App() {
 
     // states definition below
     const [state, dispatch] = useReducer(reducer, contextObject);
+    
 
     const [userId, setUserId] = useState(0);
     const [role, setRole] = useState('none')
@@ -48,7 +49,7 @@ export default function App() {
     //getting current user and storing to state
     const getUser = async () => {
         const response = await axios.get("/api/user");
-
+        
         if (response.status == 200) {
             const currentUser = await response.data;
             setUserId(currentUser.id);
@@ -68,6 +69,7 @@ export default function App() {
 
     //refresh on reload
     useEffect(() => {
+
         getUser();
         setCurrentDate();
     }, []);
@@ -79,7 +81,6 @@ export default function App() {
     return (
         <Context.Provider value={{ state, dispatch, getUser, userId }}>
             <BrowserRouter>
-                {/* her inset Navigation for logged-in user */}
                 <Routes>
                     {/* should be accessible for all people */}
 
