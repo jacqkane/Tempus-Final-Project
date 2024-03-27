@@ -207,6 +207,10 @@ const handleBackToCharts = () => {
     setSelectedOption(null);
 };
 
+console.log('Project Chart Series Data:', projectChartOptions.seriesData);
+console.log('Cost Group Chart Series Data:', costGroupChartOptions.seriesData);
+console.log('Approval Status Chart Series Data:', approvalStatusChartOptions.seriesData);
+
 
 return (
     <>
