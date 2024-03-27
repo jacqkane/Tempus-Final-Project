@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ApprovalStatusSeeder::class,
-            CalculatedAttendanceSeeder::class,
+            // CalculatedAttendanceSeeder::class,
             CompanySeeder::class,
             CostGroupSeeder::class,
             DivisionSeeder::class,
@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             RfqSeeder::class,
             UserSeeder::class,
-            WorkingTimeAssignmentSeeder::class,
             PermissionsSeeder::class,
+            WorkingTimeAssignmentSeeder::class,
         ]);
     }
 }
