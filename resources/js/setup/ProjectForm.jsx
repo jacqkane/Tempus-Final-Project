@@ -3,6 +3,7 @@ import axios from 'axios';
 import "/resources/scss/setup/Project.scss";
 
 const ProjectForm = ({ onSubmit, initialValues }) => {
+    console.log('Initial values:', initialValues);
     const [projectData, setProjectData] = useState(initialValues || {});
 
     const handleChange = (e) => {
@@ -13,6 +14,7 @@ const ProjectForm = ({ onSubmit, initialValues }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Form submitted');
         try {
             await onSubmit(projectData);
             setProjectData({}); 
@@ -22,6 +24,7 @@ const ProjectForm = ({ onSubmit, initialValues }) => {
     };
 
     useEffect(() => {
+        console.log("Initial values:", initialValues);
         setProjectData(initialValues || {});
     }, [initialValues]);
 
