@@ -19,7 +19,7 @@ export default function Assignment() {
     const [editFormId, setEditFormId] = useState(0)
     const [dayEntries, setDayEntries] = useState([]);
 
-    console.log(selectedDate);
+    // console.log(selectedDate);
 
 
     // current date has to be set here newly

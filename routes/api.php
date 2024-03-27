@@ -36,20 +36,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/calculatedAttendances/{user_id}/date/{date}', [CalculatedAttendanceController::class, 'showAttendanceByDate']);
 Route::get('/working-time-assignments', [WorkingTimeAssignmentController::class, 'index']);
+
 Route::post('/assignment/entry', [WorkingTimeAssignmentController::class, 'store']);
 Route::get('/assignment/allProjectNumbers', [ProjectController::class, 'index']);
 Route::get('/assignment/allRfqNumbers', [RfqController::class, 'index']);
 Route::get('/assignment/allCostGroups', [CostGroupController::class, 'index']);
+
 Route::post('/contact', [ContactController::class, 'sendEmail']);
+
 Route::post('/assignment/dayEntries', [WorkingTimeAssignmentController::class, 'getSelectedDay']);
 Route::post('/assignment/delete-entry', [WorkingTimeAssignmentController::class, 'deleteEntryById']);
 Route::post('/assignment/edit-query', [WorkingTimeAssignmentController::class, 'getEntryById']);
 
-Route::post('/attendance/entry', [InternalAttendanceController::class, 'store']);
-Route::post('/attendance/day-attendancies', [InternalAttendanceController::class, 'showDay']);
-Route::get('/attendance/all-stamp-types', [StampActionController::class, 'index']);
-Route::post('/attendance/delete-entry', [InternalAttendanceController::class, 'deleteAttendanceEntryById']);
-Route::post('/attendace/edit-query', [InternalAttendanceController::class, 'getAttendanceEntryById']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
@@ -59,6 +57,14 @@ Route::get('/roles', [RoleController::class, 'getRoles']);
 Route::post('/add/user', [UserController::class, 'store']);
 Route::post('/reset/password', [ResetPasswordController::class, 'reset']);
 
-// We need to have a route for login - something like:
-// Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login'); ***or***
-// Route::post('/login', 'Auth\LoginController@login');
+Route::get('/rfqs', [RfqController::class, 'index']);
+Route::post('/rfqs', [RfqController::class, 'store']);
+Route::get('/rfqs/{id}', [RfqController::class, 'show']);
+Route::put('/rfqs/{id}', [RfqController::class, 'update']);
+Route::delete('/rfqs/{id}', [RfqController::class, 'destroy']);
+
+Route::post('/attendance/entry', [InternalAttendanceController::class, 'store']);
+Route::post('/attendance/day-attendancies', [InternalAttendanceController::class, 'showDay']);
+Route::get('/attendance/all-stamp-types', [StampActionController::class, 'index']);
+Route::post('/attendance/delete-entry', [InternalAttendanceController::class, 'deleteAttendanceEntryById']);
+Route::post('/attendace/edit-query', [InternalAttendanceController::class, 'getAttendanceEntryById']);

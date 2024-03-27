@@ -16,20 +16,20 @@ class RfqController extends Controller
         return response()->json($allRfqs);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * Store new project "create" new project.
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'rfq_name' => 'required|string',
+            'rfq_number' => 'required|string',
+        ]);
+
+        $rfq = Rfq::create($validatedData);
+
+        return response()->json($rfq, 201);
     }
 
     /**
@@ -37,30 +37,33 @@ class RfqController extends Controller
      */
     public function show(Rfq $rfq)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Rfq $rfq)
-    {
-        //
+        return response()->json($rfq);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Rfq $rfq)
+    public function update(Request $request, $id)
     {
-        //
+        $rfq = Rfq::findOrFail($id);
+
+        $rfq->rfq_name = $request->input('rfq_name');
+        $rfq->rfq_number = $request->input('rfq_number');
+
+        $rfq->update();
+
+        return response()->json(['message' => 'rfq updated']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Rfq $rfq)
+    public function destroy(Request $request, $id)
     {
-        //
+        $rfq = Rfq::findOrFail($id);
+
+        $rfq->delete();
+
+        return response()->json(null, 204);
     }
 }

@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { convertMinutesToTimeHHmm } from '/resources/js/common/dateTimeConversion.js'
 import '/resources/scss/assignment/WorkingTimeBar.scss'
 import { convertNetWorkingTimeToMinutes } from '/resources/js/common/dateTimeConversion.js';
+import Context from "../Context";
+import axios from "axios";
 
 
 export default function WorkingTimeBar({ selectedDate, dayEntries }) {
+
+    const { state: { user, role, currentDate }, dispatch } = useContext(Context)
 
     const [calculateRestTime, setCalculateRestTime] = useState(0);
     const [calculated, setCalculated] = useState(false);
@@ -20,10 +24,27 @@ export default function WorkingTimeBar({ selectedDate, dayEntries }) {
     const [assignedBarWidth, setAssignedBarWidth] = useState(0);
     const [progressBarColor, setProgressBarColor] = useState('#99cc33');
 
+    const [userId, setUserId] = useState(0);
+
+
+    const getUser = async () => {
+        const response = await axios.get("/api/user");
+
+        if (response.status == 200) {
+            const currentUser = await response.data;
+            setUserId(currentUser.id);
+        }
+    };
+
+    useEffect(() => {
+        getUser();
+    }, [])
+
+
+
     const loadCalculatedWorkingTime = async () => {
 
-        // const response = await fetch('/api/calculatedAttendances/' + user.id + '/date/' + selectedDate)
-        const response = await fetch('/api/calculatedAttendances/' + '23' + '/date/' + '2024-01-27')
+        const response = await fetch('/api/calculatedAttendances/' + userId + '/date/' + selectedDate)
         const data = await response.json();
 
         //conversion to minutes
@@ -43,8 +64,12 @@ export default function WorkingTimeBar({ selectedDate, dayEntries }) {
     }
     // will be updated when day change ... in future if entry value changes, then event also must be triggered
     useEffect(() => {
-        loadCalculatedWorkingTime();
-    }, [selectedDate])
+        if (userId != 0) {
+            loadCalculatedWorkingTime();
+        }
+    }, [userId, selectedDate])
+
+
 
 
     const calculateDayEntriesMinutes = () => {
@@ -101,7 +126,7 @@ export default function WorkingTimeBar({ selectedDate, dayEntries }) {
     }
 
 
-    console.log(restToAssignMinutes);
+
 
     return (
         <div className="working-time">

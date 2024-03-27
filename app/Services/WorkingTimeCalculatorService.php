@@ -6,109 +6,129 @@ class WorkingTimeCalculatorService
 {
     public function calculateNetWorkingTime($dayAttendancies)
     {
+        $message_success = '';
+        $message_error = '';
         // $data = json_decode($dayAttendancies, true);
         $dayAttendanciesArray = [];
         foreach ($dayAttendancies as $entry) {
+
             //string to minutes conversion
             list($hours, $minutes, $seconds) = explode(":", $entry->time);
             $totalMinutes = ($hours * 60) + $minutes + ($seconds / 60);
-
 
             //array creation
             // $dayAttendanciesArray[$entry->stamp_action_id][] = $entry->time;
             // $dayAttendanciesArray[] = [$entry->stamp_action_id => $entry->time];
             $dayAttendanciesArray[$entry->stamp_action_id][] =  $totalMinutes;
         }
+
         //split into actions
-        $unknownEntriesArray = $dayAttendanciesArray['0'];
-        $clockInEntriesArray = $dayAttendanciesArray['1'];
-        $clockOutEntriesArray = $dayAttendanciesArray['2'];
-        $breakStartEntriesArray = $dayAttendanciesArray['3'];
-        $breakStopEntriesArray = $dayAttendanciesArray['4'];
+        // $unknownEntriesArray = $dayAttendanciesArray['0'] ?? 0;
+        $clockInEntriesArray = $dayAttendanciesArray['1'] ?? 0;
+        $clockOutEntriesArray = $dayAttendanciesArray['2'] ?? 0;
+        $breakStartEntriesArray = $dayAttendanciesArray['3'] ?? 0;
+        $breakStopEntriesArray = $dayAttendanciesArray['4'] ?? 0;
 
-        //net working time without breaks
-        $netTimeWithoutBreaksInMinutes = $clockOutEntriesArray - $clockInEntriesArray;
+        //basic check
+        $CountClockIns = count($dayAttendanciesArray['1'] ?? []);
+        $CountClockOuts = count($dayAttendanciesArray['2'] ?? []);
+        $CountBreakStarts = count($dayAttendanciesArray['3'] ?? []);
+        $CountBreakStops = count($dayAttendanciesArray['4'] ?? []);
 
-        //Breaks Sum calculation
-        $sumBreakStartsInMinutes = array_sum($breakStartEntriesArray);
-        $sumBreakStopsInMinutes = array_sum($breakStopEntriesArray);
-        $netTimeBreaksInMinutes = $sumBreakStopsInMinutes - $sumBreakStartsInMinutes;
+        $netSumBreaksInMinutes = 0;
+        $netWorkingTimeInMinutes = 0;
+        $netWorkingTimeforDB = '';
 
-        //calculating net working time a day
-        // $netWorkingTimeInMinutes = ($clockOutEntriesArray - $clockInEntriesArray) - ();
+        //get current time and convert it to minutes
+
+        //string to minutes conversion
+        date_default_timezone_set('Europe/Prague');
+        list($hours1, $minutes1, $seconds1) = explode(":", date("H:i:s"));
+        $currentTimeMinutes = (int)(($hours1 * 60) + $minutes1);
+
+
+        // check 1: only Clock-in/Clock-out and no breaks
+        if (($CountBreakStarts == 0 && $CountBreakStops == 0) && ($CountClockIns == 1 && $CountClockOuts == 1)) {
+            $netWorkingTimeInMinutes = round(array_sum($clockOutEntriesArray) - array_sum($clockInEntriesArray));
+            $message_success = 'Check 1';
+        }
+        // check 2: only Clock-in and no breaks ... clock-out consideret as current time
+        elseif (($CountBreakStarts == 0 && $CountBreakStops == 0) && ($CountClockIns == 1 && $CountClockOuts == 0)) {
+            $netWorkingTimeInMinutes = round($currentTimeMinutes - array_sum($clockInEntriesArray));
+            $message_success = 'Check 2';
+            //Check 3: breaks available and Clock-in/Clock-out available
+        } elseif (($CountBreakStarts != 0 && $CountBreakStops !== 0) && ($CountBreakStarts == $CountBreakStops) && ($CountClockIns == 1 && $CountClockOuts == 1)) {
+            $netSumBreaksInMinutes = round(array_sum($breakStopEntriesArray) - array_sum($breakStartEntriesArray));
+            $netWorkingTimeInMinutes = round((array_sum($clockOutEntriesArray) - array_sum($clockInEntriesArray)) - (array_sum($breakStopEntriesArray) - array_sum($breakStartEntriesArray)));
+            $message_success = 'Check 3';
+            // Check 4: breaks available and only Clock-in available
+        } elseif (($CountBreakStarts != 0 && $CountBreakStops !== 0) && ($CountBreakStarts == $CountBreakStops) && ($CountClockIns == 1 && $CountClockOuts == 0)) {
+            $netSumBreaksInMinutes = round(array_sum($breakStopEntriesArray) - array_sum($breakStartEntriesArray));
+            $netWorkingTimeInMinutes = round((($currentTimeMinutes - array_sum($clockInEntriesArray)) - (array_sum($breakStopEntriesArray) - array_sum($breakStartEntriesArray))));
+            $message_success = 'Check 4';
+
+            // check for double entry clock-in and clock-out
+        } elseif (($CountClockIns > 1 || $CountClockOuts > 1)) {
+            $message_success = 'Check 5';
+            $message_error = 'Double value Check-In or Check-Out';
+            //check fot breaks no equal values
+        } elseif (($CountBreakStarts != 0 && $CountBreakStops !== 0) && ($CountBreakStarts == $CountBreakStops)) {
+            $message_success = 'Check 6';
+            $message_error = 'Break-Starts_Stops not equal';
+
+            //if more things are wrong
+        } else {
+            $message_success = 'Check 7';
+            $message_error = 'More entry values needed';
+        }
+
+        //net working time conversion for DB
+        $hours = ($netWorkingTimeInMinutes / 60);
+        $minutes = $netWorkingTimeInMinutes % 60;
+        $seconds = 0;
+        $netWorkingTimeforDB = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
 
 
 
+        //getting current status ... to finish
+
+        $maxValue = null;
+        $maxKey = null;
+
+        foreach ($dayAttendanciesArray as $key => $value) {
+            $currentValue = reset($value); // Extracting the numeric value from the array
+            if ($maxValue === null || $currentValue > $maxValue) {
+                $maxValue = $currentValue;
+                $maxKey = $key;
+            }
+        }
+        $statusMessage = 'No Entries';
+        switch ($maxKey) {
+            case '1':
+                $statusMessage = 'Work Started';
+                break;
+            case '2':
+                $statusMessage = 'Work Stopped';
+                break;
+            case '3':
+                $statusMessage = 'Break Started';
+                break;
+            case '4':
+                $statusMessage = 'Break Stopped';
+                break;
+        }
 
 
 
-        return $dayAttendanciesArray;
+        return [
+            'netSumBreaksInMinutes' => $netSumBreaksInMinutes,
+            'netWorkingTimeInMinutes' => $netWorkingTimeInMinutes,
+            'netWorkingTimeforDB' => $netWorkingTimeforDB,
+            'message_success' => $message_success,
+            'message_error' => $message_error,
+            '$dayAttendanciesArray' => $dayAttendanciesArray,
+            'latest_action' => $maxKey,
+            'statusMessage' => $statusMessage,
+        ];
     }
 }
-
-
-
-        // $data = $dayAttendanciesArray;
-
-        // // Define the expected sequence of actions
-        // $expected_start = "1";
-        // $expected_end = "2";
-
-        // // Validate the sequence
-        // $start_found = false;
-        // foreach ($data as $attendance) {
-        //     $action = key($attendance);
-        //     if ($action == $expected_start) {
-        //         $start_found = true;
-        //     } elseif ($action == $expected_end && !$start_found) {
-        //         die("Error: Missing clock-in.\n");
-        //     } elseif (
-        //         $action == $expected_end && $start_found
-        //     ) {
-        //         break;
-        //     }
-        // }
-        // if (!$start_found) {
-        //     die("Error: Missing clock-out.\n");
-        // }
-
-        // $timestamps = [];
-        // $current_break = [];
-
-        // foreach ($data as $attendance) {
-        //     $action = key($attendance);
-        //     $timestamp = strtotime(current($attendance));
-
-        //     if ($action == $expected_start) {
-        //         $timestamps[$action] = $timestamp;
-        //     } elseif (
-        //         $action == $expected_end
-        //     ) {
-        //         $timestamps[$action] = $timestamp;
-        //     } elseif (
-        //         $action == "3"
-        //     ) {
-        //         $current_break = [$timestamp];
-        //     } elseif ($action == "4" && !empty($current_break)) {
-        //         $current_break[] = $timestamp;
-        //         $timestamps[$action][] = $current_break;
-        //         $current_break = [];
-        //     }
-        // }
-
-        // // Calculate total break time
-        // $total_break_time = 0;
-        // foreach ($timestamps["3"] as $break) {
-        //     foreach ($break as $index => $break_time) {
-        //         $break_end = $timestamps["4"][$index];
-        //         $total_break_time += ($break_end - $break_time);
-        //     }
-        // }
-
-        // // Calculate working time
-        // $clock_in = $timestamps["1"];
-        // $clock_out = $timestamps["2"];
-        // $working_time = ($clock_out - $clock_in - $total_break_time);
-
-        // // Print the working time for the person
-        // return "Working time: " . gmdate("H:i:s", $working_time) . "\n";

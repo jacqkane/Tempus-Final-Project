@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import Context from '../Context';
 import axios from 'axios';
-import { formatTimeHHMMSS, formatDateToYYYYMMDD } from '/resources/js/common/dateTimeConversion.js';
+import { formatTimeHHMMSS, formatDateToYYYYMMDD, convertMinutesToTimeHHmm } from '/resources/js/common/dateTimeConversion.js';
 import ClientHeader from '../common/ClientHeader';
 import ClientFooter from '../common/ClientFooter';
 
@@ -27,7 +27,8 @@ export default function AttendanceActions() {
 
     const [dayAttendancies, setDayAttendancies] = useState([]);
 
-    console.log(dayAttendancies)
+
+    // console.log(dayAttendancies)
 
     const resetattendanceValues = () => {
         setAttendanceValues(previous_values => {
@@ -97,10 +98,14 @@ export default function AttendanceActions() {
     const loadDayAttendancies = async () => {
         try {
             const response = await axios.post('http://www.tempus.test/api/attendance/day-attendancies', {
-                'date': currentDate
+                'day': currentDate
             });
             const response_data = await response.data;
-            setDayAttendancies(response_data);
+            setDayAttendancies(response_data.dayAttendancies);
+
+            setSumWorkingTimeFormatted(convertMinutesToTimeHHmm(response_data.CalculationResult.netWorkingTimeInMinutes));
+            setSumBreaksFormatted(convertMinutesToTimeHHmm(response_data.CalculationResult.netSumBreaksInMinutes));
+            setCurrentStatus(response_data.CalculationResult.statusMessage);
 
         } catch (error) {
             switch (error.response.status) {
@@ -113,6 +118,8 @@ export default function AttendanceActions() {
             }
         }
     }
+
+    // const creatingStatusData =()
 
 
     return (
