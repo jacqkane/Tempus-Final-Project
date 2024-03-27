@@ -40,7 +40,7 @@ export default function AttendanceList() {
 
     // initial setup
     useEffect(() => {
-        
+
         setSelectedDate(currentDate);
         getAllStampTypes();
     }, [currentDate])
@@ -48,7 +48,7 @@ export default function AttendanceList() {
 
     const loadDayAttendancies = async () => {
         try {
-            const response = await axios.post('http://www.tempus.test/api/attendance/day-attendancies', {
+            const response = await axios.post('/api/attendance/day-attendancies', {
                 'day': selectedDate
             });
             const response_data = await response.data;
@@ -78,7 +78,7 @@ export default function AttendanceList() {
     // getting all stamp action types for selection drop down menu
     const getAllStampTypes = async () => {
         try {
-            const response = await axios.get('http://www.tempus.test/api/attendance/all-stamp-types');
+            const response = await axios.get('/api/attendance/all-stamp-types');
             const response_data = await response.data;
             let tempArray = [];
             response_data.map((elem, i) => {
@@ -110,7 +110,7 @@ export default function AttendanceList() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://www.tempus.test/api/attendance/entry', entryValues);
+            const response = await axios.post('/api/attendance/entry', entryValues);
             const response_data = await response.data;
 
             resetEntryValues()
@@ -131,7 +131,7 @@ export default function AttendanceList() {
     // deletion of one attendace entry according to attendance_id which shall be set
     const handleDeleteOneAttendance = async (id) => {
         try {
-            const response = await axios.post('http://www.tempus.test/api/attendance/delete-entry', {
+            const response = await axios.post('/api/attendance/delete-entry', {
                 'id': id,
                 'date': selectedDate
             });
@@ -154,7 +154,7 @@ export default function AttendanceList() {
     const handleEditOneAttendance = async (id) => {
 
         try {
-            const response = await axios.post('http://www.tempus.test/api/attendace/edit-query', {
+            const response = await axios.post('/api/attendace/edit-query', {
                 'internal_attendance_id': id,
                 'date': selectedDate
             });
@@ -264,7 +264,7 @@ export default function AttendanceList() {
                                                     </td>
                                                     <td>{attendance.date}</td>
 
-                                                    <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>                                                
+                                                    <td>{attendance.stamp_action ? attendance.stamp_action.name : 'Unknown'}</td>
 
                                                     <td>{attendance.time}</td>
 
