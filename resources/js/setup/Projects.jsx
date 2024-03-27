@@ -41,6 +41,7 @@ function ProjectManagement() {
 
   const handleEditProject = (projectId) => {
     const projectToEdit = projects.find(project => project.id === projectId);
+    console.log('Editing project:', projectToEdit);
     setEditingProject(projectToEdit);
   };
 
@@ -56,7 +57,7 @@ function ProjectManagement() {
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
   const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
-  const initialValues = { project_number: '', project_name: '', start_date: '', end_date: '' };
+  // const initialValues = { project_number: '', project_name: '', start_date: '', end_date: '' };
 
   const totalPages = Math.ceil(projects.length / projectsPerPage);
 
@@ -66,7 +67,7 @@ return (
   <div>
     <ClientHeader />
     <h2 className='project_title_page'>Project Management</h2>
-    <ProjectForm  onSubmit={handleCreateProject} initialValues={initialValues} />
+    <ProjectForm  onSubmit={handleCreateProject} initialValues={editingProject} />
     <div className='project_list_container'>
       <h2 className='project_list_title'>Current Projects</h2>
       <ul className='project_list'>
