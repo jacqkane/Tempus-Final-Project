@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import "/resources/scss/common/Header.scss";
 import { Link } from "react-router-dom";
 import Logo from "/public/logo/logo.png";
-import { LogOut } from "react-feather";
 import Logout from "../homepage/Logout";
 import Context from "../Context";
 
@@ -56,7 +55,6 @@ function ClientHeader() {
                                     </li>
                                 </>
                             }
-                            <hr />
                             {(role === 'admin') &&
                                 <>
                                     <hr />
@@ -130,6 +128,7 @@ function ClientHeader() {
                             <Link to="/rfqs">RFQS</Link>
                         </li>
                     }
+                    <Logout />
                 </ul>
             </nav>
         </header>

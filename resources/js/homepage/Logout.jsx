@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Context from "/resources/js/Context.js";
 import '/resources/scss/homepage/Logout.scss'
+import { log } from "react-modal/lib/helpers/ariaAppHider";
 
 function Logout() {
     const { getUser, setUser } = useContext(Context);
@@ -13,6 +14,7 @@ function Logout() {
         try {
             const response = await axios.post('/logout');
             const response_data = response.data;
+            console.log(response_data);
         } catch (error) {
             switch (error.response.status) {
                 case 422:
