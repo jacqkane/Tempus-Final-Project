@@ -13,8 +13,7 @@ function Logout() {
     const logout = async () => {
         try {
             const response = await axios.post('/logout');
-            const response_data = response.data;
-            console.log(response_data);
+            console.log(response);
         } catch (error) {
             switch (error.response.status) {
                 case 422:
