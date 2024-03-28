@@ -51,7 +51,12 @@ export default function Header() {
                                 <li><Link to='/register' onClick={toggleMenu}>Registration</Link></li>
 
                                 <hr />
-                                <li><Link to='/login' onClick={toggleMenu}>Login</Link></li>
+                                
+                                { user ? (
+                                    <li><Logout/></li>
+                                ) : (
+                                    <li><Link to='/login' onClick={toggleMenu}>Login</Link></li>
+                                )}
 
                             </ul>
                         </div>
@@ -66,9 +71,14 @@ export default function Header() {
                         <li><a href='#reviews' onClick={toggleMenu}>Reviews</a></li>
                         <li><a href='#contact' onClick={toggleMenu}>Contact us</a></li>
                         <li><Link to='/register' onClick={toggleMenu}>Registration</Link></li>
+                                    
+                        { user ? (
+                                    <li className='logout'><Logout/></li>
+                                ) : (
+                                    <li><Link to='/login' onClick={toggleMenu}>Login</Link></li>
+                                )}
 
-
-                        <li><Link to='/login' onClick={toggleMenu}>Login</Link></li>
+                       
 
 
                         {/* <li><Logout /></li> */}
