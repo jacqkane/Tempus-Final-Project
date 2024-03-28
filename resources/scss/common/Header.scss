@@ -141,8 +141,9 @@ $primary-grey-color: #393e42;
                 text-decoration: none;
                 color: $primary-green-color;
                 font-weight: bold;
-                font-size: 1.3rem;
+                font-size: 1rem;
                 transition: color 0.3s ease, transform 0.3s ease;
+                text-transform: uppercase;
 
                 &:hover {
                     color: darken($primary-green-color, 10%);
@@ -153,7 +154,7 @@ $primary-grey-color: #393e42;
         }
     }
 }   
-@media (min-width: 1060px) {
+@media (min-width: 1150px) {
         .header {
             background-color: $primary-grey-color;
       

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Context from "/resources/js/Context.js";
@@ -7,6 +7,7 @@ import '/resources/scss/homepage/Logout.scss'
 function Logout() {
     const { getUser, setUser } = useContext(Context);
     const navigate = useNavigate();
+
 
     const logout = async () => {
         try {
