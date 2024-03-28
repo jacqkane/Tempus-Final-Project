@@ -89,12 +89,12 @@ export default function AssignmentList({ selectedDate, refreshList, setRefreshLi
                 <thead >
                     <tr>
                         <th className="not-visible"></th>
-                        <th>Project Number</th>
-                        <th>RfQ Number</th>
-                        <th>Type Code</th>
-                        <th>Assigned Time</th>
+                        <th>Project</th>
+                        <th>RfQ</th>
+                        <th>Code</th>
+                        <th>Assigned</th>
                         <th>Comment</th>
-                        <th>Approval Status</th>
+                        <th>Approval</th>
                         <th className="not-visible"></th>
                     </tr>
                 </thead>

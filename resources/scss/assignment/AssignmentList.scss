@@ -1,4 +1,5 @@
 .assignment-list {
+    min-height: 20vh;
     background-color: #393e42;
     padding: 1rem 0;
     display: flex;
@@ -10,8 +11,16 @@
 
     &__table {
         color: #99cc33;
-
+        min-width: 340px;
+        font-size: 0.6rem;
+        font-weight: 600;
         border-collapse: collapse;
+
+        @media (min-width: 760px) {
+            min-width: 740px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
 
     }
 
@@ -19,7 +28,7 @@
         background-color: #99cc33;
         color: white;
         border: 1px solid #99cc33;
-        font-size: 0.8rem;
+
         text-align: center;
     }
 
@@ -27,7 +36,7 @@
         background-color: white;
         color: #393e42;
         border: 1px solid #99cc33;
-        font-size: 0.8rem;
+
         text-align: center;
         padding: 0.5rem;
 

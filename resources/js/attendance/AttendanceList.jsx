@@ -215,7 +215,7 @@ export default function AttendanceList() {
                             </div>
 
                             <div className="form__row__input-group">
-                                <label htmlFor="stamp_action_name">Stamp Type</label>
+                                <label htmlFor="stamp_action_name">Action</label>
                                 <select name="stamp_action_name" id="stamp_action_name" value={entryValues.stamp_action_name} onChange={handleFormChange}>
                                     {/* <option value={entryValues.stamp_action_name}>{entryValues.stamp_action_name}</option> */}
                                     <option value={0}>{'select'}</option>
@@ -247,7 +247,7 @@ export default function AttendanceList() {
                                     <tr>
                                         <th className="not-visible"></th>
                                         <th>Day</th>
-                                        <th>Stamp Type</th>
+                                        <th>Action</th>
                                         <th>Time</th>
                                         <th className="not-visible"></th>
                                     </tr>
@@ -278,7 +278,7 @@ export default function AttendanceList() {
 
                                 </tbody >
                             </table>
-                            : '...'
+                            : ''
                     }
                 </div>
             </div>

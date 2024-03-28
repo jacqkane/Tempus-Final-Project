@@ -12,6 +12,7 @@ class RfqSeeder extends Seeder
     public function run()
     {
         $rfqs = [
+            ['number' => 'none', 'name' => 'none'],
             ['number' => 'RFQ-2024-001', 'name' => 'Ut molestiae autem soluta et'],
             ['number' => 'RFQ-2024-002', 'name' => 'Libero sit sunt facere laborum non odit'],
             ['number' => 'RFQ-2024-003', 'name' => 'Ipsam non earum veniam perspiciatis'],
