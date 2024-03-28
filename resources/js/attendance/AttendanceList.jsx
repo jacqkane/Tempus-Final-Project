@@ -48,11 +48,17 @@ export default function AttendanceList() {
 
     const loadDayAttendancies = async () => {
         try {
+            // console.log(selectedDate, currentDate)
             const response = await axios.post('/api/attendance/day-attendancies', {
-                'day': selectedDate
+
+                'day': selectedDate ?? currentDate
             });
             const response_data = await response.data;
-            setDayAttendancies(response_data.dayAttendancies);
+            // console.log(response_data)
+
+            if (response_data.dayAttendancies.length > 0) {
+                setDayAttendancies(response_data.dayAttendancies);
+            }
 
         } catch (error) {
             switch (error.response.status) {
