@@ -82,6 +82,10 @@ class WorkingTimeCalculatorService
             $message_error = 'More entry values needed';
         }
 
+        if ($netWorkingTimeInMinutes < 0) {
+            $netWorkingTimeInMinutes = 0;
+        }
+
         //net working time conversion for DB
         $hours = ($netWorkingTimeInMinutes / 60);
         $minutes = $netWorkingTimeInMinutes % 60;

@@ -3,7 +3,10 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    font-size:1rem;
+    font-weight:700;
+
 
     &__total-first-row {
         color: #393e42;
@@ -13,8 +16,7 @@
 
         &__time {
             color: #99cc33;
-            font-weight: 700;
-
+            
         }
 
     }
@@ -27,10 +29,11 @@
 
         &__tag {
             color: #393e42;
+            font-size: 0.8rem;
         }
 
         &__assigned-sum {
-            margin: 0 1rem;
+            margin: 0 0.5rem;
             color: #99cc33;
             font-weight: 700;
 
@@ -38,11 +41,12 @@
 
         &__bar {
             border: 2px solid;
-            border-radius: 0.2rem;
+            border-radius: 0.3rem;
 
 
-            width: 200px;
+            width: 180px;
             height: 20px;
+ 
 
 
             &__progress {
@@ -59,7 +63,7 @@
         }
 
         &__rest-time {
-            margin: 0 1rem;
+            margin: 0 0.5rem;
             color: #99cc33;
             font-weight: 700;
         }
