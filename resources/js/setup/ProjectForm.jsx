@@ -76,7 +76,7 @@ const ProjectForm = ({ onSubmit, initialValues }) => {
         </div>
         <div className='project_submit_btn_container'>
               <button className='project_submit_btn' type="submit">
-                  Create Project
+              {initialValues ? 'Update' : 'Create'} Project
               </button>
           </div>
         </form>
