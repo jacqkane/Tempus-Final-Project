@@ -15,6 +15,9 @@ $white-color: #ffffff;
 
         .main-content-image-app {
             // object-fit: contain;
+            img {
+                height: 200px;
+            }
         }
 
         .main-content-text {

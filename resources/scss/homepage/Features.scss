@@ -84,3 +84,9 @@ $white-color: #fff;
         }
     }
 }
+
+@media (max-width: 500px) {
+    .features-image {
+        display: none;
+    }
+}

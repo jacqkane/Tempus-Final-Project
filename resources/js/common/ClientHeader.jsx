@@ -33,7 +33,7 @@ function ClientHeader() {
                     <div className="burger-menu-view">
                         <ul className="burger-menu-links">
                             <li>
-                                <Link to="/homepage">Homepage</Link>
+                                <Link to="/homepage">Home</Link>
                             </li>
                             <hr />
                             <li>
@@ -96,7 +96,7 @@ function ClientHeader() {
             <nav className='full_screen'>
                 <ul className='full_screen-links'>
                     <li>
-                        <Link to="/homepage">Homepage</Link>
+                        <Link to="/homepage">Home</Link>
                     </li>
                     <li>
                         <Link to="/attendance-actions">Attendance</Link>
