@@ -82,6 +82,10 @@
         margin: 1rem;
         font-weight: 800;
 
+        &:hover {
+            cursor: pointer;
+        }
+
         &__clock {
             display: flex;
             flex-direction: row;
@@ -101,6 +105,7 @@
                 // border: #393e42 solid 2px;
                 border-radius: 0.5rem;
                 font-weight: 800;
+
 
                 // >p {
                 //     font-weight: 900;
