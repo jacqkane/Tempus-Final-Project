@@ -128,24 +128,22 @@ export default function AttendanceActions() {
             <div className='attendance-actions'>
 
                 <div className='attendance-actions__status-bar'>
-                    {
-
-                        <div className='attendance-actions__status-bar__info'>
-                            Today:<span>{selectedDate}</span>
+                    <div className='attendance-actions__status-bar__group'>
+                        {
+                            <div className='attendance-actions__status-bar__group__info'>
+                                Today is:<span>{selectedDate}</span>
+                            </div>
+                        }
+                        <div className='attendance-actions__status-bar__group__current-status'>
+                            Status:<span>{currentStatus}</span>
                         </div>
-
-                    }
-
-                    <div className='attendance-actions__status-bar__current-status'>
-                        Current Status:<span>{currentStatus}</span>
+                        <div className='attendance-actions__status-bar__group__sum-working-time'>
+                            Sum Working <span>{sumWorkingTimeFormatted}</span>
+                        </div>
+                        <div className='attendance-actions__status-bar__group__sum-breaks'>
+                            Sum Breaks:<span>{sumBreaksFormatted}</span>
+                        </div>
                     </div>
-                    <div className='attendance-actions__status-bar__sum-working-time'>
-                        Sum Working <span>{sumWorkingTimeFormatted}</span>
-                    </div>
-                    <div className='attendance-actions__status-bar__sum-breaks'>
-                        Sum Breaks:<span>{sumBreaksFormatted}</span>
-                    </div>
-
 
                 </div>
 

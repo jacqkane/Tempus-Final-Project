@@ -109,12 +109,12 @@ export default function WorkingTimeBar({ selectedDate, dayEntries }) {
 
     const displayBar = () => {
 
-        const value = Math.floor((assignedSumMinutes / calculatedWorkingTimeInMinutes) * 200);
+        const value = Math.floor((assignedSumMinutes / calculatedWorkingTimeInMinutes) * 180);
 
         if (value <= 0) {
             setAssignedBarWidth(0);
-        } else if (value > 200) {
-            setAssignedBarWidth(196);
+        } else if (value > 180) {
+            setAssignedBarWidth(176);
             setProgressBarColor('#FF0000');
 
         } else {
@@ -132,7 +132,7 @@ export default function WorkingTimeBar({ selectedDate, dayEntries }) {
         <div className="working-time">
             <div className="working-time__total-first-row">
                 <div className="working-time__total-first-row__tag">Total Working Time</div>
-                <div className="working-time__total-first-row__time">{calculatedWorkingTimeformatted}</div>
+                <div className="working-time__total-first-row__time">{calculatedWorkingTimeformatted ? calculatedWorkingTimeformatted : '00:00'}</div>
             </div>
 
             <div className="working-time__group">
