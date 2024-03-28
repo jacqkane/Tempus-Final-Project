@@ -48,29 +48,33 @@ export default function App() {
 
     //getting current user and storing to state
     const getUser = async () => {
-        const response = await axios.get("/api/user");
+        try {
+            const response = await axios.get("/api/user");
         
-        if (response.status == 200) {
-            const currentUser = await response.data;
-            setUserId(currentUser.id);
-            setRole(currentUser.role[0])
-            // console.log(currentUser.role[0])
+            if (response.status == 200) {
+                const currentUser = await response.data;
+                setUserId(currentUser.id);
+                setRole(currentUser.role[0])
 
+                dispatch({
+                    type: "user/set",
+                    payload: currentUser,
+                });
+                dispatch({
+                    type: "role/set",
+                    payload: currentUser.role[0],
+                });
+            } 
+        } catch (error) {
             dispatch({
                 type: "user/set",
-                payload: currentUser,
-            });
+                payload: null
+            })
             dispatch({
                 type: "role/set",
-                payload: currentUser.role[0],
+                payload: null,
             });
         }
-        // else {
-        //     dispatch({
-        //         type: "user/set",
-        //         payload: currentUser.
-        //     })
-        // }
     };
 
     //refresh on reload
