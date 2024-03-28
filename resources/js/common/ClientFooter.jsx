@@ -16,7 +16,6 @@ function ClientFooter() {
             <div className='footer-text'>
                 <p>© 2024 Tempus. All rights reserved.</p>
             </div>
-            <Logout />
         </footer>
        );
 }

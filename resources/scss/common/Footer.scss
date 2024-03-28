@@ -27,4 +27,12 @@
         opacity: 0.5;
     }
   }
+
+  @media (max-width: 500px) {
+    .footer .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+  }
   
