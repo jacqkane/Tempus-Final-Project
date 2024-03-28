@@ -78,11 +78,6 @@ export default function Header() {
                                     <li><Link to='/login' onClick={toggleMenu}>Login</Link></li>
                                 )}
 
-                       
-
-
-                        {/* <li><Logout /></li> */}
-
                     </ul>
                 </nav>
             </header>

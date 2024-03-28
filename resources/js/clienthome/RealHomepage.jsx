@@ -23,9 +23,6 @@ function RealHomepage() {
                             <Link to="/add/user">Add user</Link>
                         )}
                     </div>
-                    <div className="main-homepage-logout">
-                        <Logout />
-                    </div>
                 </div>
                 <h2>Welcome to Your Dashboard</h2>
                 <p>
@@ -41,17 +38,24 @@ function RealHomepage() {
                     <div className="main-homepage-link">
                         <Link to="/assignment">Assignment</Link>
                     </div>
-                    <div className="main-homepage-link">
-                        {role === "admin" && <Link to="/report">Reports</Link>}
-                    </div>
-                    <div className="main-homepage-link">
-                        {role === "admin" && (
+
+                    {role === "admin" && (
+                        <div className="main-homepage-link">
+                            <Link to="/report">Reports</Link>
+                        </div>
+                    )}
+
+                    {role === "admin" && (
+                        <div className="main-homepage-link">
                             <Link to="/projects">Projects</Link>
-                        )}
-                    </div>
-                    <div className="main-homepage-link">
-                        {role === "admin" && <Link to="/rfqs">RFQS</Link>}
-                    </div>
+                        </div>
+                    )}
+
+                    {role === "admin" && (
+                        <div className="main-homepage-link">
+                            <Link to="/rfqs">RFQS</Link>
+                        </div>
+                    )}
                 </div>
             </section>
             <ClientFooter />

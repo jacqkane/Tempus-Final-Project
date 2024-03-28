@@ -65,6 +65,12 @@ export default function App() {
                 payload: currentUser.role[0],
             });
         }
+        // else {
+        //     dispatch({
+        //         type: "user/set",
+        //         payload: currentUser.
+        //     })
+        // }
     };
 
     //refresh on reload
@@ -90,7 +96,7 @@ export default function App() {
                     <Route path="/password/reset" element={<ResetPassword />} />
 
                     {
-                        (role === 'employee' || role === 'admin') && (
+                        (role === 'employee' || role === 'admin') ? (
                             <>
                                 <Route path="/homepage" element={<RealHomepage />} />
                                 <Route path="/client" element={<ClientHomepage />} />
@@ -103,8 +109,18 @@ export default function App() {
                             </>
 
                         )
-                    }
+                     : 
+                     <>
+                                <Route path="/homepage" element={<RealHomepage />} />
+                                <Route path="/client" element={<ClientHomepage />} />
+                                <Route path="/add/user" element={<AddUser />} />
 
+                                <Route path="/attendance-actions" element={<AttendanceActions />} />
+                                <Route path="/attendance-list" element={<AttendanceList />} />
+                                <Route path="/assignment" element={<Assignment />} />
+
+                            </>
+                        }   
 
 
                     {/* {
